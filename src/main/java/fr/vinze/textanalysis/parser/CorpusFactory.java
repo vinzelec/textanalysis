@@ -1,5 +1,50 @@
 package fr.vinze.textanalysis.parser;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.io.FilenameUtils;
+
 public abstract class CorpusFactory {
-	// TODO
+
+	private static Map<CorpusType, CorpusParser> registry;
+
+	private static Map<CorpusType, CorpusParser> getRegistry() {
+		// synchronized initialization for the registry singleton
+		synchronized (DocumentParserFactory.class) {
+			if (registry == null) {
+				registry = new HashMap<CorpusType, CorpusParser>();
+			}
+		}
+		return registry;
+	}
+
+	/**
+	 * Define a parser to register (it will be associated to all file of type
+	 * {@link CorpusParser#canParse()})
+	 * 
+	 * @param parser
+	 */
+	public static void registerParser(CorpusParser parser) {
+		getRegistry().put(parser.canParse(), parser);
+	}
+
+	/**
+	 * Search from the available parser the one that
+	 * 
+	 * @param file
+	 * @return
+	 */
+	public static CorpusParser getParser(File file)
+			throws DocumentParserNotAvailable, DocumentTypeNotSupported {
+		String extension = FilenameUtils.getExtension(file.getName());
+		CorpusType type = CorpusType.fromString(extension);
+		CorpusParser parser = getRegistry().get(type);
+		if (parser == null) {
+			throw new DocumentParserNotAvailable(
+					"No parser is available for file type " + type);
+		}
+		return parser;
+	}
 }

@@ -7,6 +7,7 @@ public enum DocumentType {
 	
 	public static DocumentType fromString(String extension) throws DocumentTypeNotSupported {
 		if("TXT".equalsIgnoreCase(extension)) return TXT;
+		if("TEXT".equalsIgnoreCase(extension)) return TXT;
 		if("RTF".equalsIgnoreCase(extension)) return RTF;
 		if("ODT".equalsIgnoreCase(extension)) return ODT;
 		if("DOC".equalsIgnoreCase(extension)) return DOC;
