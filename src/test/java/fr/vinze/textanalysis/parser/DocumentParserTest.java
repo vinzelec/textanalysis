@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 
+import junit.framework.TestCase;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -13,7 +15,6 @@ import org.slf4j.LoggerFactory;
 
 import fr.vinze.textanalysis.document.RawTextDocument;
 import fr.vinze.textanalysis.parser.impl.TxtDocumentParser;
-import junit.framework.TestCase;
 
 public class DocumentParserTest extends TestCase {
 
@@ -77,10 +78,7 @@ public class DocumentParserTest extends TestCase {
 			try {
 				RawTextDocument doc = parser.parse(testFile);
 				assertNotNull("parsed document should not be null", doc);
-				String[] lines = doc.getContent().split("\n");
-				assertEquals("the file should contain two lines", 2, lines.length);
-				assertEquals("invalid first line content", "This is the first line of the test file.", lines[0].trim());
-				assertEquals("invalid second line content", "And this is the second.", lines[1].trim());
+				testDocumentContent(doc);
 			} catch (FileNotFoundException e) {
 				log.error(testFile+" should exist", e);
 				fail(testFile+" should exist");
@@ -99,4 +97,13 @@ public class DocumentParserTest extends TestCase {
 		}
 	}
 	
+	public static void testDocumentContent(RawTextDocument doc) {
+		String[] lines = doc.getContent().split("\n");
+		assertEquals("the file should contain two lines", 2, lines.length);
+		assertEquals("invalid first line content",
+				"This is the first line of the test file.", lines[0].trim());
+		assertEquals("invalid second line content", "And this is the second.",
+				lines[1].trim());
+	}
+
 }
