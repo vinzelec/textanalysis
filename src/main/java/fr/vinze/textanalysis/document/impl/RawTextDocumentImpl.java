@@ -1,4 +1,4 @@
-package fr.vinze.textanalysis.model.impl;
+package fr.vinze.textanalysis.document.impl;
 
 import fr.vinze.textanalysis.document.RawTextDocument;
 
