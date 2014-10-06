@@ -8,6 +8,10 @@ public interface RawTextDocumentCorpus {
 
 	Collection<RawTextDocument> getDocuments();
 
+	RawTextDocument getDocument(String documentName);
+
 	void addDocument(RawTextDocument document);
+
+	int getSize();
 
 }

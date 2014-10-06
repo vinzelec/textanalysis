@@ -23,15 +23,22 @@ public class DirectoryCorpusParser implements CorpusParser {
 
 	public RawTextDocumentCorpus parseCorpus(File source)
 			throws FileNotFoundException, ParseException, IOException {
+		if (source == null || !source.exists()) {
+			throw new FileNotFoundException("The source " + source
+					+ " does not exists");
+		}
+		if (!source.isDirectory()) {
+			throw new ParseException("input file is not a directory", 0);
+		}
 		RawTextDocumentCorpus corpus = new RawTextDocumentCorpusImpl();
 		for(File file : source.listFiles()) {
 			 try {
 				DocumentParser parser = DocumentParserFactory.getParser(file);
 				corpus.addDocument(parser.parse(file));
 			} catch (DocumentParserNotAvailable e) {
-				log.warn("ignoring entry " + file + " not parser found", e);
+				log.debug("ignoring entry " + file + " not parser found", e);
 			} catch (DocumentTypeNotSupported e) {
-				log.warn("ignoring entry " + file + " type not supported", e);
+				log.debug("ignoring entry " + file + " type not supported", e);
 			}
 		}
 		return corpus;

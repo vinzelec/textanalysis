@@ -12,7 +12,7 @@ public abstract class CorpusFactory {
 
 	private static Map<CorpusType, CorpusParser> getRegistry() {
 		// synchronized initialization for the registry singleton
-		synchronized (DocumentParserFactory.class) {
+		synchronized (CorpusFactory.class) {
 			if (registry == null) {
 				registry = new HashMap<CorpusType, CorpusParser>();
 			}

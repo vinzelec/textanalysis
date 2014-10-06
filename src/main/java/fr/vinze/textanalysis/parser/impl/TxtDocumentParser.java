@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
 import fr.vinze.textanalysis.document.RawTextDocument;
@@ -31,8 +32,9 @@ public class TxtDocumentParser implements DocumentParser {
 		InputStream is = null;
 		try {
 			is = new FileInputStream(file);
+			String name = FilenameUtils.getName(file.getAbsolutePath());
 			String content = IOUtils.toString(is);
-			return new RawTextDocumentImpl(content);
+			return new RawTextDocumentImpl(name, content);
 		} finally {
 			if(is != null) {
 				IOUtils.closeQuietly(is);
