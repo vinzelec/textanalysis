@@ -37,6 +37,10 @@ public class SplitRegexpTest extends TestCase {
 		assertTrue("one word is a valid word", matcherWord.matches());
 		Matcher matcherChar = pattern.matcher("T");
 		assertTrue("a char is a valid word", matcherChar.matches());
+		Matcher matcherWithDigits = pattern.matcher("h2o");
+		assertTrue("a word with digit is a valid word", matcherWithDigits.matches());
+		Matcher matcherWithAccents = pattern.matcher("yòdâ");
+		assertTrue("a word with accents is a valid word", matcherWithAccents.matches());
 	}
 
 }
