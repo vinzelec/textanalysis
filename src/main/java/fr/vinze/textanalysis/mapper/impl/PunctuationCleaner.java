@@ -2,6 +2,7 @@ package fr.vinze.textanalysis.mapper.impl;
 
 import fr.vinze.textanalysis.document.Punctuation.PunctuationMark;
 import fr.vinze.textanalysis.document.RawTextDocument;
+import fr.vinze.textanalysis.document.impl.RawTextDocumentImpl;
 import fr.vinze.textanalysis.mapper.RawTextMapper;
 
 /**
@@ -14,9 +15,12 @@ import fr.vinze.textanalysis.mapper.RawTextMapper;
 public class PunctuationCleaner implements RawTextMapper {
 
 	public RawTextDocument map(RawTextDocument document) {
-		// TODO ellipsis
-		// TODO quotes
-		return null;
+		String newContent = document.getContent();
+		// ellipsis
+		newContent = newContent.replaceAll("\\.\\.\\.", "…");
+		// quotes
+		newContent = newContent.replaceAll("[«»“”]", "\"");
+		return new RawTextDocumentImpl(document.getName(), newContent);
 	}
 
 }
