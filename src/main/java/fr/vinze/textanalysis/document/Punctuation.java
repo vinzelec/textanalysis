@@ -15,9 +15,14 @@ public interface Punctuation extends Token {
 		DASH_EN('–'),
 		DOT('.'),
 		ELLIPSIS('…'),
+		EXCLAMATION('!'),
+		HYPHEN('-'),
 		PARENTHESIS_OPEN('('), PARENTHESIS_CLOSE(')'),
-		QUESTION('?');
-		// TODO complete
+		QUESTION('?'),
+		QUOTE('"'), // TODO differentiate all kind of quotes?
+		SEMICOLON(';'),
+		SLASH('/'), BACKSLASH('\\');
+		// TODO complete? (inverted punctuation for Spanish, other typographic marks http://en.wikipedia.org/wiki/Punctuation)
 		
 		char token;
 
