@@ -6,13 +6,13 @@ public interface Punctuation extends Token {
 
 	public static enum PunctuationMark {
 
-		APOSTRPHE('\''),
+		APOSTROPHE('\''),
 		BRACKET_OPEN('['), BRACKET_CLOSE(']'),
 		ANGLE_BRACKET_OPEN('<'), ANGLE_BRACKET_CLOSE('>'),
+		BRACES_OPEN('{'), BRACES_CLOSE('}'),
 		COLON(':'),
 		COMMA(','),
-		DASH_EM('—'),
-		DASH_EN('–'),
+		DASH_EM('—'), DASH_EN('–'),
 		DOT('.'),
 		ELLIPSIS('…'),
 		EXCLAMATION('!'),
@@ -36,8 +36,63 @@ public interface Punctuation extends Token {
 		}
 		
 		public PunctuationMark fromChar(char punctuation){
-			// TODO
-			return null;
+			switch (punctuation) {
+			case '\'':
+				return APOSTROPHE;
+			case '[':
+				return BRACKET_OPEN;
+			case ']':
+				return BRACKET_CLOSE;
+			case '<':
+				return ANGLE_BRACKET_OPEN;
+			case '>':
+				return ANGLE_BRACKET_CLOSE;
+			case '{':
+				return BRACES_OPEN;
+			case '}':
+				return BRACES_CLOSE;
+			case ':':
+				return COLON;
+			case ',':
+				return COMMA;
+			case '—':
+				return DASH_EM;
+			case '–':
+				return DASH_EN;
+			case '.':
+				return DOT;
+			case '…':
+				return ELLIPSIS;
+			case '!':
+				return EXCLAMATION;
+			case '-':
+				return HYPHEN;
+			case '(':
+				return PARENTHESIS_OPEN;
+			case ')':
+				return PARENTHESIS_CLOSE;
+			case '?':
+				return QUESTION;
+			case '"':
+				return QUOTE;
+			case '«':
+				return QUOTE;
+			case '»':
+				return QUOTE;
+			case '“':
+				return QUOTE;
+			case '”':
+				return QUOTE;
+			case ';':
+				return SEMICOLON;
+			case '/':
+				return SLASH;
+			case '\\':
+				return BACKSLASH;
+
+			default:
+				return null;
+			}
 		}
 	}
 
