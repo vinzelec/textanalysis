@@ -3,22 +3,40 @@ package fr.vinze.textanalysis.document.impl;
 import fr.vinze.textanalysis.document.Token;
 
 /**
- * A few static implementations of {@link Token} that are neither word nor
- * punctuation.
+ * An implementation for {@link Token} that are neither word nor punctuation.
  * 
  * @author Vinze
  *
  */
 public class SpecialToken extends AbstractTokenImpl {
 
-	final static SpecialToken END_OF_PARAGRAPH = new SpecialToken();
-	final static SpecialToken EMPTY_LINE = new SpecialToken();
-	final static SpecialToken END_OF_DOCUMENT = new SpecialToken();
-	final static SpecialToken SEPARATOR = new SpecialToken();
+	final TokenType type;
+	final String content;
 
-	// TODO other special tokens?
+	public SpecialToken(TokenType type) {
+		this(type, null);
+	}
 
-	private SpecialToken() {
+	public SpecialToken(TokenType type, String content) {
+		super();
+		this.type = type;
+		this.content = content;
+	}
+
+	@Override
+	public String toString() {
+		if (content != null) {
+			return content;
+		} else {
+			return type.toString();
+		}
+	}
+
+	public static enum TokenType {
+
+		END_OF_PARAGRAPH, EMPTY_LINE, END_OF_DOCUMENT, SEPARATOR, UNKNOWN_CHARSEQUENCE;
+
+		// TODO other special tokens?
 
 	}
 
