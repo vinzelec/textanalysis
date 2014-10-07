@@ -2,6 +2,8 @@ package fr.vinze.textanalysis.document;
 
 public interface Punctuation extends Token {
 
+	public final static String PUNCTUATION_REGEX = "[\'\\[\\]<>{}:,—–.…!-\\(\\)\\?\"«»“”;/\\\\]";
+	
 	PunctuationMark getPunctuationMark();
 
 	public static enum PunctuationMark {
