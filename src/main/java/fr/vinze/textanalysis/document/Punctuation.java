@@ -1,8 +1,10 @@
 package fr.vinze.textanalysis.document;
 
 public interface Punctuation extends Token {
-
-	public final static String PUNCTUATION_REGEX = "[\'\\[\\]<>{}:,—–.…!-\\(\\)\\?\"«»“”;/\\\\]";
+	
+	final static String PUNCTUATIONS = "\\p{Punct}";
+	public final static String PUNCTUATION_REGEX = "[" + PUNCTUATIONS + "]";
+	public final static String NO_PUNCTUATION_REGEX = "[^" + PUNCTUATIONS + "]";
 	
 	PunctuationMark getPunctuationMark();
 
@@ -25,6 +27,7 @@ public interface Punctuation extends Token {
 		SEMICOLON(';'),
 		SLASH('/'), BACKSLASH('\\');
 		// TODO complete? (inverted punctuation for Spanish, other typographic marks http://en.wikipedia.org/wiki/Punctuation)
+		// TODO all characters in \\p{Punct} regexp (#,$)
 		
 		char token;
 
@@ -37,7 +40,7 @@ public interface Punctuation extends Token {
 			return ""+token;
 		}
 		
-		public PunctuationMark fromChar(char punctuation){
+		public static PunctuationMark fromChar(char punctuation){
 			switch (punctuation) {
 			case '\'':
 				return APOSTROPHE;

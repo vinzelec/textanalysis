@@ -44,11 +44,11 @@ public class SplitRegexpTest extends TestCase {
 		assertTrue("a word with accents is a valid word", matcherWithAccents.matches());
 	}
 
-	public void testWordOrPunctRegex() {
-		Pattern pattern = Pattern.compile(TextSplitterImpl.WORD_OR_PUNCTUATION_REGEX);
+	public void testSplitRegex() {
+		Pattern pattern = Pattern.compile(TextSplitterImpl.SPLIT_REGEX);
 		Matcher matcherEmpty = pattern.matcher("");
 		assertFalse("empty string is not a valid word", matcherEmpty.matches());
-		Matcher matcherSentence = pattern.matcher("This, a sentence.");
+		Matcher matcherSentence = pattern.matcher("This, a sentence µr.");
 		assertTrue("This sentence contains a first element", matcherSentence.find());
 		assertEquals("First element is word 'This'", "This", matcherSentence.group());
 		assertTrue("This sentence contains a second element", matcherSentence.find());
@@ -58,8 +58,10 @@ public class SplitRegexpTest extends TestCase {
 		assertTrue("This sentence contains a 4th element", matcherSentence.find());
 		assertEquals("4th element is word 'sentence'", "sentence", matcherSentence.group());
 		assertTrue("This sentence contains a 5th element", matcherSentence.find());
-		assertEquals("5th element is dot", ".", matcherSentence.group());
-		assertFalse("This sentence donesn't contain a 6th element", matcherSentence.find());
+		assertEquals("5th element is aµr$", "µr", matcherSentence.group());
+		assertTrue("This sentence contains a 6th element", matcherSentence.find());
+		assertEquals("6th element is dot", ".", matcherSentence.group());
+		assertFalse("This sentence donesn't contain a 7th element", matcherSentence.find());
 	}
 
 }
