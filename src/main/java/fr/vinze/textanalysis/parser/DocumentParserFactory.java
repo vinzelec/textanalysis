@@ -37,8 +37,7 @@ public abstract class DocumentParserFactory {
 		getRegistry().put(parser.canParse(), parser);
 	}
 
-	public static DocumentParser getParser(DocumentType type)
-			throws DocumentParserNotAvailable, DocumentTypeNotSupported {
+	public static DocumentParser getParser(DocumentType type) throws DocumentParserNotAvailable {
 		DocumentParser parser = getRegistry().get(type);
 		if (parser == null) {
 			throw new DocumentParserNotAvailable("No parser is available for file type " + type);

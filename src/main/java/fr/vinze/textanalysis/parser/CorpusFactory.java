@@ -37,7 +37,7 @@ public abstract class CorpusFactory {
 		getRegistry().put(parser.canParse(), parser);
 	}
 
-	public static CorpusParser getParser(CorpusType type) throws DocumentParserNotAvailable, DocumentTypeNotSupported {
+	public static CorpusParser getParser(CorpusType type) throws DocumentParserNotAvailable {
 		CorpusParser parser = getRegistry().get(type);
 		if (parser == null) {
 			throw new DocumentParserNotAvailable("No parser is available for file type " + type);
