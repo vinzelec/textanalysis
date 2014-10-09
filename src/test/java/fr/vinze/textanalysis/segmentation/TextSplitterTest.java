@@ -1,13 +1,11 @@
 package fr.vinze.textanalysis.segmentation;
 
-import java.io.File;
-import java.net.URL;
-
 import junit.framework.TestCase;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.vinze.textanalysis.document.DocumentTestHelper;
 import fr.vinze.textanalysis.document.Punctuation;
 import fr.vinze.textanalysis.document.Punctuation.PunctuationMark;
 import fr.vinze.textanalysis.document.RawTextDocument;
@@ -15,10 +13,7 @@ import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Word;
 import fr.vinze.textanalysis.document.impl.SpecialToken;
 import fr.vinze.textanalysis.document.impl.SpecialToken.TokenType;
-import fr.vinze.textanalysis.parser.DocumentParser;
-import fr.vinze.textanalysis.parser.DocumentParserFactory;
 import fr.vinze.textanalysis.parser.DocumentParserTest;
-import fr.vinze.textanalysis.parser.impl.TxtDocumentParser;
 import fr.vinze.textanalysis.segmentation.impl.TextSplitterImpl;
 
 public class TextSplitterTest extends TestCase {
@@ -33,12 +28,7 @@ public class TextSplitterTest extends TestCase {
 		// init splitter
 		splitter = new TextSplitterImpl();
 		// parse a document
-		DocumentParserFactory.registerParser(new TxtDocumentParser());
-		URL urlToFile = getClass().getResource("/test.txt");
-		File testFile = new File(urlToFile.getPath());
-		DocumentParser parser = DocumentParserFactory.getParser(testFile);
-		assertNotNull("parser should not be null", parser);
-		sourceDocument = parser.parse(testFile);
+		sourceDocument = DocumentTestHelper.createTestDocument();
 		assertNotNull("parsed document should not be null", sourceDocument);
 	}
 

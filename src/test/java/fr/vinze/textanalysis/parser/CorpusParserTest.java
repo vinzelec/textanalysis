@@ -27,10 +27,12 @@ public class CorpusParserTest extends TestCase {
 	@Before
 	protected void setUp() throws Exception {
 		// document parsers
+		DocumentParserFactory.clear();
 		TxtDocumentParser txtParser = new TxtDocumentParser();
 		DocumentParserFactory.registerParser(txtParser);
 
 		// corpus parsers
+		CorpusFactory.clear();
 		DirectoryCorpusParser corpusParser = new DirectoryCorpusParser();
 		CorpusFactory.registerParser(corpusParser);
 	}
