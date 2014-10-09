@@ -21,6 +21,13 @@ public abstract class DocumentParserFactory {
 	}
 
 	/**
+	 * Clear the parser registry
+	 */
+	public static void clear() {
+		getRegistry().clear();
+	}
+
+	/**
 	 * Define a parser to register (it will be associated to all file of type
 	 * {@link DocumentParser#canParse()})
 	 * 
