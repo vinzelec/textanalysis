@@ -14,6 +14,13 @@ import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.statistics.DocumentTokenMatrix;
 
+/**
+ * An implementation of token frequency matrix using Colt library's sparse
+ * matrix as inner representation
+ * 
+ * @author Vinze
+ *
+ */
 public class TokenFrequencyMatrix implements DocumentTokenMatrix<MutableInt> {
 
 	List<SegmentedTextDocument> documentIndex;
