@@ -37,21 +37,18 @@ public abstract class CorpusFactory {
 		getRegistry().put(parser.canParse(), parser);
 	}
 
-	/**
-	 * Search from the available parser the one that
-	 * 
-	 * @param file
-	 * @return
-	 */
+	public static CorpusParser getParser(CorpusType type) throws DocumentParserNotAvailable, DocumentTypeNotSupported {
+		CorpusParser parser = getRegistry().get(type);
+		if (parser == null) {
+			throw new DocumentParserNotAvailable("No parser is available for file type " + type);
+		}
+		return parser;
+	}
+
 	public static CorpusParser getParser(File file)
 			throws DocumentParserNotAvailable, DocumentTypeNotSupported {
 		String extension = FilenameUtils.getExtension(file.getName());
 		CorpusType type = CorpusType.fromString(extension);
-		CorpusParser parser = getRegistry().get(type);
-		if (parser == null) {
-			throw new DocumentParserNotAvailable(
-					"No parser is available for file type " + type);
-		}
-		return parser;
+		return getParser(type);
 	}
 }

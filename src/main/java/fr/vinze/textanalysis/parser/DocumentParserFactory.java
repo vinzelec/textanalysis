@@ -37,21 +37,18 @@ public abstract class DocumentParserFactory {
 		getRegistry().put(parser.canParse(), parser);
 	}
 
-	/**
-	 * Search from the available parser the one that
-	 * 
-	 * @param file
-	 * @return
-	 */
-	public static DocumentParser getParser(File file)
+	public static DocumentParser getParser(DocumentType type)
 			throws DocumentParserNotAvailable, DocumentTypeNotSupported {
-		String extension = FilenameUtils.getExtension(file.getName());
-		DocumentType type = DocumentType.fromString(extension);
 		DocumentParser parser = getRegistry().get(type);
 		if (parser == null) {
-			throw new DocumentParserNotAvailable(
-					"No parser is available for file type " + type);
+			throw new DocumentParserNotAvailable("No parser is available for file type " + type);
 		}
 		return parser;
+	}
+
+	public static DocumentParser getParser(File file) throws DocumentParserNotAvailable, DocumentTypeNotSupported {
+		String extension = FilenameUtils.getExtension(file.getName());
+		DocumentType type = DocumentType.fromString(extension);
+		return getParser(type);
 	}
 }
