@@ -17,6 +17,13 @@ public interface Token {
 
 	void addMetadata(Metadata<?> metadata);
 
+	/**
+	 * a mechanism to merge metadatas of two token that are equals
+	 * 
+	 * @param from
+	 */
+	void mergeMetadata(Token from);
+
 	public static interface Metadata<T> {
 		String getKey();
 

@@ -30,4 +30,9 @@ public abstract class AbstractTokenImpl implements Token {
 	public <T> Metadata<T> getMetadata(String key, Class<T> clazz) {
 		return (Metadata<T>) getMetadata(key);
 	}
+
+	public void mergeMetadata(Token from) {
+		// TODO define merge policies and implement
+
+	}
 }
