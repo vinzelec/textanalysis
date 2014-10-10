@@ -1,5 +1,8 @@
 package fr.vinze.textanalysis.document.impl;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import fr.vinze.textanalysis.document.Token;
 
 /**
@@ -27,6 +30,10 @@ public class SpecialToken extends AbstractTokenImpl {
 		return type;
 	}
 
+	public String getContent() {
+		return content;
+	}
+
 	@Override
 	public String toString() {
 		if (content != null) {
@@ -34,6 +41,29 @@ public class SpecialToken extends AbstractTokenImpl {
 		} else {
 			return type.toString();
 		}
+	}
+
+	/*
+	 * Metadatas have no impact on equals and hashcode
+	 */
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || !(obj instanceof SpecialToken)) {
+			return false;
+		}
+		EqualsBuilder eb = new EqualsBuilder();
+		eb.append(getType(), ((SpecialToken) obj).getType());
+		eb.append(content, ((SpecialToken) obj).content);
+		return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		HashCodeBuilder hashCodeBuilder = new HashCodeBuilder();
+		hashCodeBuilder.append(getType());
+		hashCodeBuilder.append(content);
+		return super.hashCode();
 	}
 
 	public static enum TokenType {
