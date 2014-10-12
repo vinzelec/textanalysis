@@ -12,7 +12,7 @@ public class KeepOnlyWords implements SegmentedTextMapper {
 		SegmentedTextDocument newSegmentedDoc = new SegmentedTextDocumentImpl(document.getName(), document.getSource());
 		for (Token token : document.getTokens()) {
 			if (token instanceof Word) {
-				newSegmentedDoc.getTokens().add(token);
+				newSegmentedDoc.getTokens().add(token.clone());
 			}
 		}
 		return newSegmentedDoc;
