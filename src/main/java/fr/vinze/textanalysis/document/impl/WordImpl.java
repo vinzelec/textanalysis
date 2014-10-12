@@ -18,10 +18,6 @@ public class WordImpl extends AbstractTokenImpl implements Word {
 		return word;
 	}
 
-	public void setWord(String word) {
-		this.word = word;
-	}
-
 	/*
 	 * Metadatas have no impact on equals and hashcode
 	 */
