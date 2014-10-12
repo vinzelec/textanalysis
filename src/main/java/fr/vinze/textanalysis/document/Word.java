@@ -7,4 +7,6 @@ public interface Word extends Token {
 	public final static String WORD_REGEX = "[\\p{L}\\d]+";
 
 	String getWord();
+
+	void setWord(String word);
 }

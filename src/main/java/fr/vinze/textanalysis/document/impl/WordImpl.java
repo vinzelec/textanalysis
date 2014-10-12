@@ -7,7 +7,7 @@ import fr.vinze.textanalysis.document.Word;
 
 public class WordImpl extends AbstractTokenImpl implements Word {
 
-	final String word;
+	String word;
 
 	public WordImpl(String word) {
 		super();
@@ -16,6 +16,10 @@ public class WordImpl extends AbstractTokenImpl implements Word {
 
 	public String getWord() {
 		return word;
+	}
+
+	public void setWord(String word) {
+		this.word = word;
 	}
 
 	/*
