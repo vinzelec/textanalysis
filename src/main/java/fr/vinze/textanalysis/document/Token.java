@@ -26,9 +26,13 @@ public interface Token extends Cloneable {
 	 */
 	void mergeMetadata(Token from);
 
-	public static interface Metadata<T> {
+	public static interface Metadata<T> extends Cloneable {
 		String getKey();
 
 		T getValue();
+
+		void setValue(T value);
+
+		Metadata<T> clone();
 	}
 }
