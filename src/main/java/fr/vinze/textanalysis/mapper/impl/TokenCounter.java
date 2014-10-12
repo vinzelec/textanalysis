@@ -9,6 +9,7 @@ import org.apache.commons.lang3.mutable.MutableInt;
 
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
+import fr.vinze.textanalysis.document.impl.MetadataImpl;
 import fr.vinze.textanalysis.document.impl.SegmentedTextDocumentImpl;
 import fr.vinze.textanalysis.mapper.SegmentedTextMapper;
 
@@ -28,6 +29,7 @@ public class TokenCounter implements SegmentedTextMapper {
 				counter = new MutableInt(0);
 				outputTokenList.add(outputToken);
 				countcache.put(outputToken, counter);
+				outputToken.addMetadata(new MetadataImpl<MutableInt>(COUNT_KEY, counter));
 			} else {
 				int idx = outputTokenList.indexOf(inputToken);
 				outputToken = outputTokenList.get(idx);
