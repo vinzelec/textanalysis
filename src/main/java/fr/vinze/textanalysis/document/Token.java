@@ -2,7 +2,7 @@ package fr.vinze.textanalysis.document;
 
 import java.util.Collection;
 
-public interface Token {
+public interface Token extends Cloneable {
 
 	/**
 	 * Can't have two metadatas with same {@link Metadata#getKey()} value.
@@ -16,6 +16,8 @@ public interface Token {
 	Metadata<?> getMetadata(String key);
 
 	void addMetadata(Metadata<?> metadata);
+
+	Token clone();
 
 	/**
 	 * a mechanism to merge metadatas of two token that are equals

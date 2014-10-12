@@ -4,10 +4,17 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import fr.vinze.textanalysis.document.Punctuation;
+import fr.vinze.textanalysis.document.Token;
 
 public class PunctuationImpl extends AbstractTokenImpl implements Punctuation {
 
 	final PunctuationMark mark;
+
+	public PunctuationImpl(Punctuation punctuation) {
+		super();
+		this.mark = punctuation.getPunctuationMark();
+		mergeMetadata(punctuation);
+	}
 
 	public PunctuationImpl(PunctuationMark mark) {
 		super();
@@ -16,6 +23,11 @@ public class PunctuationImpl extends AbstractTokenImpl implements Punctuation {
 
 	public PunctuationMark getPunctuationMark() {
 		return mark;
+	}
+
+	@Override
+	public Token clone() {
+		return new PunctuationImpl(this);
 	}
 
 	/*

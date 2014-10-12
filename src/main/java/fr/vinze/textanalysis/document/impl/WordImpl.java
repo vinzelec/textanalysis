@@ -3,11 +3,23 @@ package fr.vinze.textanalysis.document.impl;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.document.Word;
 
 public class WordImpl extends AbstractTokenImpl implements Word {
 
 	String word;
+
+	/**
+	 * Creates a new instance by copy
+	 * 
+	 * @param word
+	 */
+	public WordImpl(Word word) {
+		super();
+		this.word = word.getWord();
+		mergeMetadata(word);
+	}
 
 	public WordImpl(String word) {
 		super();
@@ -16,6 +28,11 @@ public class WordImpl extends AbstractTokenImpl implements Word {
 
 	public String getWord() {
 		return word;
+	}
+
+	@Override
+	public Token clone() {
+		return new WordImpl(this);
 	}
 
 	/*

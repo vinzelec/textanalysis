@@ -16,6 +16,16 @@ public class SpecialToken extends AbstractTokenImpl {
 	final TokenType type;
 	final String content;
 
+	/**
+	 * Creates a new instance by copy
+	 * 
+	 * @param token
+	 */
+	public SpecialToken(SpecialToken token) {
+		this(token.getType(), token.getContent());
+		mergeMetadata(token);
+	}
+
 	public SpecialToken(TokenType type) {
 		this(type, null);
 	}
@@ -41,6 +51,11 @@ public class SpecialToken extends AbstractTokenImpl {
 		} else {
 			return type.toString();
 		}
+	}
+
+	@Override
+	public Token clone() {
+		return new SpecialToken(this);
 	}
 
 	/*
