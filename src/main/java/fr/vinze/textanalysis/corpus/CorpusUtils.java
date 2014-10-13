@@ -11,12 +11,20 @@ import fr.vinze.textanalysis.mapper.SegmentedTextMapper;
 import fr.vinze.textanalysis.segmentation.Splitter;
 
 /**
- * Utils function to use method document->document on all documents of a corpus
+ * Util functions to use method document->document on all documents of a corpus
  * 
  * @author Vinze
  *
  */
 public abstract class CorpusUtils {
+
+	public static RawTextDocumentCorpus createCorpus(RawTextDocument... documents) {
+		RawTextDocumentCorpus corpus = new RawTextDocumentCorpusImpl();
+		for (RawTextDocument document : documents) {
+			corpus.addDocument(document);
+		}
+		return corpus;
+	}
 
 	public static RawTextDocumentCorpus map(RawTextDocumentCorpus corpus, RawTextMapper mapper) {
 		RawTextDocumentCorpus newCorpus = new RawTextDocumentCorpusImpl();
@@ -41,6 +49,14 @@ public abstract class CorpusUtils {
 			newCorpus = map(newCorpus, mapper);
 		}
 		return newCorpus;
+	}
+
+	public static SegmentedTextDocumentCorpus createCorpus(SegmentedTextDocument... documents) {
+		SegmentedTextDocumentCorpus corpus = new SegmentedTextDocumentCorpusImpl();
+		for (SegmentedTextDocument document : documents) {
+			corpus.addDocument(document);
+		}
+		return corpus;
 	}
 
 	public static SegmentedTextDocumentCorpus map(SegmentedTextDocumentCorpus corpus, SegmentedTextMapper mapper) {
