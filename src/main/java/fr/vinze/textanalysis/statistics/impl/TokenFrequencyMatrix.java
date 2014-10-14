@@ -1,6 +1,7 @@
 package fr.vinze.textanalysis.statistics.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.apache.commons.lang3.mutable.MutableInt;
 
 import cern.colt.matrix.impl.SparseObjectMatrix2D;
 
+import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
@@ -51,19 +53,43 @@ public class TokenFrequencyMatrix implements DocumentTokenMatrix<MutableInt> {
 		innerMatrix.set(docId, tokenId, value);
 	}
 
+	// TODO maybe some data could be stored in an LRU cache to avoid building several time
+
 	public Table<SegmentedTextDocument, Token, MutableInt> asTable() {
-		// TODO Auto-generated method stub
-		return null;
+		Table<SegmentedTextDocument, Token, MutableInt> table = HashBasedTable.create();
+		for (int i = 0; i < documentIndex.size(); i++) {
+			for (int j = 0; j < tokenIndex.size(); j++) {
+				MutableInt count = (MutableInt) innerMatrix.get(i, j);
+				if (count != null) {
+					table.put(documentIndex.get(i), tokenIndex.get(j), count);
+				}
+			}
+		}
+		return table;
 	}
 
 	public Map<Token, MutableInt> getDocumentStatistics(SegmentedTextDocument document) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<Token, MutableInt> stats = new HashMap<Token, MutableInt>();
+		int docIndex = documentIndex.indexOf(document);
+		for (int tokIndex = 0; tokIndex < tokenIndex.size(); tokIndex++) {
+			MutableInt count = (MutableInt) innerMatrix.get(docIndex, tokIndex);
+			if (count != null) {
+				stats.put(tokenIndex.get(tokIndex), count);
+			}
+		}
+		return stats;
 	}
 
 	public Map<SegmentedTextDocument, MutableInt> getTokenStatistics(Token token) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<SegmentedTextDocument, MutableInt> stats = new HashMap<SegmentedTextDocument, MutableInt>();
+		int tokIndex = tokenIndex.indexOf(token);
+		for (int docIndex = 0; docIndex < documentIndex.size(); docIndex++) {
+			MutableInt count = (MutableInt) innerMatrix.get(docIndex, tokIndex);
+			if (count != null) {
+				stats.put(documentIndex.get(tokIndex), count);
+			}
+		}
+		return stats;
 	}
 
 }
