@@ -1,11 +1,15 @@
 package fr.vinze.textanalysis.statistics.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.mutable.MutableInt;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cern.colt.matrix.impl.SparseObjectMatrix2D;
 
@@ -15,6 +19,7 @@ import com.google.common.collect.Table;
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.statistics.DocumentTokenMatrix;
+import fr.vinze.utils.ObjectUtils;
 
 /**
  * <p>
@@ -30,6 +35,8 @@ import fr.vinze.textanalysis.statistics.DocumentTokenMatrix;
  *
  */
 public class TokenFrequencyMatrix implements DocumentTokenMatrix<MutableInt> {
+
+	private static final Logger log = LoggerFactory.getLogger(TokenFrequencyMatrix.class);
 
 	List<SegmentedTextDocument> documentIndex;
 	List<Token> tokenIndex;
@@ -56,10 +63,27 @@ public class TokenFrequencyMatrix implements DocumentTokenMatrix<MutableInt> {
 		}
 		int docId = documentIndex.indexOf(document);
 		if (!tokenIndex.contains(token)) {
-			tokenIndex.add(token);
+			// a copy of the token without metadata
+			try {
+				tokenIndex.add(ObjectUtils.clone(token));
+			} catch (CloneFailedException e) {
+				log.warn("failed to clone token " + token + " using original reference", e);
+				tokenIndex.add(token);
+			} catch (CloneNotSupportedException e) {
+				log.warn("failed to clone token " + token + " using original reference", e);
+				tokenIndex.add(token);
+			}
 		}
 		int tokenId = tokenIndex.indexOf(token);
 		innerMatrix.set(docId, tokenId, value);
+	}
+
+	public Collection<SegmentedTextDocument> getDocuments() {
+		return documentIndex;
+	}
+
+	public Collection<Token> getTokens() {
+		return tokenIndex;
 	}
 
 	// TODO maybe some data could be stored in an LRU cache to avoid building several time

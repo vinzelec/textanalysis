@@ -1,5 +1,6 @@
 package fr.vinze.textanalysis.statistics;
 
+import java.util.Collection;
 import java.util.Map;
 
 import com.google.common.collect.Table;
@@ -28,6 +29,10 @@ public interface DocumentTokenMatrix<T extends Number> {
 	T getValue(SegmentedTextDocument document, Token token);
 
 	void setValue(SegmentedTextDocument document, Token token, T value);
+
+	Collection<SegmentedTextDocument> getDocuments();
+
+	Collection<Token> getTokens();
 
 	Table<SegmentedTextDocument, Token, T> asTable();
 
