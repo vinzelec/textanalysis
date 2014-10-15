@@ -54,4 +54,10 @@
 		</dependency>
 
 	</dependencies>
+
+	<scm>
+		<connection>scm:git:https://github.com/vinzelec/textanalysis.git</connection>
+		<url>scm:git:https://github.com/vinzelec/textanalysis.git</url>
+		<developerConnection>scm:git:https://github.com/vinzelec/textanalysis.git</developerConnection>
+	</scm>
 </project>
