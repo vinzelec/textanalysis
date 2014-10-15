@@ -103,6 +103,7 @@ public class TokenFrequencyMatrixTest extends TestCase {
 	public void testAsTable() throws Exception {
 		Table<SegmentedTextDocument, Token, MutableInt> table = matrix.asTable();
 		MutableInt expected, actual;
+		// TODO use matrix.getTokens()
 		for (int i = 0; i < 6; i++) {
 			// don't know why table get fails with an other token with same hashcode...
 			// FIXME the test case should not have to use this hack to pass
@@ -127,17 +128,21 @@ public class TokenFrequencyMatrixTest extends TestCase {
 
 	@Test
 	public void testGetDocumentStatistics() throws Exception {
-		testGetDocumentStatistics(doc1);
-		testGetDocumentStatistics(doc2);
-		testGetDocumentStatistics(doc3);
+		// TODO use matrix.getTokens()
+		Token[] alltokens = new Token[] { tok1[0], tok1[1], tok1[2], tok2[3], tok1[4], tok1[5] };
+		testGetDocumentStatistics(doc1, alltokens, counts1);
+		testGetDocumentStatistics(doc2, alltokens, counts2);
+		testGetDocumentStatistics(doc3, alltokens, counts3);
 	}
 
-	private void testGetDocumentStatistics(SegmentedTextDocument doc) throws Exception {
+	private void testGetDocumentStatistics(SegmentedTextDocument doc, Token[] tokens, MutableInt[] counts)
+			throws Exception {
 		Map<Token, MutableInt> documentStatistics = matrix.getDocumentStatistics(doc);
-		// TODO test content
-
+		for (int i = 0; i < 6; i++) {
+			assertEquals("failed for document " + doc.getName() + " on token " + i, counts[i],
+					documentStatistics.get(tokens[i]));
+		}
 	}
-
 
 	@Test
 	public void testGetTokenStatistics() throws Exception {
