@@ -97,7 +97,7 @@ public class TokenFrequencyMatrix implements DocumentTokenMatrix<MutableInt> {
 		for (int docIndex = 0; docIndex < documentIndex.size(); docIndex++) {
 			MutableInt count = (MutableInt) innerMatrix.get(docIndex, tokIndex);
 			if (count != null) {
-				stats.put(documentIndex.get(tokIndex), count);
+				stats.put(documentIndex.get(docIndex), count);
 			}
 		}
 		return stats;
