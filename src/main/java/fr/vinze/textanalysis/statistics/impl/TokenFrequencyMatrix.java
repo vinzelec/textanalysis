@@ -65,6 +65,8 @@ public class TokenFrequencyMatrix implements DocumentTokenMatrix<MutableInt> {
 	// TODO maybe some data could be stored in an LRU cache to avoid building several time
 
 	public Table<SegmentedTextDocument, Token, MutableInt> asTable() {
+		// FIXME don't know why table get fails with an other token with same hashcode...
+		// see associated test case
 		Table<SegmentedTextDocument, Token, MutableInt> table = HashBasedTable.create();
 		for (int i = 0; i < documentIndex.size(); i++) {
 			for (int j = 0; j < tokenIndex.size(); j++) {
