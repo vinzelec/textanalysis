@@ -17,8 +17,14 @@ import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.statistics.DocumentTokenMatrix;
 
 /**
- * An implementation of token frequency matrix using Colt library's sparse
- * matrix as inner representation
+ * <p>
+ * An implementation of token frequency matrix using Colt library's sparse matrix as inner representation.
+ * </p>
+ * <p>
+ * When the value is <code>null</code> it won't be stored... <code>null</code> for
+ * {@link #getValue(SegmentedTextDocument, Token)} means the value is same as a MutableInt which
+ * {@link MutableInt#getValue()} would return <code>0</code>.
+ * </p>
  * 
  * @author Vinze
  *
@@ -42,6 +48,9 @@ public class TokenFrequencyMatrix implements DocumentTokenMatrix<MutableInt> {
 	}
 
 	public void setValue(SegmentedTextDocument document, Token token, MutableInt value) {
+		if (value == null) {
+			return; // nothing to store
+		}
 		if (!documentIndex.contains(document)) {
 			documentIndex.add(document);
 		}
