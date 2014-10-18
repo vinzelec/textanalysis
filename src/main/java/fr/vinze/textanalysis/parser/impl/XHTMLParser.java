@@ -1,0 +1,58 @@
+package fr.vinze.textanalysis.parser.impl;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.SAXException;
+
+import fr.vinze.textanalysis.document.RawTextDocument;
+import fr.vinze.textanalysis.parser.DocumentParser;
+import fr.vinze.textanalysis.parser.DocumentType;
+import fr.vinze.textanalysis.parser.ParseException;
+
+public class XHTMLParser implements DocumentParser {
+
+	final boolean extractSource;
+
+	public XHTMLParser() {
+		this(true);
+	}
+
+	/**
+	 * 
+	 * @param extractSource
+	 *            should the all content (with tags) included in {@link RawTextDocument#getRawSource()}? (default to
+	 *            <code>true</code>, <code>false</code> is recommended for large documents if tags won't be used
+	 *            in any further mappers)
+	 */
+	public XHTMLParser(boolean extractSource) {
+		super();
+		this.extractSource = extractSource;
+	}
+
+	public DocumentType canParse() {
+		return DocumentType.XHTML;
+	}
+
+	public RawTextDocument parse(File file) throws FileNotFoundException, ParseException, IOException {
+		try {
+			return parse(file, SAXParserFactory.newInstance().newSAXParser());
+		} catch (ParserConfigurationException e) {
+			throw new ParseException(e);
+		} catch (SAXException e) {
+			throw new ParseException(e);
+		}
+	}
+
+	protected RawTextDocument parse(File file, SAXParser parser) throws FileNotFoundException, ParseException,
+			IOException {
+		// TODO create handler for the parser then parse
+		return null;
+	}
+
+}
