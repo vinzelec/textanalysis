@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.text.ParseException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +19,7 @@ import fr.vinze.textanalysis.parser.DocumentParserFactory;
 import fr.vinze.textanalysis.parser.DocumentParserNotAvailable;
 import fr.vinze.textanalysis.parser.DocumentType;
 import fr.vinze.textanalysis.parser.DocumentTypeNotSupported;
+import fr.vinze.textanalysis.parser.ParseException;
 import fr.vinze.textanalysis.parser.impl.DirectoryCorpusParser;
 import fr.vinze.textanalysis.parser.impl.TxtDocumentParser;
 import fr.vinze.textanalysis.segmentation.Splitter;

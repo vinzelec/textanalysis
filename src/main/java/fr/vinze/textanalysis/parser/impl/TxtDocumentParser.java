@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -14,6 +13,7 @@ import fr.vinze.textanalysis.document.RawTextDocument;
 import fr.vinze.textanalysis.document.impl.RawTextDocumentImpl;
 import fr.vinze.textanalysis.parser.DocumentParser;
 import fr.vinze.textanalysis.parser.DocumentType;
+import fr.vinze.textanalysis.parser.ParseException;
 
 /**
  * implementation of DocumentParser for *.txt files

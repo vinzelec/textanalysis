@@ -3,7 +3,6 @@ package fr.vinze.textanalysis.parser.impl;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.ParseException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +15,7 @@ import fr.vinze.textanalysis.parser.DocumentParser;
 import fr.vinze.textanalysis.parser.DocumentParserFactory;
 import fr.vinze.textanalysis.parser.DocumentParserNotAvailable;
 import fr.vinze.textanalysis.parser.DocumentTypeNotSupported;
+import fr.vinze.textanalysis.parser.ParseException;
 
 public class DirectoryCorpusParser implements CorpusParser {
 
@@ -28,7 +28,7 @@ public class DirectoryCorpusParser implements CorpusParser {
 					+ " does not exists");
 		}
 		if (!source.isDirectory()) {
-			throw new ParseException("input file is not a directory", 0);
+			throw new ParseException("input file is not a directory");
 		}
 		RawTextDocumentCorpus corpus = new RawTextDocumentCorpusImpl();
 		for(File file : source.listFiles()) {
