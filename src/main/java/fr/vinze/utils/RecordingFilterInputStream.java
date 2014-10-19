@@ -26,21 +26,18 @@ public class RecordingFilterInputStream extends FilterInputStream {
 	@Override
 	public int read() throws IOException {
 		int temp = super.read();
-		builder.append((char) temp);
-		return temp;
-	}
-
-	@Override
-	public int read(byte[] b) throws IOException {
-		int temp = super.read(b);
-		builder.append(b);
+		if (temp != -1) {
+			builder.append((char) temp);
+		}
 		return temp;
 	}
 
 	@Override
 	public int read(byte[] b, int off, int len) throws IOException {
 		int temp = super.read(b, off, len);
-		builder.append(b);
+		if (temp != -1) {
+			builder.append(new String(b, 0, temp));
+		}
 		return temp;
 	}
 }
