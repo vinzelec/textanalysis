@@ -65,7 +65,8 @@ public class XHTMLParser implements DocumentParser {
 				input = new RecordingFilterInputStream(input);
 			}
 			XHTMLHandler handler = new XHTMLHandler();
-			parser.parse(input, handler);
+			parser.parse(input, handler); // FIXME this line is blocking for
+			// SAXParserFactory.newInstance().newSAXParser()
 			RawTextDocument doc;
 			if (input instanceof RecordingFilterInputStream) {
 				doc = new RawTextDocumentImpl("", handler.getContent(),
