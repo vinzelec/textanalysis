@@ -103,20 +103,20 @@ public class XHTMLParser implements DocumentParser {
 			if ("body".equals(localName)) {
 				inBody = true;
 			}
-			// new line
-			if ("br".equals(localName)) {
-				builder.append('\n');
-			}
 		}
 
 		@Override
 		public void endElement(String uri, String localName, String qName) throws SAXException {
+			// new line
+			if ("br".equals(localName)) {
+				builder.append('\n');
+			}
 			// end of paragraph
 			if ("p".equals(localName)) {
 				builder.append('\n');
 			}
 			// hgroup tags
-			if (localName.startsWith("h")) {
+			if (localName.matches("h\\d")) {
 				builder.append('\n');
 			}
 			// FIXME all block element end should append a new line
@@ -126,7 +126,12 @@ public class XHTMLParser implements DocumentParser {
 		public void characters(char[] ch, int start, int length) throws SAXException {
 			// text content
 			if (inBody) {
-				builder.append(ch);
+				String extract = new String(ch, start, length);
+				extract.replaceAll("\r\n|[\n\r\u0085\u2028\u2029]", " ");
+				extract.replaceAll("\\s+", " ");
+				String trimmed = extract.trim();
+				if (trimmed.length() == 0 || "\n".equals(trimmed)) return;
+				builder.append(extract);
 			}
 		}
 
