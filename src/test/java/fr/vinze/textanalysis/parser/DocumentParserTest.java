@@ -1,11 +1,13 @@
 package fr.vinze.textanalysis.parser;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-
-import junit.framework.TestCase;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,12 +17,18 @@ import org.slf4j.LoggerFactory;
 import fr.vinze.textanalysis.document.RawTextDocument;
 import fr.vinze.textanalysis.parser.impl.TxtDocumentParser;
 
-public class DocumentParserTest extends TestCase {
+/**
+ * Test the parser mechanism and the txt implementation
+ * 
+ * @author Vinze
+ *
+ */
+public class DocumentParserTest {
 
 	static Logger log = LoggerFactory.getLogger(DocumentParserTest.class);
 	
 	@Before
-	protected void setUp() throws Exception {
+	public void init() throws Exception {
 		TxtDocumentParser txtParser = new TxtDocumentParser();
 		DocumentParserFactory.registerParser(txtParser);
 	}

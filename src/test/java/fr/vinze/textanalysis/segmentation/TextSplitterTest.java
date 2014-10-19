@@ -1,6 +1,8 @@
 package fr.vinze.textanalysis.segmentation;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,15 +18,13 @@ import fr.vinze.textanalysis.document.impl.SpecialToken.TokenType;
 import fr.vinze.textanalysis.parser.DocumentParserTest;
 import fr.vinze.textanalysis.segmentation.impl.TextSplitterImpl;
 
-public class TextSplitterTest extends TestCase {
+public class TextSplitterTest {
 
 	Splitter splitter;
 	RawTextDocument sourceDocument;
 
-	@Override
 	@Before
-	protected void setUp() throws Exception {
-		super.setUp();
+	public void init() throws Exception {
 		// init splitter
 		splitter = new TextSplitterImpl();
 		// parse a document

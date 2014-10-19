@@ -1,8 +1,8 @@
 package fr.vinze.textanalysis.statistics;
 
-import java.util.Map;
+import static org.junit.Assert.assertEquals;
 
-import junit.framework.TestCase;
+import java.util.Map;
 
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.junit.Before;
@@ -20,17 +20,15 @@ import fr.vinze.textanalysis.document.impl.SpecialToken.TokenType;
 import fr.vinze.textanalysis.document.impl.WordImpl;
 import fr.vinze.textanalysis.statistics.impl.TokenFrequencyMatrix;
 
-public class TokenFrequencyMatrixTest extends TestCase {
+public class TokenFrequencyMatrixTest {
 
 	TokenFrequencyMatrix matrix;
 	SegmentedTextDocument doc1, doc2, doc3;
 	Token[] tok1, tok2, tok3;
 	MutableInt[] counts1, counts2, counts3;
 
-	@Override
 	@Before
-	protected void setUp() throws Exception {
-		super.setUp();
+	public void init() throws Exception {
 		// building a dummy matrix
 		matrix = new TokenFrequencyMatrix(3, 6);
 		doc1 = new SegmentedTextDocumentImpl("doc1", null);

@@ -1,13 +1,16 @@
 package fr.vinze.textanalysis.parser;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
-
-import junit.framework.TestCase;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,12 +22,12 @@ import fr.vinze.textanalysis.document.RawTextDocument;
 import fr.vinze.textanalysis.parser.impl.DirectoryCorpusParser;
 import fr.vinze.textanalysis.parser.impl.TxtDocumentParser;
 
-public class CorpusParserTest extends TestCase {
+public class CorpusParserTest {
 
 	static Logger log = LoggerFactory.getLogger(CorpusParserTest.class);
 
 	@Before
-	protected void setUp() throws Exception {
+	public void init() throws Exception {
 		// document parsers
 		DocumentParserFactory.clear();
 		TxtDocumentParser txtParser = new TxtDocumentParser();

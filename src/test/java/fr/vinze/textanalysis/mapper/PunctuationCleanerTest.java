@@ -1,6 +1,6 @@
 package fr.vinze.textanalysis.mapper;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +9,7 @@ import fr.vinze.textanalysis.document.RawTextDocument;
 import fr.vinze.textanalysis.document.impl.RawTextDocumentImpl;
 import fr.vinze.textanalysis.mapper.impl.PunctuationCleaner;
 
-public class PunctuationCleanerTest extends TestCase {
+public class PunctuationCleanerTest {
 
 	final static String NAME = "documentName";
 	final static String CONTENT = "This «test» is to be cleant...";
@@ -17,10 +17,8 @@ public class PunctuationCleanerTest extends TestCase {
 	RawTextDocument source;
 	RawTextMapper punctuationCleaner;
 
-	@Override
 	@Before
-	protected void setUp() throws Exception {
-		super.setUp();
+	public void init() throws Exception {
 		source = new RawTextDocumentImpl(NAME, CONTENT);
 		punctuationCleaner = new PunctuationCleaner();
 	}

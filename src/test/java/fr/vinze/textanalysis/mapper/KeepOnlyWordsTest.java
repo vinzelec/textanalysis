@@ -1,6 +1,7 @@
 package fr.vinze.textanalysis.mapper;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,15 +12,13 @@ import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.document.Word;
 import fr.vinze.textanalysis.mapper.impl.KeepOnlyWords;
 
-public class KeepOnlyWordsTest extends TestCase {
+public class KeepOnlyWordsTest {
 
 	SegmentedTextMapper keepsOnlyWords;
 	SegmentedTextDocument sourceDoc;
 
-	@Override
 	@Before
-	protected void setUp() throws Exception {
-		super.setUp();
+	public void init() throws Exception {
 		keepsOnlyWords = new KeepOnlyWords();
 		sourceDoc = DocumentTestHelper.createTestSegmentedDocument();
 	}

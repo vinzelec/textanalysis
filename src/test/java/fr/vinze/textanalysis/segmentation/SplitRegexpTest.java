@@ -1,15 +1,21 @@
 package fr.vinze.textanalysis.segmentation;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+
 import fr.vinze.textanalysis.document.Punctuation;
 import fr.vinze.textanalysis.document.Word;
 import fr.vinze.textanalysis.segmentation.impl.TextSplitterImpl;
 
-public class SplitRegexpTest extends TestCase {
+public class SplitRegexpTest {
 
+	@Test
 	public void testPunctuationRegex() {
 		Pattern pattern = Pattern.compile(Punctuation.PUNCTUATION_REGEX);
 		Matcher matcherEmpty = pattern.matcher("");
@@ -26,6 +32,7 @@ public class SplitRegexpTest extends TestCase {
 		assertFalse("a char is not a valid punctuation", matcherChar.matches());
 	}
 
+	@Test
 	public void testWordRegex() {
 		Pattern pattern = Pattern.compile(Word.WORD_REGEX);
 		Matcher matcherEmpty = pattern.matcher("");
@@ -44,6 +51,7 @@ public class SplitRegexpTest extends TestCase {
 		assertTrue("a word with accents is a valid word", matcherWithAccents.matches());
 	}
 
+	@Test
 	public void testSplitRegex() {
 		Pattern pattern = Pattern.compile(TextSplitterImpl.SPLIT_REGEX);
 		Matcher matcherEmpty = pattern.matcher("");

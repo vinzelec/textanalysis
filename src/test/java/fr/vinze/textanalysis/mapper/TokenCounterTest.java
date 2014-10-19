@@ -1,6 +1,7 @@
 package fr.vinze.textanalysis.mapper;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.junit.Before;
@@ -12,15 +13,13 @@ import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.document.Token.Metadata;
 import fr.vinze.textanalysis.mapper.impl.TokenCounter;
 
-public class TokenCounterTest extends TestCase {
+public class TokenCounterTest {
 
 	SegmentedTextMapper tokencounter;
 	SegmentedTextDocument inputDocument;
 
-	@Override
 	@Before
-	protected void setUp() throws Exception {
-		super.setUp();
+	public void init() throws Exception {
 		tokencounter = new TokenCounter();
 		inputDocument = DocumentTestHelper.createTestSegmentedDocument();
 		assertNotNull(inputDocument);

@@ -1,6 +1,9 @@
 package fr.vinze.textanalysis.mapper;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -11,7 +14,7 @@ import fr.vinze.textanalysis.document.impl.RawTextDocumentImpl;
 import fr.vinze.textanalysis.mapper.impl.PunctuationCleaner;
 import fr.vinze.textanalysis.mapper.impl.ReturnCarriageCleaner;
 
-public class CorpusUtilsTest extends TestCase {
+public class CorpusUtilsTest {
 
 	final static String NAME = "documentName";
 	final static String CONTENT = "This «test» \r\nis to be cleant...";
