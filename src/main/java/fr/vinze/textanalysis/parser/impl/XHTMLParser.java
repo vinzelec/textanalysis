@@ -115,6 +115,11 @@ public class XHTMLParser implements DocumentParser {
 			if ("p".equals(localName)) {
 				builder.append('\n');
 			}
+			// hgroup tags
+			if (localName.startsWith("h")) {
+				builder.append('\n');
+			}
+			// FIXME all block element end should append a new line
 		}
 
 		@Override
