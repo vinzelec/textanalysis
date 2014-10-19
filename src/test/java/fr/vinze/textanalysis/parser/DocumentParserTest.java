@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -29,10 +30,16 @@ public class DocumentParserTest {
 	
 	@Before
 	public void init() throws Exception {
+		DocumentParserFactory.clear();
 		TxtDocumentParser txtParser = new TxtDocumentParser();
 		DocumentParserFactory.registerParser(txtParser);
 	}
-	
+
+	@After
+	public void close() {
+		DocumentParserFactory.clear();
+	}
+
 	@Test
 	public void testParserAvailable() {
 		try {

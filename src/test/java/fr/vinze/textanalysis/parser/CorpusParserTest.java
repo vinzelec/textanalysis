@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -37,6 +38,12 @@ public class CorpusParserTest {
 		CorpusFactory.clear();
 		DirectoryCorpusParser corpusParser = new DirectoryCorpusParser();
 		CorpusFactory.registerParser(corpusParser);
+	}
+
+	@After
+	public void close() {
+		DocumentParserFactory.clear();
+		CorpusFactory.clear();
 	}
 
 	@Test
