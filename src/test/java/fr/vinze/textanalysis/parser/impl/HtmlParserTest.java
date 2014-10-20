@@ -1,4 +1,4 @@
-package fr.vinze.textanalysis.parser;
+package fr.vinze.textanalysis.parser.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -17,6 +17,9 @@ import org.junit.Test;
 
 import fr.vinze.textanalysis.document.DocumentTestHelper;
 import fr.vinze.textanalysis.document.RawTextDocument;
+import fr.vinze.textanalysis.parser.DocumentParser;
+import fr.vinze.textanalysis.parser.DocumentParserFactory;
+import fr.vinze.textanalysis.parser.ParseException;
 import fr.vinze.textanalysis.parser.impl.HTMLParser;
 import fr.vinze.textanalysis.parser.impl.XHTMLParser;
 
