@@ -65,7 +65,7 @@ public class HtmlParserTest {
 		createAndTestParser(validHTML);
 	}
 
-// @Test // FIXME blocking
+	@Test
 	public void testXHTMLparser() throws Exception {
 		createAndTestParser(validXHTML);
 	}
@@ -106,7 +106,7 @@ public class HtmlParserTest {
 		testParserWithSourceExtract(validHTML);
 	}
 
-// @Test // FIXME blocking
+	@Test
 	public void testXHTMLparserWithSourceExtract() throws Exception {
 		// replace the parser
 		DocumentParserFactory.registerParser(new XHTMLParser(true));
