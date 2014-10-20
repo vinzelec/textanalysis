@@ -48,7 +48,9 @@ public class XHTMLParser implements DocumentParser {
 
 	public RawTextDocument parse(File file) throws FileNotFoundException, ParseException, IOException {
 		try {
-			return parse(file, SAXParserFactory.newInstance().newSAXParser());
+			SAXParserFactory factory = SAXParserFactory.newInstance();
+
+			return parse(file, factory.newSAXParser());
 		} catch (ParserConfigurationException e) {
 			throw new ParseException(e);
 		} catch (SAXException e) {
@@ -65,8 +67,7 @@ public class XHTMLParser implements DocumentParser {
 				input = new RecordingFilterInputStream(input);
 			}
 			XHTMLHandler handler = new XHTMLHandler();
-			parser.parse(input, handler); // FIXME this line is blocking for
-			// SAXParserFactory.newInstance().newSAXParser()
+			parser.parse(input, handler);
 			RawTextDocument doc;
 			if (input instanceof RecordingFilterInputStream) {
 				doc = new RawTextDocumentImpl("", handler.getContent(),
@@ -101,7 +102,7 @@ public class XHTMLParser implements DocumentParser {
 		@Override
 		public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 			// at body start recording
-			if ("body".equals(localName)) {
+			if ("body".equals(qName)) {
 				inBody = true;
 			}
 		}
@@ -109,15 +110,15 @@ public class XHTMLParser implements DocumentParser {
 		@Override
 		public void endElement(String uri, String localName, String qName) throws SAXException {
 			// new line
-			if ("br".equals(localName)) {
+			if ("br".equals(qName)) {
 				builder.append('\n');
 			}
 			// end of paragraph
-			if ("p".equals(localName)) {
+			if ("p".equals(qName)) {
 				builder.append('\n');
 			}
 			// hgroup tags
-			if (localName.matches("h\\d")) {
+			if (qName.matches("h\\d")) {
 				builder.append('\n');
 			}
 			// FIXME all block element end should append a new line
@@ -131,7 +132,7 @@ public class XHTMLParser implements DocumentParser {
 				extract.replaceAll("\r\n|[\n\r\u0085\u2028\u2029]", " ");
 				extract.replaceAll("\\s+", " ");
 				String trimmed = extract.trim();
-				if (trimmed.length() == 0 || "\n".equals(trimmed)) return;
+				if (trimmed.length() == 0) return;
 				builder.append(extract);
 			}
 		}
