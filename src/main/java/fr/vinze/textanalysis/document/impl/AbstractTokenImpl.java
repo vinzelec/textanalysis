@@ -32,8 +32,11 @@ public abstract class AbstractTokenImpl implements Token {
 	}
 
 	public void mergeMetadata(Token from) {
-		// TODO define merge policies and implement
-		// when don't exist make a clone of the metadata do not reuse reference
+		mergeMetadata(from, MergePolicy.IGNORE);
+	}
+
+	public void mergeMetadata(Token from, MergePolicy policy) {
+		// TODO mergeMetadata
 
 	}
 
