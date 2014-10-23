@@ -51,6 +51,9 @@ public class TokenFrequencyMatrix implements DocumentTokenMatrix<MutableInt> {
 	public MutableInt getValue(SegmentedTextDocument document, Token token) {
 		int docId = documentIndex.indexOf(document);
 		int tokenId = tokenIndex.indexOf(token);
+		if (docId == -1 || tokenId == -1) {
+			return null;
+		}
 		return (MutableInt) innerMatrix.get(docId, tokenId);
 	}
 
