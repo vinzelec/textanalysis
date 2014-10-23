@@ -46,8 +46,7 @@ public class MetadataImpl<T> implements Metadata<T> {
 	}
 
 	public Metadata<T> clone() {
-		// TODO Auto-generated method stub
-		return null;
+		return new MetadataImpl<T>(this);
 	}
 
 }
