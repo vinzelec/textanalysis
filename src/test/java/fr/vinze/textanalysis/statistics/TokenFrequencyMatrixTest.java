@@ -2,6 +2,7 @@ package fr.vinze.textanalysis.statistics;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -26,6 +27,7 @@ public class TokenFrequencyMatrixTest {
 	SegmentedTextDocument doc1, doc2, doc3;
 	Token[] tok1, tok2, tok3;
 	MutableInt[] counts1, counts2, counts3;
+	Collection<Token> tokens;
 
 	@Before
 	public void init() throws Exception {
@@ -76,6 +78,7 @@ public class TokenFrequencyMatrixTest {
 			matrix.setValue(doc2, tok2[i], counts2[i]);
 			matrix.setValue(doc3, tok3[i], counts3[i]);
 		}
+		tokens = matrix.getTokens();
 	}
 
 	@Test(timeout = 1000)
@@ -97,18 +100,24 @@ public class TokenFrequencyMatrixTest {
 		}
 	}
 
+	private Token searchEqualToken(Token token) {
+		if (token == null) {
+			return null;
+		}
+		for (Token candidate : tokens) {
+			if (token.equals(candidate)) {
+				return candidate;
+			}
+		}
+		return null;
+	}
+
 	@Test(timeout = 1000)
 	public void testAsTable() throws Exception {
 		Table<SegmentedTextDocument, Token, MutableInt> table = matrix.asTable();
 		MutableInt expected, actual;
-		// TODO use matrix.getTokens()
 		for (int i = 0; i < 6; i++) {
-			// don't know why table get fails with an other token with same hashcode...
-			// FIXME the test case should not have to use this hack to pass
-			Token tok = tok1[i];
-			if (counts1[i] == null) {
-				tok = tok2[i];
-			}
+			Token tok = searchEqualToken(tok1[i]);
 			expected = counts1[i];
 			actual = table.get(doc1, tok);
 			assertEquals("failed for doc1 and token " + i, expected == null ? null : expected.getValue(),
@@ -126,7 +135,6 @@ public class TokenFrequencyMatrixTest {
 
 	@Test(timeout = 1000)
 	public void testGetDocumentStatistics() throws Exception {
-		// TODO use matrix.getTokens()
 		Token[] alltokens = new Token[] { tok1[0], tok1[1], tok1[2], tok2[3], tok1[4], tok1[5] };
 		testGetDocumentStatistics(doc1, alltokens, counts1);
 		testGetDocumentStatistics(doc2, alltokens, counts2);
@@ -138,7 +146,7 @@ public class TokenFrequencyMatrixTest {
 		Map<Token, MutableInt> documentStatistics = matrix.getDocumentStatistics(doc);
 		for (int i = 0; i < 6; i++) {
 			assertEquals("failed for document " + doc.getName() + " on token " + i, counts[i],
-					documentStatistics.get(tokens[i]));
+					documentStatistics.get(searchEqualToken(tokens[i])));
 		}
 	}
 
