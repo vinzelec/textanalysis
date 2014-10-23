@@ -30,7 +30,7 @@ public class StopWordsFilterTest {
 		document = DocumentTestHelper.createTestSegmentedDocument();
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testSWFilter() throws Exception {
 		SegmentedTextDocument output = stopWordsFilter.map(document);
 		List<Token> tokens = output.getTokens();

@@ -14,7 +14,7 @@ public class ReturnCarriageCleanerTest {
 
 	public static final String EXPECTED = "Line1\nLine2\nLine3\nLine4\n";
 
-	@Test
+	@Test(timeout = 1000)
 	public void testReturnCarriageCleaner() throws Exception {
 		RawTextDocument doc = new RawTextDocumentImpl("doc", INPUT);
 		RawTextMapper cleaner = new ReturnCarriageCleaner();

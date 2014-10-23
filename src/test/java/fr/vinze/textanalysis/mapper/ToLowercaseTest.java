@@ -34,13 +34,13 @@ public class ToLowercaseTest {
 
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testOnRawTextDocument() throws Exception {
 		RawTextDocument outputDoc = tolower.map(doc);
 		assertEquals(EXPECTED, outputDoc.getContent());
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testOnSegmentedDocument() throws Exception {
 		Splitter defaultSplitter = new TextSplitterImpl();
 		// before "to lower case"

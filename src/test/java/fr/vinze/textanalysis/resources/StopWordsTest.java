@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class StopWordsTest {
 
-	@Test
+	@Test(timeout = 1000)
 	public void testStopWordsResources() throws Exception {
 		Collection<File> files = StopWords.getInstance().getStopWords("en");
 		assertEquals("6 stop words files for english", 6, files.size());

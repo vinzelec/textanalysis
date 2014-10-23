@@ -46,7 +46,7 @@ public class CorpusParserTest {
 		CorpusFactory.clear();
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testParserAvailable() {
 		try {
 			CorpusParser corpusParser = CorpusFactory.getParser(new File(
@@ -63,7 +63,7 @@ public class CorpusParserTest {
 		}
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testParserNotAvailable() {
 		try {
 			CorpusFactory.getParser(new File("test.zip"));
@@ -76,7 +76,7 @@ public class CorpusParserTest {
 		}
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testParserTypeNotSupported() {
 		try {
 			CorpusFactory.getParser(new File("test.toto"));
@@ -89,7 +89,7 @@ public class CorpusParserTest {
 		}
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testDirectoryParser() {
 		URL urlToFile = getClass().getResource("/testFolder");
 		File folder = new File(urlToFile.getPath());

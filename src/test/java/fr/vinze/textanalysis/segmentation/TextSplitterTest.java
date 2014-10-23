@@ -32,7 +32,7 @@ public class TextSplitterTest {
 		assertNotNull("parsed document should not be null", sourceDocument);
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testSplitter() {
 		// need to make sure of text content
 		DocumentParserTest.testDocumentContent(sourceDocument);

@@ -19,7 +19,7 @@ public class CorpusUtilsTest {
 	final static String NAME = "documentName";
 	final static String CONTENT = "This «test» \r\nis to be cleant...";
 
-	@Test
+	@Test(timeout = 1000)
 	public void testCreateCorpus() {
 		RawTextDocument doc1 = new RawTextDocumentImpl("doc1", "content1"), doc2 = new RawTextDocumentImpl("doc2",
 				"content2"), doc3 = new RawTextDocumentImpl("doc3", "content3"), doc4 = new RawTextDocumentImpl("doc4",
@@ -53,12 +53,12 @@ public class CorpusUtilsTest {
 		assertNull(corpus.getDocument("doc7"));
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testMapDocument() throws Exception {
 		testMap(new PunctuationCleaner());
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testMapAllDocument() throws Exception {
 		testMap(new PunctuationCleaner(), new ReturnCarriageCleaner());
 	}
@@ -96,17 +96,17 @@ public class CorpusUtilsTest {
 		assertEquals("both output documents are equals", clean1.getContent(), clean2.getContent());
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testMapSegmented() throws Exception {
 		// TODO
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testMapAllSegmented() throws Exception {
 		// TODO
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testSplit() throws Exception {
 		// TODO
 	}

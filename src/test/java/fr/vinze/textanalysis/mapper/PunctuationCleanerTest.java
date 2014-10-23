@@ -23,7 +23,7 @@ public class PunctuationCleanerTest {
 		punctuationCleaner = new PunctuationCleaner();
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void test() {
 		RawTextDocument target = punctuationCleaner.map(source);
 		assertEquals(

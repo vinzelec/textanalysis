@@ -21,7 +21,7 @@ public class RecordingFilterInputStreamTest {
 		recordingIS = new RecordingFilterInputStream(input);
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testRead() throws Exception {
 		try {
 			while (recordingIS.read() != -1) {
@@ -39,7 +39,7 @@ public class RecordingFilterInputStreamTest {
 		}
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testReadBytes() throws Exception {
 		byte[] b = new byte[16];
 		try {
@@ -58,7 +58,7 @@ public class RecordingFilterInputStreamTest {
 		}
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testReadBytes2() throws Exception {
 		byte[] b = new byte[16];
 		try {

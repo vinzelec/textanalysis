@@ -23,7 +23,7 @@ public class KeepOnlyWordsTest {
 		sourceDoc = DocumentTestHelper.createTestSegmentedDocument();
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testMapper() throws Exception {
 		assertEquals("segmented document before mapper should have 19 tokens", 19, sourceDoc.getTokens().size());
 		SegmentedTextDocument targetDoc = keepsOnlyWords.map(sourceDoc);

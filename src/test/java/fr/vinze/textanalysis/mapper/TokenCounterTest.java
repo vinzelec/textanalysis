@@ -25,7 +25,7 @@ public class TokenCounterTest {
 		assertNotNull(inputDocument);
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testMapper() throws Exception {
 		SegmentedTextDocument outputDocument = tokencounter.map(inputDocument);
 		// First token "This" (only once as case sensitive)

@@ -40,7 +40,7 @@ public class DocumentParserTest {
 		DocumentParserFactory.clear();
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testParserAvailable() {
 		try {
 			DocumentParser parser = DocumentParserFactory.getParser(new File("toto.txt"));
@@ -54,7 +54,7 @@ public class DocumentParserTest {
 		}
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testParserNotAvailable() {
 		try {
 			DocumentParserFactory.getParser(new File("toto.xhtml"));
@@ -68,7 +68,7 @@ public class DocumentParserTest {
 		}
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testParserTypeNotSupported() {
 		try {
 			DocumentParserFactory.getParser(new File("toto.xhtml"));
@@ -82,7 +82,7 @@ public class DocumentParserTest {
 		}
 	}
 	
-	@Test
+	@Test(timeout = 1000)
 	public void testTxtParser() {
 		URL urlToFile = getClass().getResource("/test.txt");
 		File testFile = new File(urlToFile.getPath());

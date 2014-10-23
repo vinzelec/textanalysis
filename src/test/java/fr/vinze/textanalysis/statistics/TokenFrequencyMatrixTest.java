@@ -78,7 +78,7 @@ public class TokenFrequencyMatrixTest {
 		}
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testGetValue() throws Exception {
 		MutableInt expected, actual;
 		for (int i = 0; i < 6; i++) {
@@ -97,7 +97,7 @@ public class TokenFrequencyMatrixTest {
 		}
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testAsTable() throws Exception {
 		Table<SegmentedTextDocument, Token, MutableInt> table = matrix.asTable();
 		MutableInt expected, actual;
@@ -124,7 +124,7 @@ public class TokenFrequencyMatrixTest {
 		}
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testGetDocumentStatistics() throws Exception {
 		// TODO use matrix.getTokens()
 		Token[] alltokens = new Token[] { tok1[0], tok1[1], tok1[2], tok2[3], tok1[4], tok1[5] };
@@ -142,7 +142,7 @@ public class TokenFrequencyMatrixTest {
 		}
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testGetTokenStatistics() throws Exception {
 		for (int i = 0; i < 6; i++) {
 			testGetTokenStatistics(i);
@@ -164,7 +164,7 @@ public class TokenFrequencyMatrixTest {
 		}
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testMatrixBuilder() throws Exception {
 		// TODO
 	}

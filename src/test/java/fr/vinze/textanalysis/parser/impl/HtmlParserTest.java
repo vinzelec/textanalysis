@@ -20,8 +20,6 @@ import fr.vinze.textanalysis.document.RawTextDocument;
 import fr.vinze.textanalysis.parser.DocumentParser;
 import fr.vinze.textanalysis.parser.DocumentParserFactory;
 import fr.vinze.textanalysis.parser.ParseException;
-import fr.vinze.textanalysis.parser.impl.HTMLParser;
-import fr.vinze.textanalysis.parser.impl.XHTMLParser;
 
 public class HtmlParserTest {
 
@@ -63,17 +61,17 @@ public class HtmlParserTest {
 		return document;
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testHTMLparser() throws Exception {
 		createAndTestParser(validHTML);
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testXHTMLparser() throws Exception {
 		createAndTestParser(validXHTML);
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testInvalidXHTMLparser() throws Exception {
 		assertNotNull(invalidXHTML);
 		DocumentParser parser = DocumentParserFactory.getParser(invalidXHTML);
@@ -102,14 +100,14 @@ public class HtmlParserTest {
 		}
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testHTMLparserWithSourceExtract() throws Exception {
 		// replace the parser
 		DocumentParserFactory.registerParser(new HTMLParser(true));
 		testParserWithSourceExtract(validHTML);
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testXHTMLparserWithSourceExtract() throws Exception {
 		// replace the parser
 		DocumentParserFactory.registerParser(new XHTMLParser(true));
