@@ -159,22 +159,21 @@ public class TokenFrequencyMatrixTest {
 
 	private void testGetTokenStatistics(int tokenIndex) throws Exception {
 		if (tok1[tokenIndex] != null) {
-			Map<SegmentedTextDocument, MutableInt> firstTokenStatistics = matrix.getTokenStatistics(tok1[tokenIndex]);
-			// TODO test content
+			Map<SegmentedTextDocument, MutableInt> statistics = matrix.getTokenStatistics(tok1[tokenIndex]);
+			assertEquals("count for document 1 on token " + tokenIndex, counts1[tokenIndex], statistics.get(doc1));
+			assertEquals("count for document 2 on token " + tokenIndex, counts2[tokenIndex], statistics.get(doc2));
+			assertEquals("count for document 3 on token " + tokenIndex, counts3[tokenIndex], statistics.get(doc3));
+		} else if (tok2[tokenIndex] != null) {
+			Map<SegmentedTextDocument, MutableInt> statistics = matrix.getTokenStatistics(tok2[tokenIndex]);
+			assertEquals("count for document 1 on token " + tokenIndex, counts1[tokenIndex], statistics.get(doc1));
+			assertEquals("count for document 2 on token " + tokenIndex, counts2[tokenIndex], statistics.get(doc2));
+			assertEquals("count for document 3 on token " + tokenIndex, counts3[tokenIndex], statistics.get(doc3));
+		} else if (tok3[tokenIndex] != null) {
+			Map<SegmentedTextDocument, MutableInt> statistics = matrix.getTokenStatistics(tok3[tokenIndex]);
+			assertEquals("count for document 1 on token " + tokenIndex, counts1[tokenIndex], statistics.get(doc1));
+			assertEquals("count for document 2 on token " + tokenIndex, counts2[tokenIndex], statistics.get(doc2));
+			assertEquals("count for document 3 on token " + tokenIndex, counts3[tokenIndex], statistics.get(doc3));
 		}
-		if (tok2[tokenIndex] != null) {
-			Map<SegmentedTextDocument, MutableInt> secondTokenStatistics = matrix.getTokenStatistics(tok2[tokenIndex]);
-			// TODO test content
-		}
-		if (tok3[tokenIndex] != null) {
-			Map<SegmentedTextDocument, MutableInt> thirdTokenStatistics = matrix.getTokenStatistics(tok3[tokenIndex]);
-			// TODO test content
-		}
-	}
-
-	@Test(timeout = 1000)
-	public void testMatrixBuilder() throws Exception {
-		// TODO
 	}
 
 }
