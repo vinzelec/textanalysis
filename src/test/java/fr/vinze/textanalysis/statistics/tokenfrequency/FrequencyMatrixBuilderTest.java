@@ -1,4 +1,4 @@
-package fr.vinze.textanalysis.statistics;
+package fr.vinze.textanalysis.statistics.tokenfrequency;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,8 +14,9 @@ import fr.vinze.textanalysis.document.impl.WordImpl;
 import fr.vinze.textanalysis.mapper.impl.KeepOnlyWords;
 import fr.vinze.textanalysis.mapper.impl.ToLowercase;
 import fr.vinze.textanalysis.mapper.impl.TokenCounter;
-import fr.vinze.textanalysis.statistics.impl.TokenFrequencyMatrix;
-import fr.vinze.textanalysis.statistics.impl.TokenFrequencyMatrixBuilder;
+import fr.vinze.textanalysis.statistics.DocumentTokenMatrixBuilder;
+import fr.vinze.textanalysis.statistics.tokenfrequency.TokenFrequencyMatrix;
+import fr.vinze.textanalysis.statistics.tokenfrequency.TokenFrequencyMatrixBuilder;
 
 public class FrequencyMatrixBuilderTest {
 

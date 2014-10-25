@@ -1,4 +1,4 @@
-package fr.vinze.textanalysis.statistics;
+package fr.vinze.textanalysis.statistics.tokenfrequency;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,7 +19,7 @@ import fr.vinze.textanalysis.document.impl.SegmentedTextDocumentImpl;
 import fr.vinze.textanalysis.document.impl.SpecialToken;
 import fr.vinze.textanalysis.document.impl.SpecialToken.TokenType;
 import fr.vinze.textanalysis.document.impl.WordImpl;
-import fr.vinze.textanalysis.statistics.impl.TokenFrequencyMatrix;
+import fr.vinze.textanalysis.statistics.tokenfrequency.TokenFrequencyMatrix;
 
 public class TokenFrequencyMatrixTest {
 

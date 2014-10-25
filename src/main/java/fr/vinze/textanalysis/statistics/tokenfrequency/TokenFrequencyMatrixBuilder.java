@@ -1,4 +1,4 @@
-package fr.vinze.textanalysis.statistics.impl;
+package fr.vinze.textanalysis.statistics.tokenfrequency;
 
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.slf4j.Logger;
@@ -44,7 +44,7 @@ public class TokenFrequencyMatrixBuilder implements DocumentTokenMatrixBuilder<T
 			}
 		}
 		// trim the inner matrix
-		matrix.innerMatrix.trimToSize();
+		matrix.getInnerMatrix().trimToSize();
 		return matrix;
 	}
 
