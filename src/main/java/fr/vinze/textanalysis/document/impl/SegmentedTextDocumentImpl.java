@@ -12,6 +12,7 @@ public class SegmentedTextDocumentImpl implements SegmentedTextDocument {
 	final RawTextDocument source;
 	String name;
 	List<Token> tokens;
+	Integer tokenCount = null;
 
 	public SegmentedTextDocumentImpl(RawTextDocument source) {
 		this(source.getName(), source);
@@ -38,6 +39,17 @@ public class SegmentedTextDocumentImpl implements SegmentedTextDocument {
 
 	public String getName() {
 		return name;
+	}
+
+	public void setTokenCount(int count) {
+		tokenCount = count;
+	}
+
+	public int getTokenCount() {
+		if (tokenCount == null) {
+			return tokens.size();
+		}
+		return tokenCount;
 	}
 
 }

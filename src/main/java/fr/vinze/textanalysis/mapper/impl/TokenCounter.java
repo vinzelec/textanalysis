@@ -18,10 +18,12 @@ public class TokenCounter implements SegmentedTextMapper {
 	public static final String COUNT_KEY = "token_count";
 
 	public SegmentedTextDocument map(SegmentedTextDocument document) {
+		MutableInt tokenCount = new MutableInt(0);
 		List<Token> outputTokenList = new ArrayList<Token>();
 		// a cache of the count not to have to
 		Map<Token, MutableInt> countcache = new HashMap<Token, MutableInt>();
 		for (Token inputToken : document.getTokens()) {
+			tokenCount.increment();
 			Token outputToken = null;
 			MutableInt counter = null;
 			if (!outputTokenList.contains(inputToken)) {
@@ -40,6 +42,7 @@ public class TokenCounter implements SegmentedTextMapper {
 		}
 		SegmentedTextDocumentImpl newDocument = new SegmentedTextDocumentImpl(document.getName(), document.getSource());
 		newDocument.setTokens(outputTokenList);
+		newDocument.setTokenCount(tokenCount.intValue());
 		return newDocument;
 	}
 

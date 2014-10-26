@@ -10,4 +10,11 @@ public interface SegmentedTextDocument {
 
 	String getName();
 
+	/**
+	 * @return the number of tokens (that can differ from {@link #getTokens()} size)
+	 */
+	int getTokenCount();
+
+	void setTokenCount(int count);
+
 }
