@@ -25,6 +25,17 @@ public class TFIDFMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<ColtDou
 	}
 
 	@Override
+	protected SegmentedTextDocumentCorpus pretreatment(SegmentedTextDocumentCorpus corpus) {
+		return countTokensIfNeeded(corpus);
+	}
+
+	@Override
+	protected ColtDoubleMatrix posttreatment(ColtDoubleMatrix matrix) {
+		matrix.getInnerMatrix().trimToSize();
+		return matrix;
+	}
+
+	@Override
 	protected double getLocalWeight(Token token, SegmentedTextDocument document) {
 		// TF : only the term count
 		double count = 0;

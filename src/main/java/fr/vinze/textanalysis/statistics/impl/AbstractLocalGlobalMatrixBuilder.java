@@ -1,5 +1,6 @@
 package fr.vinze.textanalysis.statistics.impl;
 
+import org.apache.commons.lang3.mutable.MutableInt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +23,16 @@ public abstract class AbstractLocalGlobalMatrixBuilder<T extends DocumentTokenMa
 		DocumentTokenMatrixBuilder<T> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractLocalGlobalMatrixBuilder.class);
+
+	protected SegmentedTextDocumentCorpus pretreatment(SegmentedTextDocumentCorpus corpus) {
+		// do nothing but can be useful to overwrite
+		return corpus;
+	}
+
+	protected T posttreatment(T matrix) {
+		// do nothing but can be useful to overwrite
+		return matrix;
+	}
 
 	/**
 	 * create the matrix and returns it
@@ -56,9 +67,22 @@ public abstract class AbstractLocalGlobalMatrixBuilder<T extends DocumentTokenMa
 	protected abstract double getGlobalWeight(Token token, SegmentedTextDocumentCorpus corpus);
 	
 	public T computeMatrix(SegmentedTextDocumentCorpus inputDocuments) {
-
-		// TODO TFIDFMatrixBuilder
-		return null;
+		SegmentedTextDocumentCorpus corpus = pretreatment(inputDocuments);
+		// initialize matrix using max size possible
+		int docCount = corpus.getDocuments().size();
+		MutableInt maxTokenCount = new MutableInt(0);
+		for (SegmentedTextDocument doc : corpus.getDocuments()) {
+			maxTokenCount.add(doc.getTokenCount());
+		}
+		T matrix = initMatrix(docCount, maxTokenCount.getValue());
+		for (SegmentedTextDocument document : corpus.getDocuments()) {
+			for (Token token : document.getTokens()) {
+				double f = getLocalWeight(token, document);
+				double g = getGlobalWeight(token, corpus);
+				matrix.setValue(document, token, (f / g));
+			}
+		}
+		return posttreatment(matrix);
 	}
 
 	public static SegmentedTextDocumentCorpus countTokensIfNeeded(final SegmentedTextDocumentCorpus inputDocuments) {

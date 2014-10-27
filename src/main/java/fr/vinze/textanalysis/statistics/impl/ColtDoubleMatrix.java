@@ -105,4 +105,8 @@ public class ColtDoubleMatrix extends AbstractMatrix<Double> {
 		return stats;
 	}
 
+	public SparseDoubleMatrix2D getInnerMatrix() {
+		return innerMatrix;
+	}
+
 }

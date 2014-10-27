@@ -19,7 +19,7 @@ public class TokenFrequencyMatrixBuilder implements DocumentTokenMatrixBuilder<T
 		int docCount = corpus.getDocuments().size();
 		MutableInt maxTokenCount = new MutableInt(0);
 		for (SegmentedTextDocument doc : corpus.getDocuments()) {
-			maxTokenCount.add(doc.getTokens().size());
+			maxTokenCount.add(doc.getTokenCount());
 		}
 		TokenFrequencyMatrix matrix = new TokenFrequencyMatrix(docCount, maxTokenCount.getValue());
 		for (SegmentedTextDocument document : corpus.getDocuments()) {
