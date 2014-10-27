@@ -9,6 +9,13 @@ import fr.vinze.textanalysis.mapper.impl.TokenCounter;
 import fr.vinze.textanalysis.statistics.impl.AbstractLocalGlobalMatrixBuilder;
 import fr.vinze.textanalysis.statistics.impl.ColtDoubleMatrix;
 
+/**
+ * Build a matrix with score corresponding to TF-IDF algorithm
+ * 
+ * @see http://en.wikipedia.org/wiki/Tf%E2%80%93idf
+ * @author Vinze
+ *
+ */
 public class TFIDFMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<ColtDoubleMatrix> {
 
 	ColtDoubleMatrix matrix = null;

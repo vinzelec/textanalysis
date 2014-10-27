@@ -42,8 +42,7 @@ public class TFIDFMatrixBuilderTest {
 				new TokenCounter());
 	}
 
-	@Test
-	// (timeout = 1000)
+	@Test(timeout = 1000)
 	public void testMatrixBuilder() throws Exception {
 		DocumentTokenMatrix<Double> result = matrixBuilder.computeMatrix(corpus);
 		assertNotNull(result);

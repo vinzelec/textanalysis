@@ -16,6 +16,7 @@ import fr.vinze.textanalysis.statistics.DocumentTokenMatrixBuilder;
  * Abstract implementation for any {@link DocumentTokenMatrixBuilder} that is built upon one local weight function
  * and one global weight function (such as TF-IDF or log-entropy...)
  * 
+ * @see http://en.wikipedia.org/wiki/Latent_semantic_indexing#Term-document_matrix
  * @author Vinze
  *
  */
