@@ -58,7 +58,7 @@ public class TFIDFMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<ColtDou
 				containsCount.increment();
 			}
 		}
-		return Math.log(docCount / containsCount.doubleValue());
+		return Math.log10(docCount / containsCount.doubleValue());
 	}
 
 }

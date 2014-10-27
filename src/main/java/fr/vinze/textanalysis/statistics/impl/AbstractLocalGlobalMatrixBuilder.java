@@ -79,7 +79,7 @@ public abstract class AbstractLocalGlobalMatrixBuilder<T extends DocumentTokenMa
 			for (Token token : document.getTokens()) {
 				double f = getLocalWeight(token, document);
 				double g = getGlobalWeight(token, corpus);
-				matrix.setValue(document, token, (f / g));
+				matrix.setValue(document, token, (f * g));
 			}
 		}
 		return posttreatment(matrix);
