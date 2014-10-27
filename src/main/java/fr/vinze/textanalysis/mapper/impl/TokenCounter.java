@@ -15,7 +15,7 @@ import fr.vinze.textanalysis.mapper.SegmentedTextMapper;
 
 public class TokenCounter implements SegmentedTextMapper {
 
-	public static final String COUNT_KEY = "token_count";
+	public static final String COUNT_KEY = TokenCounter.class.getName() + "token_count";
 
 	public SegmentedTextDocument map(SegmentedTextDocument document) {
 		MutableInt tokenCount = new MutableInt(0);
