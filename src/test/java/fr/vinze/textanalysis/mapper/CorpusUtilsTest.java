@@ -11,6 +11,7 @@ import org.junit.Test;
 import fr.vinze.textanalysis.corpus.CorpusUtils;
 import fr.vinze.textanalysis.corpus.RawTextDocumentCorpus;
 import fr.vinze.textanalysis.corpus.SegmentedTextDocumentCorpus;
+import fr.vinze.textanalysis.document.DocumentTestHelper;
 import fr.vinze.textanalysis.document.RawTextDocument;
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.impl.RawTextDocumentImpl;
@@ -57,8 +58,8 @@ public class CorpusUtilsTest {
 		rawdoc21 = new RawTextDocumentImpl(NAME, CONTENT);
 		rawdoc12 = new RawTextDocumentImpl(NAME + "2", CONTENT);
 		rawdoc22 = new RawTextDocumentImpl(NAME + "2", CONTENT);
-		testRawDocumentsEquals(rawdoc11, rawdoc21);
-		testRawDocumentsEquals(rawdoc12, rawdoc22);
+		DocumentTestHelper.assertDocumentsEquals(rawdoc11, rawdoc21);
+		DocumentTestHelper.assertDocumentsEquals(rawdoc12, rawdoc22);
 
 	}
 
@@ -88,13 +89,8 @@ public class CorpusUtilsTest {
 			corpus2 = CorpusUtils.mapAll(corpus2, mappers);
 		}
 		// test same result
-		testRawDocumentsEquals(corpus1.getDocument(NAME), corpus2.getDocument(NAME));
-		testRawDocumentsEquals(corpus1.getDocument(NAME + "2"), corpus2.getDocument(NAME + "2"));
-	}
-
-	private void testRawDocumentsEquals(RawTextDocument doc1, RawTextDocument doc2) {
-		assertEquals(doc1.getName(), doc2.getName());
-		assertEquals(doc1.getContent(), doc2.getContent());
+		DocumentTestHelper.assertDocumentsEquals(corpus1.getDocument(NAME), corpus2.getDocument(NAME));
+		DocumentTestHelper.assertDocumentsEquals(corpus1.getDocument(NAME + "2"), corpus2.getDocument(NAME + "2"));
 	}
 
 	@Test(timeout = 1000)
@@ -115,8 +111,8 @@ public class CorpusUtilsTest {
 		SegmentedTextDocument doc21 = splitter.split(rawdoc21);
 		SegmentedTextDocument doc12 = splitter.split(rawdoc12);
 		SegmentedTextDocument doc22 = splitter.split(rawdoc22);
-		testSegmentedDocumentsEquals(doc11, doc21);
-		testSegmentedDocumentsEquals(doc12, doc22);
+		DocumentTestHelper.assertDocumentsEquals(doc11, doc21);
+		DocumentTestHelper.assertDocumentsEquals(doc12, doc22);
 		// map then create a corpus
 		for (SegmentedTextMapper mapper : mappers) {
 			doc11 = mapper.map(doc11);
@@ -131,16 +127,9 @@ public class CorpusUtilsTest {
 			corpus2 = CorpusUtils.mapAll(corpus2, mappers);
 		}
 		// test same result
-		testSegmentedDocumentsEquals(corpus1.getDocument(NAME), corpus2.getDocument(NAME));
-		testSegmentedDocumentsEquals(corpus1.getDocument(NAME + "2"), corpus2.getDocument(NAME + "2"));
-	}
-
-	private void testSegmentedDocumentsEquals(SegmentedTextDocument doc1, SegmentedTextDocument doc2) {
-		assertEquals(doc1.getName(), doc2.getName());
-		assertEquals(doc1.getTokens().size(), doc2.getTokens().size());
-		for (int i = 0; i < doc1.getTokens().size(); i++) {
-			assertEquals(doc1.getTokens().get(i), doc2.getTokens().get(i));
-		}
+		DocumentTestHelper.assertDocumentsEquals(corpus1.getDocument(NAME), corpus2.getDocument(NAME));
+		DocumentTestHelper.assertDocumentsEquals(corpus1.getDocument(NAME + "2"),
+				corpus2.getDocument(NAME + "2"));
 	}
 
 	@Test(timeout = 1000)
@@ -154,8 +143,9 @@ public class CorpusUtilsTest {
 		SegmentedTextDocument doc22 = splitter.split(rawdoc22);
 		SegmentedTextDocumentCorpus corpus2 = CorpusUtils.createCorpus(doc21, doc22);
 		// test same result
-		testSegmentedDocumentsEquals(corpus1.getDocument(NAME), corpus2.getDocument(NAME));
-		testSegmentedDocumentsEquals(corpus1.getDocument(NAME + "2"), corpus2.getDocument(NAME + "2"));
+		DocumentTestHelper.assertDocumentsEquals(corpus1.getDocument(NAME), corpus2.getDocument(NAME));
+		DocumentTestHelper.assertDocumentsEquals(corpus1.getDocument(NAME + "2"),
+				corpus2.getDocument(NAME + "2"));
 	}
 
 }

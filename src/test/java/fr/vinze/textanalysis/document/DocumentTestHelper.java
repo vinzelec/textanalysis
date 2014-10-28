@@ -1,5 +1,7 @@
 package fr.vinze.textanalysis.document;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -85,4 +87,18 @@ public abstract class DocumentTestHelper {
 		return splitter.split(src);
 	}
 
+	public static void assertDocumentsEquals(RawTextDocument doc1, RawTextDocument doc2) {
+		assertEquals(doc1.getName(), doc2.getName());
+		assertEquals(doc1.getContent(), doc2.getContent());
+	}
+
+	public static void assertDocumentsEquals(SegmentedTextDocument doc1, SegmentedTextDocument doc2) {
+		assertEquals(doc1.getName(), doc2.getName());
+		assertEquals(doc1.getTokens().size(), doc2.getTokens().size());
+		for (int i = 0; i < doc1.getTokens().size(); i++) {
+			assertEquals(doc1.getTokens().get(i), doc2.getTokens().get(i));
+		}
+	}
+
+	// TODO methods to compare equality of corpus
 }
