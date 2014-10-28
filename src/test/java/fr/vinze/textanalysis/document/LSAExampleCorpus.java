@@ -4,8 +4,7 @@ import fr.vinze.textanalysis.corpus.CorpusUtils;
 import fr.vinze.textanalysis.corpus.RawTextDocumentCorpus;
 import fr.vinze.textanalysis.corpus.SegmentedTextDocumentCorpus;
 import fr.vinze.textanalysis.document.impl.RawTextDocumentImpl;
-import fr.vinze.textanalysis.mapper.impl.KeepOnlyWords;
-import fr.vinze.textanalysis.segmentation.impl.TextSplitterImpl;
+import fr.vinze.textanalysis.segmentation.impl.WordOnlySplitterImpl;
 
 /**
  * The examples here are taken from the Handbook of LSA (Landauer & all)
@@ -57,8 +56,7 @@ public abstract class LSAExampleCorpus {
 				new RawTextDocumentImpl("b2", b2BOW),
 				new RawTextDocumentImpl("b3", b3BOW),
 				new RawTextDocumentImpl("b4", b4BOW));
-		SegmentedTextDocumentCorpus corpus = CorpusUtils.split(rawCorpus, new TextSplitterImpl());
-		return CorpusUtils.map(corpus, new KeepOnlyWords());
+		return CorpusUtils.split(rawCorpus, new WordOnlySplitterImpl());
 	}
 	
 }
