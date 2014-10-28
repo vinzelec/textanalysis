@@ -23,6 +23,8 @@ import fr.vinze.textanalysis.statistics.DocumentTokenMatrixBuilder;
 public abstract class AbstractLocalGlobalMatrixBuilder<T extends DocumentTokenMatrix<Double>> implements
 		DocumentTokenMatrixBuilder<T> {
 
+	// TODO extract local and global functions to interfaces so this component can be modulable
+
 	private static final Logger log = LoggerFactory.getLogger(AbstractLocalGlobalMatrixBuilder.class);
 
 	protected SegmentedTextDocumentCorpus pretreatment(SegmentedTextDocumentCorpus corpus) {
