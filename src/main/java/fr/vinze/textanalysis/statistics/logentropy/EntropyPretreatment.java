@@ -24,6 +24,7 @@ import fr.vinze.textanalysis.mapper.impl.TokenCounter;
  */
 public class EntropyPretreatment implements SegmentedTextMapper {
 
+	// FIXME
 	public static final String GLOBAL_COUNT_KEY = EntropyPretreatment.class.getName() + "token_global_count";
 
 	final SegmentedTextDocumentCorpus corpus;
