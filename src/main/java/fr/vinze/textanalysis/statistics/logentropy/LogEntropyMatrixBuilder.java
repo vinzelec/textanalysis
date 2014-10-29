@@ -11,7 +11,6 @@ import fr.vinze.textanalysis.document.impl.MetadataImpl;
 import fr.vinze.textanalysis.mapper.impl.TokenCounter;
 import fr.vinze.textanalysis.statistics.impl.AbstractLocalGlobalMatrixBuilder;
 import fr.vinze.textanalysis.statistics.impl.ColtDoubleMatrix;
-import fr.vinze.utils.MathUtils;
 
 /**
  * Build a matrix with score corresponding to log-entropy algorithm
@@ -60,11 +59,13 @@ public class LogEntropyMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<Co
 		return Math.log10(count + 1.0);
 	}
 
+	// TODO result for a token can be reused
+
 	@Override
 	protected double getGlobalWeight(Token token, SegmentedTextDocumentCorpus corpus) {
 		if (token.getMetadata(TOKENWEIGHT_KEY) == null) {
 			MutableDouble sum = new MutableDouble();
-			double logn = MathUtils.log2(corpus.getSize());
+			double logn = Math.log(corpus.getSize());
 			double gfi = token.getMetadata(EntropyPretreatment.GLOBAL_COUNT_KEY, MutableInt.class).getValue()
 					.doubleValue();
 			for (SegmentedTextDocument document : corpus.getDocuments()) {
@@ -81,11 +82,11 @@ public class LogEntropyMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<Co
 					double tfij = localToken.getMetadata(TokenCounter.COUNT_KEY, MutableInt.class).getValue()
 							.doubleValue();
 					double pij = tfij / gfi;
-					double logpij = MathUtils.log2(pij);
+					double logpij = Math.log(pij);
 					sum.add(pij * logpij / logn);
 				}
 			}
-			token.addMetadata(new MetadataImpl<Double>(TOKENWEIGHT_KEY, 1.0 - sum.doubleValue()));
+			token.addMetadata(new MetadataImpl<Double>(TOKENWEIGHT_KEY, 1.0 + sum.doubleValue()));
 		}
 		return token.getMetadata(TOKENWEIGHT_KEY, Double.class).getValue();
 	}

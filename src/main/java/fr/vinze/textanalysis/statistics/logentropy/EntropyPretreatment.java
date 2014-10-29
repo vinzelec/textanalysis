@@ -24,16 +24,15 @@ import fr.vinze.textanalysis.mapper.impl.TokenCounter;
  */
 public class EntropyPretreatment implements SegmentedTextMapper {
 
-	// FIXME
 	public static final String GLOBAL_COUNT_KEY = EntropyPretreatment.class.getName() + "token_global_count";
 
 	final SegmentedTextDocumentCorpus corpus;
-	Map<Token, MutableInt> globalCount;
+	Map<String, MutableInt> globalCount;
 
 	public EntropyPretreatment(SegmentedTextDocumentCorpus corpus) {
 		super();
 		this.corpus = corpus;
-		globalCount = new HashMap<Token, MutableInt>();
+		globalCount = new HashMap<String, MutableInt>();
 	}
 
 	// TODO refactor code with TokenCounter
@@ -62,10 +61,11 @@ public class EntropyPretreatment implements SegmentedTextMapper {
 			tokenCounter.increment();
 			// specific entropy adding
 			MutableInt tokenGlobalCounter = null;
-			if (globalCount.containsKey(outputToken)) {
-				tokenGlobalCounter = globalCount.get(outputToken);
+			if (globalCount.containsKey(outputToken.toString())) {
+				tokenGlobalCounter = globalCount.get(outputToken.toString());
 			} else {
 				tokenGlobalCounter = new MutableInt(0);
+				globalCount.put(outputToken.toString(), tokenGlobalCounter);
 			}
 			tokenGlobalCounter.increment();
 			outputToken.addMetadata(new MetadataImpl<MutableInt>(GLOBAL_COUNT_KEY, tokenGlobalCounter));
