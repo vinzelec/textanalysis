@@ -26,8 +26,7 @@ public class LogEntropyMatrixBuilderTest {
 		corpus = LSAExampleCorpus.getCorpus();
 	}
 
-	@Test
-	// (timeout = 1000)
+	@Test(timeout = 1000)
 	public void testLogEntropyMatrixBuilder() throws Exception {
 		DocumentTokenMatrix<Double> matrix = matrixBuilder.computeMatrix(corpus);
 		// some words and documents to test

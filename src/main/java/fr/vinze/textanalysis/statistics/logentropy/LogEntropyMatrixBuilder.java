@@ -56,7 +56,7 @@ public class LogEntropyMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<Co
 				break;
 			}
 		}
-		return Math.log10(count + 1.0);
+		return Math.log(count + 1.0);
 	}
 
 	// TODO result for a token can be reused
