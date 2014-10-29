@@ -1,5 +1,8 @@
 package fr.vinze.textanalysis.statistics.logentropy;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang3.mutable.MutableDouble;
 import org.apache.commons.lang3.mutable.MutableInt;
 
@@ -24,6 +27,8 @@ public class LogEntropyMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<Co
 	public static final String TOKENWEIGHT_KEY = LogEntropyMatrixBuilder.class.getName() + "TW";
 
 	ColtDoubleMatrix matrix = null;
+
+	Map<String, Double> tokenweightCache = new HashMap<String, Double>();
 
 	@Override
 	protected ColtDoubleMatrix initMatrix(int initialDocumentSize, int initialTokenSize) {
@@ -59,34 +64,39 @@ public class LogEntropyMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<Co
 		return Math.log(count + 1.0);
 	}
 
-	// TODO result for a token can be reused
-
 	@Override
 	protected double getGlobalWeight(Token token, SegmentedTextDocumentCorpus corpus) {
 		if (token.getMetadata(TOKENWEIGHT_KEY) == null) {
-			MutableDouble sum = new MutableDouble();
-			double logn = Math.log(corpus.getSize());
-			double gfi = token.getMetadata(EntropyPretreatment.GLOBAL_COUNT_KEY, MutableInt.class).getValue()
-					.doubleValue();
-			for (SegmentedTextDocument document : corpus.getDocuments()) {
-				// get similar token with it's own metadata relative to this document
-				// if token is not in the document nothing to add
-				if (document.getTokens().contains(token)) {
-					Token localToken = null;
-					for (Token t : document.getTokens()) {
-						if (t.equals(token)) {
-							localToken = t;
-							break;
+			double weight = 0.0;
+			if (tokenweightCache.containsKey(token.toString())) {
+				weight = tokenweightCache.get(token.toString());
+			} else {
+				MutableDouble sum = new MutableDouble();
+				double logn = Math.log(corpus.getSize());
+				double gfi = token.getMetadata(EntropyPretreatment.GLOBAL_COUNT_KEY, MutableInt.class).getValue()
+						.doubleValue();
+				for (SegmentedTextDocument document : corpus.getDocuments()) {
+					// get similar token with it's own metadata relative to this document
+					// if token is not in the document nothing to add
+					if (document.getTokens().contains(token)) {
+						Token localToken = null;
+						for (Token t : document.getTokens()) {
+							if (t.equals(token)) {
+								localToken = t;
+								break;
+							}
 						}
+						double tfij = localToken.getMetadata(TokenCounter.COUNT_KEY, MutableInt.class).getValue()
+								.doubleValue();
+						double pij = tfij / gfi;
+						double logpij = Math.log(pij);
+						sum.add(pij * logpij / logn);
 					}
-					double tfij = localToken.getMetadata(TokenCounter.COUNT_KEY, MutableInt.class).getValue()
-							.doubleValue();
-					double pij = tfij / gfi;
-					double logpij = Math.log(pij);
-					sum.add(pij * logpij / logn);
 				}
+				weight = 1.0 + sum.doubleValue();
+				tokenweightCache.put(TOKENWEIGHT_KEY, weight);
 			}
-			token.addMetadata(new MetadataImpl<Double>(TOKENWEIGHT_KEY, 1.0 + sum.doubleValue()));
+			token.addMetadata(new MetadataImpl<Double>(TOKENWEIGHT_KEY, weight));
 		}
 		return token.getMetadata(TOKENWEIGHT_KEY, Double.class).getValue();
 	}
