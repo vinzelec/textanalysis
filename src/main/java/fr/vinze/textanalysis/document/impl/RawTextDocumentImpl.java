@@ -1,5 +1,8 @@
 package fr.vinze.textanalysis.document.impl;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import fr.vinze.textanalysis.document.RawTextDocument;
 
 public class RawTextDocumentImpl implements RawTextDocument {
@@ -30,6 +33,23 @@ public class RawTextDocumentImpl implements RawTextDocument {
 
 	public String getRawSource() {
 		return rawSource;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || !(obj instanceof RawTextDocument)) {
+			return false;
+		}
+		EqualsBuilder eb = new EqualsBuilder();
+		eb.append(getName(), ((RawTextDocument) obj).getName());
+		return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		HashCodeBuilder hashCodeBuilder = new HashCodeBuilder();
+		hashCodeBuilder.append(getName());
+		return super.hashCode();
 	}
 
 }

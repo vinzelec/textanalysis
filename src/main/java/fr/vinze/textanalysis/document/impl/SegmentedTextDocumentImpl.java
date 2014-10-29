@@ -3,6 +3,9 @@ package fr.vinze.textanalysis.document.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import fr.vinze.textanalysis.document.RawTextDocument;
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
@@ -50,6 +53,23 @@ public class SegmentedTextDocumentImpl implements SegmentedTextDocument {
 			return tokens.size();
 		}
 		return tokenCount;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || !(obj instanceof SegmentedTextDocument)) {
+			return false;
+		}
+		EqualsBuilder eb = new EqualsBuilder();
+		eb.append(getName(), ((SegmentedTextDocument) obj).getName());
+		return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		HashCodeBuilder hashCodeBuilder = new HashCodeBuilder();
+		hashCodeBuilder.append(getName());
+		return super.hashCode();
 	}
 
 }
