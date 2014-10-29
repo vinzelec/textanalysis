@@ -55,4 +55,9 @@ public class WordImpl extends AbstractTokenImpl implements Word {
 		hashCodeBuilder.append(getWord());
 		return super.hashCode();
 	}
+
+	@Override
+	public String toString() {
+		return word;
+	}
 }

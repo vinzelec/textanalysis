@@ -50,4 +50,9 @@ public class PunctuationImpl extends AbstractTokenImpl implements Punctuation {
 		hashCodeBuilder.append(getPunctuationMark());
 		return super.hashCode();
 	}
+
+	@Override
+	public String toString() {
+		return mark.toString();
+	}
 }
