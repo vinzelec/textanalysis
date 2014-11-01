@@ -13,7 +13,7 @@ import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.document.impl.MetadataImpl;
 import fr.vinze.textanalysis.mapper.impl.TokenCounter;
 import fr.vinze.textanalysis.statistics.impl.AbstractLocalGlobalMatrixBuilder;
-import fr.vinze.textanalysis.statistics.impl.ColtDoubleMatrix;
+import fr.vinze.textanalysis.statistics.impl.ColtDoubleDocumentTokenMatrix;
 
 /**
  * Build a matrix with score corresponding to log-entropy algorithm
@@ -22,22 +22,22 @@ import fr.vinze.textanalysis.statistics.impl.ColtDoubleMatrix;
  * @author Vinze
  *
  */
-public class LogEntropyMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<ColtDoubleMatrix> {
+public class LogEntropyMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<ColtDoubleDocumentTokenMatrix> {
 
 	public static final String TOKENWEIGHT_KEY = LogEntropyMatrixBuilder.class.getName() + "TW";
 
-	ColtDoubleMatrix matrix = null;
+	ColtDoubleDocumentTokenMatrix matrix = null;
 
 	Map<String, Double> tokenweightCache = new HashMap<String, Double>();
 
 	@Override
-	protected ColtDoubleMatrix initMatrix(int initialDocumentSize, int initialTokenSize) {
-		matrix = new ColtDoubleMatrix(initialDocumentSize, initialTokenSize);
+	protected ColtDoubleDocumentTokenMatrix initMatrix(int initialDocumentSize, int initialTokenSize) {
+		matrix = new ColtDoubleDocumentTokenMatrix(initialDocumentSize, initialTokenSize);
 		return matrix;
 	}
 
 	@Override
-	protected ColtDoubleMatrix getMatrix() {
+	protected ColtDoubleDocumentTokenMatrix getMatrix() {
 		return matrix;
 	}
 
@@ -47,7 +47,7 @@ public class LogEntropyMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<Co
 	}
 
 	@Override
-	protected ColtDoubleMatrix posttreatment(ColtDoubleMatrix matrix) {
+	protected ColtDoubleDocumentTokenMatrix posttreatment(ColtDoubleDocumentTokenMatrix matrix) {
 		matrix.getInnerMatrix().trimToSize();
 		return matrix;
 	}

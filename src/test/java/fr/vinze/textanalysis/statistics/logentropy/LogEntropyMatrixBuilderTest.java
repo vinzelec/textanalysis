@@ -13,12 +13,12 @@ import fr.vinze.textanalysis.document.Word;
 import fr.vinze.textanalysis.document.impl.WordImpl;
 import fr.vinze.textanalysis.statistics.DocumentTokenMatrix;
 import fr.vinze.textanalysis.statistics.DocumentTokenMatrixBuilder;
-import fr.vinze.textanalysis.statistics.impl.ColtDoubleMatrix;
+import fr.vinze.textanalysis.statistics.impl.ColtDoubleDocumentTokenMatrix;
 
 public class LogEntropyMatrixBuilderTest {
 
 	SegmentedTextDocumentCorpus corpus;
-	DocumentTokenMatrixBuilder<ColtDoubleMatrix> matrixBuilder;
+	DocumentTokenMatrixBuilder<ColtDoubleDocumentTokenMatrix> matrixBuilder;
 
 	@Before
 	public void init() throws Exception {

@@ -5,7 +5,7 @@ import org.apache.commons.lang3.mutable.MutableInt;
 import cern.colt.matrix.impl.SparseObjectMatrix2D;
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
-import fr.vinze.textanalysis.statistics.impl.AbstractColtObjectMatrix;
+import fr.vinze.textanalysis.statistics.impl.AbstractColtObjectDocumentTokenMatrix;
 
 /**
  * <p>
@@ -20,7 +20,7 @@ import fr.vinze.textanalysis.statistics.impl.AbstractColtObjectMatrix;
  * @author Vinze
  *
  */
-public class TokenFrequencyMatrix extends AbstractColtObjectMatrix<MutableInt> {
+public class TokenFrequencyMatrix extends AbstractColtObjectDocumentTokenMatrix<MutableInt> {
 
 	public TokenFrequencyMatrix(int initialDocumentSize, int initialTokenSize) {
 		super(initialDocumentSize, initialTokenSize);

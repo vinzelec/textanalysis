@@ -7,7 +7,7 @@ import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.mapper.impl.TokenCounter;
 import fr.vinze.textanalysis.statistics.impl.AbstractLocalGlobalMatrixBuilder;
-import fr.vinze.textanalysis.statistics.impl.ColtDoubleMatrix;
+import fr.vinze.textanalysis.statistics.impl.ColtDoubleDocumentTokenMatrix;
 
 /**
  * Build a matrix with score corresponding to TF-IDF algorithm
@@ -16,18 +16,18 @@ import fr.vinze.textanalysis.statistics.impl.ColtDoubleMatrix;
  * @author Vinze
  *
  */
-public class TFIDFMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<ColtDoubleMatrix> {
+public class TFIDFMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<ColtDoubleDocumentTokenMatrix> {
 
-	ColtDoubleMatrix matrix = null;
+	ColtDoubleDocumentTokenMatrix matrix = null;
 
 	@Override
-	protected ColtDoubleMatrix initMatrix(int initialDocumentSize, int initialTokenSize) {
-		matrix = new ColtDoubleMatrix(initialDocumentSize, initialTokenSize);
+	protected ColtDoubleDocumentTokenMatrix initMatrix(int initialDocumentSize, int initialTokenSize) {
+		matrix = new ColtDoubleDocumentTokenMatrix(initialDocumentSize, initialTokenSize);
 		return matrix;
 	}
 
 	@Override
-	protected ColtDoubleMatrix getMatrix() {
+	protected ColtDoubleDocumentTokenMatrix getMatrix() {
 		return matrix;
 	}
 
@@ -37,7 +37,7 @@ public class TFIDFMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<ColtDou
 	}
 
 	@Override
-	protected ColtDoubleMatrix posttreatment(ColtDoubleMatrix matrix) {
+	protected ColtDoubleDocumentTokenMatrix posttreatment(ColtDoubleDocumentTokenMatrix matrix) {
 		matrix.getInnerMatrix().trimToSize();
 		return matrix;
 	}
