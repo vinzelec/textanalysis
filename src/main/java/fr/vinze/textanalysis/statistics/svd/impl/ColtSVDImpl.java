@@ -1,7 +1,7 @@
-package fr.vinze.textanalysis.statistics.impl;
+package fr.vinze.textanalysis.statistics.svd.impl;
 
 import cern.colt.matrix.DoubleMatrix2D;
-import fr.vinze.textanalysis.statistics.SingularValueDecomposition;
+import fr.vinze.textanalysis.statistics.svd.SingularValueDecomposition;
 
 public class ColtSVDImpl extends SingularValueDecompositionImpl {
 

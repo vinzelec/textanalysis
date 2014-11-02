@@ -1,4 +1,4 @@
-package fr.vinze.textanalysis.statistics;
+package fr.vinze.textanalysis.statistics.svd;
 
 /**
  * <p>
