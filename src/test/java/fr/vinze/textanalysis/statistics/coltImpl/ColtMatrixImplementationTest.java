@@ -1,4 +1,4 @@
-package fr.vinze.textanalysis.statistics.tfidf;
+package fr.vinze.textanalysis.statistics.coltImpl;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
@@ -16,18 +16,20 @@ import fr.vinze.textanalysis.mapper.impl.KeepOnlyWords;
 import fr.vinze.textanalysis.mapper.impl.TokenCounter;
 import fr.vinze.textanalysis.segmentation.impl.TextSplitterImpl;
 import fr.vinze.textanalysis.statistics.DocumentTokenMatrix;
+import fr.vinze.textanalysis.statistics.tfidf.TFIDFMatrixBuilder;
 
 /**
- * example source : http://en.wikipedia.org/wiki/Tf%E2%80%93idf
+ * Perform the same as TFIDFMatrixBuilderTest but with more documents than token
  * 
  * @author Vinze
  *
  */
-public class TFIDFMatrixBuilderTest {
+public class ColtMatrixImplementationTest {
 
-	// according to example word count at http://en.wikipedia.org/wiki/Tf%E2%80%93idf#Example_of_tf.E2.80.93idf
-	String doc1content = "this is a a sample";
-	String doc2content = "this is another another example example example";
+	// change init so there is more document than token
+	String doc1Content = "a a a";
+	String doc2Content = "a b b";
+	String doc3Content = "a a b";
 
 	protected SegmentedTextDocumentCorpus corpus;
 	protected TFIDFMatrixBuilder matrixBuilder;
@@ -35,8 +37,8 @@ public class TFIDFMatrixBuilderTest {
 	@Before
 	public void init() throws Exception {
 		matrixBuilder = new TFIDFMatrixBuilder();
-		RawTextDocumentCorpus rawCorpus = CorpusUtils.createCorpus(new RawTextDocumentImpl("doc1", doc1content),
-				new RawTextDocumentImpl("doc2", doc2content));
+		RawTextDocumentCorpus rawCorpus = CorpusUtils.createCorpus(new RawTextDocumentImpl("doc1", doc1Content),
+				new RawTextDocumentImpl("doc2", doc2Content), new RawTextDocumentImpl("doc3", doc3Content));
 		// split and keep only words
 		corpus = CorpusUtils.mapAll(CorpusUtils.split(rawCorpus, new TextSplitterImpl()), new KeepOnlyWords(),
 				new TokenCounter());
@@ -46,8 +48,8 @@ public class TFIDFMatrixBuilderTest {
 	public void testMatrixBuilder() throws Exception {
 		DocumentTokenMatrix<Double> result = matrixBuilder.computeMatrix(corpus);
 		assertNotNull(result);
-		assertEquals("corpus contains 2 documents", 2, result.getDocuments().size());
-		assertEquals("corpus contains 6 words", 6, result.getTokens().size());
+		assertEquals("corpus contains 3 documents", 3, result.getDocuments().size());
+		assertEquals("corpus contains 2 words", 2, result.getTokens().size());
 		// search for doc2
 		SegmentedTextDocument doc2 = null;
 		for (SegmentedTextDocument doc : result.getDocuments()) {
@@ -55,11 +57,11 @@ public class TFIDFMatrixBuilderTest {
 				doc2 = doc;
 			}
 		}
-		Double score = result.getValue(doc2, new WordImpl("this"));
+		Double score = result.getValue(doc2, new WordImpl("a"));
 		assertNotNull(score);
-		assertEquals("tf-idf of 'this' for document 2 is 0", 0.0, score);
-		score = result.getValue(doc2, new WordImpl("example"));
+		assertEquals("tf-idf of 'a' for document 2 is 0", 0.0, score);
+		score = result.getValue(doc2, new WordImpl("b"));
 		assertNotNull(score);
-		assertEquals("tf-idf of 'example' for document 2 is ~0.903", 0.903, score, 0.001);
+		assertEquals("tf-idf of 'b' for document 2 is ~0.352", 0.352, score, 0.001);
 	}
 }
