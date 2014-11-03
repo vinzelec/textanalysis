@@ -5,6 +5,11 @@ import fr.vinze.textanalysis.statistics.svd.SingularValueDecomposition;
 
 public class ColtSVDImpl extends SingularValueDecompositionImpl {
 
+	public ColtSVDImpl(cern.colt.matrix.linalg.SingularValueDecomposition svd, boolean inverted) {
+		super(new ColtDoubleMatrixImpl(svd.getU()), new ColtDoubleMatrixImpl(svd.getV()), svd.getSingularValues(),
+				inverted);
+	}
+
 	public ColtSVDImpl(cern.colt.matrix.linalg.SingularValueDecomposition svd) {
 		super(new ColtDoubleMatrixImpl(svd.getU()), new ColtDoubleMatrixImpl(svd.getV()), svd.getSingularValues());
 	}

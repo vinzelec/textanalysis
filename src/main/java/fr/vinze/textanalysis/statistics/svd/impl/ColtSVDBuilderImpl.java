@@ -21,7 +21,7 @@ public class ColtSVDBuilderImpl implements SVDBuilder {
 		ColtDoubleDocumentTokenMatrix coltMatrix = (ColtDoubleDocumentTokenMatrix) matrix;
 		cern.colt.matrix.linalg.SingularValueDecomposition svd = new cern.colt.matrix.linalg.SingularValueDecomposition(
 				coltMatrix.getInnerMatrix());
-		return new ColtSVDImpl(svd);
+		return new ColtSVDImpl(svd, coltMatrix.areDocumentsRows());
 	}
 
 }

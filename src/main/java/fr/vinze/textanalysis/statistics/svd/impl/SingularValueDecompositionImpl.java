@@ -6,12 +6,18 @@ public class SingularValueDecompositionImpl implements SingularValueDecompositio
 
 	DoubleMatrix u, v;
 	double[] s;
+	boolean inverted;
 
-	public SingularValueDecompositionImpl(DoubleMatrix u, DoubleMatrix v, double[] s) {
+	public SingularValueDecompositionImpl(DoubleMatrix u, DoubleMatrix v, double[] s, boolean inverted) {
 		super();
 		this.u = u;
 		this.v = v;
 		this.s = s;
+		this.inverted = inverted;
+	}
+
+	public SingularValueDecompositionImpl(DoubleMatrix u, DoubleMatrix v, double[] s) {
+		this(u, v, s, false);
 	}
 
 	public int getUSize() {
@@ -32,6 +38,14 @@ public class SingularValueDecompositionImpl implements SingularValueDecompositio
 
 	public double[] getS() {
 		return s;
+	}
+
+	public int getRank() {
+		return s.length;
+	}
+
+	public boolean isUDocumentMatrix() {
+		return inverted;
 	}
 
 }
