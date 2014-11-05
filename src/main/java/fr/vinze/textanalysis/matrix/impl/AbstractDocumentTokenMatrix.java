@@ -13,6 +13,8 @@ public abstract class AbstractDocumentTokenMatrix<T extends Number> implements D
 	protected List<SegmentedTextDocument> documentIndex;
 	protected List<Token> tokenIndex;
 
+	// FIXME as indexOf on lists are linear, maybe a reversed index Map<Object, Integer> is preferable
+
 	public AbstractDocumentTokenMatrix(int initialDocumentSize, int initialTokenSize) {
 		super();
 		documentIndex = new ArrayList<SegmentedTextDocument>(initialDocumentSize);
@@ -25,6 +27,14 @@ public abstract class AbstractDocumentTokenMatrix<T extends Number> implements D
 
 	public Collection<Token> getTokens() {
 		return tokenIndex;
+	}
+
+	protected int indexOf(SegmentedTextDocument document) {
+		return documentIndex.indexOf(document);
+	}
+
+	protected int indexOf(Token token) {
+		return tokenIndex.indexOf(token);
 	}
 
 }

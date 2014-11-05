@@ -41,8 +41,8 @@ public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<D
 	}
 
 	public Double getValue(SegmentedTextDocument document, Token token) {
-		int docId = documentIndex.indexOf(document);
-		int tokenId = tokenIndex.indexOf(token);
+		int docId = indexOf(document);
+		int tokenId = indexOf(token);
 		if (docId == -1 || tokenId == -1) {
 			return null;
 		}
@@ -60,7 +60,7 @@ public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<D
 		if (!documentIndex.contains(document)) {
 			documentIndex.add(document);
 		}
-		int docId = documentIndex.indexOf(document);
+		int docId = indexOf(document);
 		if (!tokenIndex.contains(token)) {
 			// a copy of the token without metadata
 			try {
@@ -73,7 +73,7 @@ public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<D
 				tokenIndex.add(token);
 			}
 		}
-		int tokenId = tokenIndex.indexOf(token);
+		int tokenId = indexOf(token);
 
 		if (documentsAreRows) {
 			innerMatrix.set(docId, tokenId, value);
@@ -99,7 +99,7 @@ public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<D
 
 	public Map<Token, Double> getDocumentStatistics(SegmentedTextDocument document) {
 		Map<Token, Double> stats = new HashMap<Token, Double>();
-		int docIndex = documentIndex.indexOf(document);
+		int docIndex = indexOf(document);
 		for (int tokIndex = 0; tokIndex < tokenIndex.size(); tokIndex++) {
 			double count = (Double) (documentsAreRows ? innerMatrix.get(docIndex, tokIndex) : innerMatrix.get(tokIndex,
 					docIndex));
@@ -112,7 +112,7 @@ public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<D
 
 	public Map<SegmentedTextDocument, Double> getTokenStatistics(Token token) {
 		Map<SegmentedTextDocument, Double> stats = new HashMap<SegmentedTextDocument, Double>();
-		int tokIndex = tokenIndex.indexOf(token);
+		int tokIndex = indexOf(token);
 		for (int docIndex = 0; docIndex < documentIndex.size(); docIndex++) {
 			double count = documentsAreRows ? innerMatrix.get(docIndex, tokIndex) : innerMatrix.get(tokIndex, docIndex);
 			if (count != 0) {

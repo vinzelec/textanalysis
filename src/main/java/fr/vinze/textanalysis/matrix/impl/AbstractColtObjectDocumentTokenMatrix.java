@@ -36,8 +36,8 @@ public abstract class AbstractColtObjectDocumentTokenMatrix<T extends Number> ex
 
 	@SuppressWarnings("unchecked")
 	public T getValue(SegmentedTextDocument document, Token token) {
-		int docId = documentIndex.indexOf(document);
-		int tokenId = tokenIndex.indexOf(token);
+		int docId = indexOf(document);
+		int tokenId = indexOf(token);
 		if (docId == -1 || tokenId == -1) {
 			return null;
 		}
@@ -51,7 +51,7 @@ public abstract class AbstractColtObjectDocumentTokenMatrix<T extends Number> ex
 		if (!documentIndex.contains(document)) {
 			documentIndex.add(document);
 		}
-		int docId = documentIndex.indexOf(document);
+		int docId = indexOf(document);
 		if (!tokenIndex.contains(token)) {
 			// a copy of the token without metadata
 			try {
@@ -64,7 +64,7 @@ public abstract class AbstractColtObjectDocumentTokenMatrix<T extends Number> ex
 				tokenIndex.add(token);
 			}
 		}
-		int tokenId = tokenIndex.indexOf(token);
+		int tokenId = indexOf(token);
 		innerMatrix.set(docId, tokenId, value);
 	}
 
@@ -86,7 +86,7 @@ public abstract class AbstractColtObjectDocumentTokenMatrix<T extends Number> ex
 
 	public Map<Token, T> getDocumentStatistics(SegmentedTextDocument document) {
 		Map<Token, T> stats = new HashMap<Token, T>();
-		int docIndex = documentIndex.indexOf(document);
+		int docIndex = indexOf(document);
 		for (int tokIndex = 0; tokIndex < tokenIndex.size(); tokIndex++) {
 			@SuppressWarnings("unchecked")
 			T count = (T) innerMatrix.get(docIndex, tokIndex);
@@ -99,7 +99,7 @@ public abstract class AbstractColtObjectDocumentTokenMatrix<T extends Number> ex
 
 	public Map<SegmentedTextDocument, T> getTokenStatistics(Token token) {
 		Map<SegmentedTextDocument, T> stats = new HashMap<SegmentedTextDocument, T>();
-		int tokIndex = tokenIndex.indexOf(token);
+		int tokIndex = indexOf(token);
 		for (int docIndex = 0; docIndex < documentIndex.size(); docIndex++) {
 			@SuppressWarnings("unchecked")
 			T count = (T) innerMatrix.get(docIndex, tokIndex);
