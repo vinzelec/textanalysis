@@ -29,11 +29,11 @@ public abstract class AbstractDocumentTokenMatrix<T extends Number> implements D
 		return tokenIndex;
 	}
 
-	protected int indexOf(SegmentedTextDocument document) {
+	public int indexOf(SegmentedTextDocument document) {
 		return documentIndex.indexOf(document);
 	}
 
-	protected int indexOf(Token token) {
+	public int indexOf(Token token) {
 		return tokenIndex.indexOf(token);
 	}
 

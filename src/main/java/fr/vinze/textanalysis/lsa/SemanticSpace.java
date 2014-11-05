@@ -18,6 +18,8 @@ public interface SemanticSpace {
 
 	SingularValueDecomposition getsSingularValueDecomposition();
 
+	int getDimension();
+
 	Collection<SegmentedTextDocument> getDocuments();
 
 	Collection<Token> getTokens();

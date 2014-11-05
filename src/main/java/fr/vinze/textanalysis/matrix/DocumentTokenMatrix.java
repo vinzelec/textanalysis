@@ -40,4 +40,8 @@ public interface DocumentTokenMatrix<T extends Number> {
 
 	Map<SegmentedTextDocument, T> getTokenStatistics(Token token);
 
+	int indexOf(Token token);
+
+	int indexOf(SegmentedTextDocument document);
+
 }
