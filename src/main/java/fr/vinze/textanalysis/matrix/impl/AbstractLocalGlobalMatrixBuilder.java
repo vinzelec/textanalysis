@@ -1,6 +1,8 @@
 package fr.vinze.textanalysis.matrix.impl;
 
-import org.apache.commons.lang3.mutable.MutableInt;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,11 +75,13 @@ public abstract class AbstractLocalGlobalMatrixBuilder<T extends DocumentTokenMa
 		SegmentedTextDocumentCorpus corpus = pretreatment(inputDocuments);
 		// initialize matrix using max size possible
 		int docCount = corpus.getDocuments().size();
-		MutableInt maxTokenCount = new MutableInt(0);
+		Set<String> tokens = new HashSet<String>();
 		for (SegmentedTextDocument doc : corpus.getDocuments()) {
-			maxTokenCount.add(doc.getTokenCount());
+			for (Token t : doc.getTokens()) {
+				tokens.add(t.getUniqueID());
+			}
 		}
-		T matrix = initMatrix(docCount, maxTokenCount.getValue());
+		T matrix = initMatrix(docCount, tokens.size());
 		for (SegmentedTextDocument document : corpus.getDocuments()) {
 			for (Token token : document.getTokens()) {
 				double f = getLocalWeight(token, document);
