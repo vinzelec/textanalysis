@@ -3,10 +3,6 @@ package fr.vinze.textanalysis.matrix.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.exception.CloneFailedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import cern.colt.matrix.impl.SparseObjectMatrix2D;
 
 import com.google.common.collect.HashBasedTable;
@@ -14,7 +10,6 @@ import com.google.common.collect.Table;
 
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
-import fr.vinze.utils.ObjectUtils;
 
 /**
  * Classic matrix implementation where values are any extension of {@link Number} based on a
@@ -24,8 +19,6 @@ import fr.vinze.utils.ObjectUtils;
  *
  */
 public abstract class AbstractColtObjectDocumentTokenMatrix<T extends Number> extends AbstractDocumentTokenMatrix<T> {
-
-	private static final Logger log = LoggerFactory.getLogger(AbstractColtObjectDocumentTokenMatrix.class);
 
 	protected SparseObjectMatrix2D innerMatrix;
 
@@ -48,22 +41,7 @@ public abstract class AbstractColtObjectDocumentTokenMatrix<T extends Number> ex
 		if (value == null) {
 			return; // nothing to store
 		}
-		if (!documentIndex.contains(document)) {
-			documentIndex.add(document);
-		}
 		int docId = indexOf(document);
-		if (!tokenIndex.contains(token)) {
-			// a copy of the token without metadata
-			try {
-				tokenIndex.add(ObjectUtils.clone(token));
-			} catch (CloneFailedException e) {
-				log.warn("failed to clone token " + token + " using original reference", e);
-				tokenIndex.add(token);
-			} catch (CloneNotSupportedException e) {
-				log.warn("failed to clone token " + token + " using original reference", e);
-				tokenIndex.add(token);
-			}
-		}
 		int tokenId = indexOf(token);
 		innerMatrix.set(docId, tokenId, value);
 	}

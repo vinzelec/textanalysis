@@ -3,10 +3,6 @@ package fr.vinze.textanalysis.matrix.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.exception.CloneFailedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import cern.colt.matrix.impl.SparseDoubleMatrix2D;
 
 import com.google.common.collect.HashBasedTable;
@@ -14,7 +10,6 @@ import com.google.common.collect.Table;
 
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
-import fr.vinze.utils.ObjectUtils;
 
 /**
  * Classic matrix implementation where values are {@link Double} based on a {@link SparseDoubleMatrix2D}
@@ -23,8 +18,6 @@ import fr.vinze.utils.ObjectUtils;
  *
  */
 public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<Double> {
-
-	private static final Logger log = LoggerFactory.getLogger(ColtDoubleDocumentTokenMatrix.class);
 
 	protected SparseDoubleMatrix2D innerMatrix;
 
@@ -57,22 +50,7 @@ public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<D
 		if (value == null) {
 			return; // nothing to store
 		}
-		if (!documentIndex.contains(document)) {
-			documentIndex.add(document);
-		}
 		int docId = indexOf(document);
-		if (!tokenIndex.contains(token)) {
-			// a copy of the token without metadata
-			try {
-				tokenIndex.add(ObjectUtils.clone(token));
-			} catch (CloneFailedException e) {
-				log.warn("failed to clone token " + token + " using original reference", e);
-				tokenIndex.add(token);
-			} catch (CloneNotSupportedException e) {
-				log.warn("failed to clone token " + token + " using original reference", e);
-				tokenIndex.add(token);
-			}
-		}
 		int tokenId = indexOf(token);
 
 		if (documentsAreRows) {
@@ -86,7 +64,7 @@ public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<D
 
 	public Table<SegmentedTextDocument, Token, Double> asTable() {
 		Table<SegmentedTextDocument, Token, Double> table = HashBasedTable.create();
-		for (int i = 0; i < documentIndex.size(); i++) {
+		for (int i = 0; i < getDocumentCount(); i++) {
 			for (int j = 0; j < tokenIndex.size(); j++) {
 				double count = documentsAreRows ? innerMatrix.get(i, j) : innerMatrix.get(j, i);
 				if (count != 0) {
