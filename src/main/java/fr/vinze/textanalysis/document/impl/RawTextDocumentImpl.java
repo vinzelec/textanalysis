@@ -35,6 +35,10 @@ public class RawTextDocumentImpl implements RawTextDocument {
 		return rawSource;
 	}
 
+	public String getUniqueID() {
+		return name;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || !(obj instanceof RawTextDocument)) {

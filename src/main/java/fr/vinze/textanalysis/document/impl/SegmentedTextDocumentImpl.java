@@ -55,6 +55,10 @@ public class SegmentedTextDocumentImpl implements SegmentedTextDocument {
 		return tokenCount;
 	}
 
+	public String getUniqueID() {
+		return name;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || !(obj instanceof SegmentedTextDocument)) {

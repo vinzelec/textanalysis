@@ -21,6 +21,10 @@ public abstract class AbstractTokenImpl implements Token {
 		this.metadatas = new HashMap<String, Token.Metadata<?>>();
 	}
 
+	public String getUniqueID() {
+		return toString();
+	}
+
 	public Collection<Metadata<?>> getMetadatas() {
 		return metadatas.values();
 	}

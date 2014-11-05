@@ -17,4 +17,11 @@ public interface SegmentedTextDocument {
 
 	void setTokenCount(int count);
 
+	/**
+	 * Two instance with same {@link #getUniqueID()} represents the same actual document.
+	 * 
+	 * @return an ID identifying the document within the application.
+	 */
+	String getUniqueID();
+
 }

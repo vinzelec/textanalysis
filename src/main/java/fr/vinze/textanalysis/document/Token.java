@@ -7,6 +7,15 @@ import javax.naming.OperationNotSupportedException;
 public interface Token extends Cloneable {
 
 	/**
+	 * Two instance with same {@link #getUniqueID()} represents the same actual token.
+	 * (use to identify a word that will have two different instance in two documents but are
+	 * the same when building a token frequency matrix)
+	 * 
+	 * @return an ID identifying the document within the application.
+	 */
+	String getUniqueID();
+
+	/**
 	 * Can't have two metadatas with same {@link Metadata#getKey()} value.
 	 * 
 	 * @return
