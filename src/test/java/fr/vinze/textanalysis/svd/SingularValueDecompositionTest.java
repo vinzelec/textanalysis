@@ -1,6 +1,7 @@
 package fr.vinze.textanalysis.svd;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -12,8 +13,6 @@ import fr.vinze.textanalysis.document.LSAExampleCorpus;
 import fr.vinze.textanalysis.matrix.DocumentTokenMatrix;
 import fr.vinze.textanalysis.matrix.DocumentTokenMatrixBuilder;
 import fr.vinze.textanalysis.matrix.logentropy.LogEntropyMatrixBuilder;
-import fr.vinze.textanalysis.svd.SVDBuilder;
-import fr.vinze.textanalysis.svd.SingularValueDecomposition;
 import fr.vinze.textanalysis.svd.impl.ColtSVDBuilderImpl;
 
 public class SingularValueDecompositionTest {
@@ -41,6 +40,12 @@ public class SingularValueDecompositionTest {
 		for (int i = 0; i < 9; i++) {
 			assertEquals("singular value at i=" + i, expectedSV[i], svd.getS()[i], 0.1);
 		}
+		assertFalse(svd.isUDocumentMatrix());
+		// FIXME 22 instead of 10 terms... there is a bug somewhere
+		assertEquals(10, svd.getU().getRawSize()); // 10 terms raws
+		assertEquals(9, svd.getU().getColSize()); // 9 dimensions
+		assertEquals(9, svd.getV().getRawSize()); // 9 documents raws
+		assertEquals(9, svd.getV().getColSize()); // 9 dimensions
 		// U and V matrix will depend on the terms and document orders that can't be assumed here actually
 	}
 
