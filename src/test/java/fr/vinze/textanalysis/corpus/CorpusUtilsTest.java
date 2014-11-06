@@ -1,4 +1,4 @@
-package fr.vinze.textanalysis.mapper;
+package fr.vinze.textanalysis.corpus;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -15,6 +15,8 @@ import fr.vinze.textanalysis.document.DocumentTestHelper;
 import fr.vinze.textanalysis.document.RawTextDocument;
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.impl.RawTextDocumentImpl;
+import fr.vinze.textanalysis.mapper.RawTextMapper;
+import fr.vinze.textanalysis.mapper.SegmentedTextMapper;
 import fr.vinze.textanalysis.mapper.impl.KeepOnlyWords;
 import fr.vinze.textanalysis.mapper.impl.PunctuationCleaner;
 import fr.vinze.textanalysis.mapper.impl.ReturnCarriageCleaner;
