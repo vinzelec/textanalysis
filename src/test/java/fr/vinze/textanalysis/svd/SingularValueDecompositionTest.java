@@ -41,7 +41,6 @@ public class SingularValueDecompositionTest {
 			assertEquals("singular value at i=" + i, expectedSV[i], svd.getS()[i], 0.1);
 		}
 		assertFalse(svd.isUDocumentMatrix());
-		// FIXME 22 instead of 10 terms... there is a bug somewhere
 		assertEquals(10, svd.getU().getRawSize()); // 10 terms raws
 		assertEquals(9, svd.getU().getColSize()); // 9 dimensions
 		assertEquals(9, svd.getV().getRawSize()); // 9 documents raws
