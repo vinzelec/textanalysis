@@ -32,7 +32,7 @@ public abstract class LSAExampleCorpus {
 	// the bag-of-word version of those documents used in table 2.2
 	// projection on 10 terms only
 	static final String
-		m1BOW = "roll music",
+		m1BOW = "rock roll music",
 		m2BOW = "drum roll demonstration",
 		m3BOW = "drum composition",
 		m4BOW = "rock music",
