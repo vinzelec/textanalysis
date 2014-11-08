@@ -9,6 +9,7 @@ import org.junit.Test;
 import fr.vinze.textanalysis.corpus.CorpusUtils;
 import fr.vinze.textanalysis.corpus.RawTextDocumentCorpus;
 import fr.vinze.textanalysis.corpus.SegmentedTextDocumentCorpus;
+import fr.vinze.textanalysis.document.DocumentUtils;
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.impl.RawTextDocumentImpl;
 import fr.vinze.textanalysis.document.impl.WordImpl;
@@ -51,12 +52,7 @@ public class ColtMatrixImplementationTest {
 		assertEquals("corpus contains 3 documents", 3, result.getDocuments().size());
 		assertEquals("corpus contains 2 words", 2, result.getTokens().size());
 		// search for doc2
-		SegmentedTextDocument doc2 = null;
-		for (SegmentedTextDocument doc : result.getDocuments()) {
-			if ("doc2".equals(doc.getName())) {
-				doc2 = doc;
-			}
-		}
+		SegmentedTextDocument doc2 = DocumentUtils.getSegmentedTextDocument(result.getDocuments(), "doc2");
 		Double score = result.getValue(doc2, new WordImpl("a"));
 		assertNotNull(score);
 		assertEquals("tf-idf of 'a' for document 2 is 0", 0.0, score);

@@ -9,13 +9,13 @@ import org.junit.Test;
 import fr.vinze.textanalysis.corpus.CorpusUtils;
 import fr.vinze.textanalysis.corpus.RawTextDocumentCorpus;
 import fr.vinze.textanalysis.corpus.SegmentedTextDocumentCorpus;
+import fr.vinze.textanalysis.document.DocumentUtils;
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.impl.RawTextDocumentImpl;
 import fr.vinze.textanalysis.document.impl.WordImpl;
 import fr.vinze.textanalysis.mapper.impl.KeepOnlyWords;
 import fr.vinze.textanalysis.mapper.impl.TokenCounter;
 import fr.vinze.textanalysis.matrix.DocumentTokenMatrix;
-import fr.vinze.textanalysis.matrix.tfidf.TFIDFMatrixBuilder;
 import fr.vinze.textanalysis.segmentation.impl.TextSplitterImpl;
 
 /**
@@ -50,12 +50,7 @@ public class TFIDFMatrixBuilderTest {
 		assertEquals("corpus contains 2 documents", 2, result.getDocuments().size());
 		assertEquals("corpus contains 6 words", 6, result.getTokens().size());
 		// search for doc2
-		SegmentedTextDocument doc2 = null;
-		for (SegmentedTextDocument doc : result.getDocuments()) {
-			if ("doc2".equals(doc.getName())) {
-				doc2 = doc;
-			}
-		}
+		SegmentedTextDocument doc2 = DocumentUtils.getSegmentedTextDocument(result.getDocuments(), "doc2");
 		Double score = result.getValue(doc2, new WordImpl("this"));
 		assertNotNull(score);
 		assertEquals("tf-idf of 'this' for document 2 is 0", 0.0, score);

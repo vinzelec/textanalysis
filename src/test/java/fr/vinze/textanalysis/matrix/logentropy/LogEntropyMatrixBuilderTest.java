@@ -7,10 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.vinze.textanalysis.corpus.SegmentedTextDocumentCorpus;
+import fr.vinze.textanalysis.document.DocumentUtils;
 import fr.vinze.textanalysis.document.LSAExampleCorpus;
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
-import fr.vinze.textanalysis.document.Word;
-import fr.vinze.textanalysis.document.impl.WordImpl;
+import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.matrix.DocumentTokenMatrix;
 import fr.vinze.textanalysis.matrix.DocumentTokenMatrixBuilder;
 import fr.vinze.textanalysis.matrix.impl.ColtDoubleDocumentTokenMatrix;
@@ -34,9 +34,9 @@ public class LogEntropyMatrixBuilderTest {
 	public void testLogEntropyMatrixBuilder() throws Exception {
 		DocumentTokenMatrix<Double> matrix = buildMatrix();
 		// some words and documents to test
-		Word bread = new WordImpl("bread");
-		Word music = new WordImpl("music");
-		Word roll  = new WordImpl("roll");
+		Token bread = DocumentUtils.getToken(matrix.getTokens(), "bread");
+		Token music = DocumentUtils.getToken(matrix.getTokens(), "music");
+		Token roll = DocumentUtils.getToken(matrix.getTokens(), "roll");
 		SegmentedTextDocument m1 = corpus.getDocument("m1");
 		SegmentedTextDocument b1 = corpus.getDocument("b1");
 
