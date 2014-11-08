@@ -61,6 +61,14 @@ public class SemanticSpaceImpl implements SemanticSpace {
 		return similarity.getSimilarityDistance(getTokenVector(token1), getTokenVector(token2));
 	}
 
+	public double getSimilarity(SegmentedTextDocument doc, Collection<Token> query, VectorSimilarityDistance similarity) {
+		return similarity.getSimilarityDistance(getDocumentVector(doc), getQueryVector(query));
+	}
+
+	public double getSimilarity(Token token, Collection<Token> query, VectorSimilarityDistance similarity) {
+		return similarity.getSimilarityDistance(getTokenVector(token), getQueryVector(query));
+	}
+
 	// vector methods
 
 	private double[] getVector(double[] inputVector) {
@@ -81,12 +89,39 @@ public class SemanticSpaceImpl implements SemanticSpace {
 	}
 
 	public double[] getTokenVector(Token token) {
+		return getVector(getTypeVector(token));
+	}
+
+	public double[] getTypeVector(Token token) {
 		int index = initalWeightedMatrix.indexOf(token);
 		if (svd.isUDocumentMatrix()) {
-			return getVector(svd.getV().getRaw(index));
+			return svd.getV().getRaw(index);
 		} else {
-			return getVector(svd.getU().getRaw(index));
+			return svd.getU().getRaw(index);
 		}
+	}
+
+	private void accumulate(double[] vectorDest, double[] vectorSrc) {
+		// FIXME need to multiply the src vector with the S-1 matrix
+		for (int i = 0; i < vectorDest.length; i++) {
+			vectorDest[i] += (vectorSrc[i]);
+		}
+	}
+
+	public double[] getQueryVector(Collection<Token> query) {
+		double[] vector = new double[dimension];
+		for (Token token : query) {
+			accumulate(vector, getTypeVector(token));
+		}
+		return vector;
+	}
+
+	public double[] getQueryVector(Token... query) {
+		double[] vector = new double[dimension];
+		for (Token token : query) {
+			accumulate(vector, getTypeVector(token));
+		}
+		return vector;
 	}
 
 }

@@ -14,6 +14,8 @@ import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.lsa.impl.SemanticSpaceImpl;
 import fr.vinze.textanalysis.matrix.DocumentTokenMatrix;
 import fr.vinze.textanalysis.matrix.logentropy.LogEntropyMatrixBuilder;
+import fr.vinze.textanalysis.similarity.VectorSimilarityDistance;
+import fr.vinze.textanalysis.similarity.impl.CosineSimilarity;
 import fr.vinze.textanalysis.svd.SingularValueDecomposition;
 import fr.vinze.textanalysis.svd.impl.ColtSVDBuilderImpl;
 
@@ -22,11 +24,21 @@ public class LSATest {
 
 	DocumentTokenMatrix<Double> inputMatrix;
 	SingularValueDecomposition svd;
+	SemanticSpace semspace;
+	SegmentedTextDocument m1, b1;
+	Token bread, music, roll, recipe;
 
 	@Before
 	public void init() throws Exception {
 		inputMatrix = (new LogEntropyMatrixBuilder()).computeMatrix(LSAExampleCorpus.getCorpus());
 		svd = (new ColtSVDBuilderImpl()).decompose(inputMatrix);
+		semspace = new SemanticSpaceImpl(2, inputMatrix, svd);
+		m1 = DocumentUtils.getSegmentedTextDocument(inputMatrix.getDocuments(), "m1");
+		b1 = DocumentUtils.getSegmentedTextDocument(inputMatrix.getDocuments(), "b1");
+		bread = DocumentUtils.getToken(inputMatrix.getTokens(), "bread");
+		music = DocumentUtils.getToken(inputMatrix.getTokens(), "music");
+		roll = DocumentUtils.getToken(inputMatrix.getTokens(), "roll");
+		recipe = DocumentUtils.getToken(inputMatrix.getTokens(), "recipe");
 	}
 
 	@Test(expected = InvalidParameterException.class, timeout = 1000)
@@ -37,12 +49,6 @@ public class LSATest {
 
 	@Test(timeout = 1000)
 	public void testLSA() throws Exception {
-		SemanticSpace semspace = new SemanticSpaceImpl(2, inputMatrix, svd);
-		SegmentedTextDocument m1 = DocumentUtils.getSegmentedTextDocument(inputMatrix.getDocuments(), "m1");
-		SegmentedTextDocument b1 = DocumentUtils.getSegmentedTextDocument(inputMatrix.getDocuments(), "b1");
-		Token bread = DocumentUtils.getToken(inputMatrix.getTokens(), "bread");
-		Token music = DocumentUtils.getToken(inputMatrix.getTokens(), "music");
-		Token roll = DocumentUtils.getToken(inputMatrix.getTokens(), "roll");
 		double[] m1expected = new double[] { .07, -.36 };
 		double[] b1expected = new double[] { .34, -.35 };
 		double[] breadexpected = new double[] { .46, -.09 };
@@ -54,7 +60,16 @@ public class LSATest {
 		assertExpectedVector(semspace.getTokenVector(bread), breadexpected, .02);
 		assertExpectedVector(semspace.getTokenVector(music), musicexpected, .02);
 		assertExpectedVector(semspace.getTokenVector(roll), rollexpected, .02);
+	}
+
+	@Test(timeout = 1000)
+	public void testQuery() throws Exception {
+		VectorSimilarityDistance cos = new CosineSimilarity();
+		// LSA handbook test query is "Recipe for White Bread"... containing two tokens from semantic space
+		double[] query = semspace.getQueryVector(bread, recipe);
+		assertEquals(.842, cos.getSimilarityDistance(query, semspace.getDocumentVector(b1)), .001);
 		// TODO test scores according to LSA handbook...
+
 	}
 
 	private void assertExpectedVector(double[] actual, double[] expected, double delta) {
