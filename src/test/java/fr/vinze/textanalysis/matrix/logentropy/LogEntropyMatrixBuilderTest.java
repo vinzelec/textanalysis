@@ -14,7 +14,6 @@ import fr.vinze.textanalysis.document.impl.WordImpl;
 import fr.vinze.textanalysis.matrix.DocumentTokenMatrix;
 import fr.vinze.textanalysis.matrix.DocumentTokenMatrixBuilder;
 import fr.vinze.textanalysis.matrix.impl.ColtDoubleDocumentTokenMatrix;
-import fr.vinze.textanalysis.matrix.logentropy.LogEntropyMatrixBuilder;
 
 public class LogEntropyMatrixBuilderTest {
 
@@ -27,9 +26,13 @@ public class LogEntropyMatrixBuilderTest {
 		corpus = LSAExampleCorpus.getCorpus();
 	}
 
+	public DocumentTokenMatrix<Double> buildMatrix() {
+		return matrixBuilder.computeMatrix(corpus);
+	}
+
 	@Test(timeout = 1000)
 	public void testLogEntropyMatrixBuilder() throws Exception {
-		DocumentTokenMatrix<Double> matrix = matrixBuilder.computeMatrix(corpus);
+		DocumentTokenMatrix<Double> matrix = buildMatrix();
 		// some words and documents to test
 		Word bread = new WordImpl("bread");
 		Word music = new WordImpl("music");
