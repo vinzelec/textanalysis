@@ -3,14 +3,14 @@
   <parent>
     <groupId>fr.vinze</groupId>
     <artifactId>textanalysis</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
   </parent>
   <artifactId>textanalysis-mappers</artifactId>
   <dependencies>
   	<dependency>
   		<groupId>fr.vinze</groupId>
   		<artifactId>textanalysis-API</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.0.2-SNAPSHOT</version>
   	</dependency>
   </dependencies>
 </project>
