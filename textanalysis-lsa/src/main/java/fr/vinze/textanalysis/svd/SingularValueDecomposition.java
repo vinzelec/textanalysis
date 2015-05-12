@@ -23,6 +23,8 @@ public interface SingularValueDecomposition {
 
 	double[] getS();
 
+	DoubleMatrix getSinversed(); // matrix inverse of singular values
+
 	int getRank();
 
 	/**
@@ -52,6 +54,8 @@ public interface SingularValueDecomposition {
 		double[] getRaw(int raw);
 
 		double[] getColumn(int col);
+
+		double[][] toArray();
 	}
 
 }

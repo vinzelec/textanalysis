@@ -4,20 +4,22 @@ import fr.vinze.textanalysis.svd.SingularValueDecomposition;
 
 public class SingularValueDecompositionImpl implements SingularValueDecomposition {
 
-	DoubleMatrix u, v;
+	DoubleMatrix u, v, sinversed;
 	double[] s;
 	boolean inverted;
 
-	public SingularValueDecompositionImpl(DoubleMatrix u, DoubleMatrix v, double[] s, boolean inverted) {
+	public SingularValueDecompositionImpl(DoubleMatrix u, DoubleMatrix v, double[] s, DoubleMatrix sinversed,
+			boolean inverted) {
 		super();
 		this.u = u;
 		this.v = v;
 		this.s = s;
+		this.sinversed = sinversed;
 		this.inverted = inverted;
 	}
 
-	public SingularValueDecompositionImpl(DoubleMatrix u, DoubleMatrix v, double[] s) {
-		this(u, v, s, false);
+	public SingularValueDecompositionImpl(DoubleMatrix u, DoubleMatrix v, double[] s, DoubleMatrix sinversed) {
+		this(u, v, s, sinversed, false);
 	}
 
 	public int getUSize() {
@@ -38,6 +40,10 @@ public class SingularValueDecompositionImpl implements SingularValueDecompositio
 
 	public double[] getS() {
 		return s;
+	}
+
+	public DoubleMatrix getSinversed() {
+		return sinversed;
 	}
 
 	public int getRank() {
