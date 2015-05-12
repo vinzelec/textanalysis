@@ -1,6 +1,7 @@
 package fr.vinze.textanalysis.parser;
 
 public enum DocumentType {
+	// IMPROVE add markdown type
 
 	TXT, RTF, ODT, DOC, DOCX, XHTML, HTML, EPUB;
 	

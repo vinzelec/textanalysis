@@ -24,15 +24,8 @@ public abstract class ObjectUtils {
 			throw new CloneNotSupportedException("object's class does not implements Cloneable");
 		try {
 			return (T) object.getClass().getMethod("clone").invoke(object);
-		} catch (IllegalAccessException e) {
-			throw new CloneFailedException(e);
-		} catch (IllegalArgumentException e) {
-			throw new CloneFailedException(e);
-		} catch (InvocationTargetException e) {
-			throw new CloneFailedException(e);
-		} catch (NoSuchMethodException e) {
-			throw new CloneFailedException(e);
-		} catch (SecurityException e) {
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+				| SecurityException e) {
 			throw new CloneFailedException(e);
 		}
 	}

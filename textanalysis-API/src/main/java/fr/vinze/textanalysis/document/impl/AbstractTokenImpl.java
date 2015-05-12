@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import fr.vinze.textanalysis.document.Token;
 
+// IMPROVE maybe since java 8 everything in abstract class can be moved to interface as default implementation
 public abstract class AbstractTokenImpl implements Token {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractTokenImpl.class);
