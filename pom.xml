@@ -5,7 +5,7 @@
 	<groupId>fr.vinze</groupId>
 	<artifactId>textanalysis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<name>textanalysis</name>
 	<url>https://github.com/vinzelec/textanalysis</url>
@@ -38,11 +38,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>colt</groupId>
-			<artifactId>colt</artifactId>
-			<version>1.2.0</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.3.2</version>
@@ -64,4 +59,10 @@
 		<url>scm:git:https://github.com/vinzelec/textanalysis.git</url>
 		<developerConnection>scm:git:https://github.com/vinzelec/textanalysis.git</developerConnection>
 	</scm>
+	<modules>
+		<module>textanalysis-API</module>
+		<module>textanalysis-mappers</module>
+		<module>textanalysis-matrix-coltImpl</module>
+		<module>textanalysis-lsa</module>
+	</modules>
 </project>
