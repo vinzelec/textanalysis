@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import fr.vinze.textanalysis.corpus.SegmentedTextDocumentCorpus;
 import fr.vinze.textanalysis.document.DocumentUtils;
-import fr.vinze.textanalysis.document.LSAExampleCorpus;
+import fr.vinze.textanalysis.document.ExampleCorpus;
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.matrix.DocumentTokenMatrix;
@@ -23,7 +23,7 @@ public class LogEntropyMatrixBuilderTest {
 	@Before
 	public void init() throws Exception {
 		matrixBuilder = new LogEntropyMatrixBuilder();
-		corpus = LSAExampleCorpus.getCorpus();
+		corpus = ExampleCorpus.getCorpus();
 	}
 
 	public DocumentTokenMatrix<Double> buildMatrix() {

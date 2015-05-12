@@ -15,8 +15,6 @@ import fr.vinze.textanalysis.mapper.impl.KeepOnlyWords;
 import fr.vinze.textanalysis.mapper.impl.ToLowercase;
 import fr.vinze.textanalysis.mapper.impl.TokenCounter;
 import fr.vinze.textanalysis.matrix.DocumentTokenMatrixBuilder;
-import fr.vinze.textanalysis.matrix.tokenfrequency.TokenFrequencyMatrix;
-import fr.vinze.textanalysis.matrix.tokenfrequency.TokenFrequencyMatrixBuilder;
 
 public class FrequencyMatrixBuilderTest {
 
@@ -29,6 +27,7 @@ public class FrequencyMatrixBuilderTest {
 	@Before
 	public void init() throws Exception {
 		builder = new TokenFrequencyMatrixBuilder();
+		// FIXME refactor to use other corpus than DocumentTestHelper in other module
 		SegmentedTextDocumentCorpus tempCorpus = DocumentTestHelper.createTestSegmentedCorpus();
 		// keep only words and to lower-case
 		corpus = CorpusUtils.mapAll(tempCorpus, new KeepOnlyWords(), new ToLowercase());
