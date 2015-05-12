@@ -41,7 +41,6 @@
 	</scm>
 	<modules>
 		<module>textanalysis-API</module>
-		<module>textanalysis-mappers</module>
 		<module>textanalysis-matrix</module>
 		<module>textanalysis-lsa</module>
 	</modules>

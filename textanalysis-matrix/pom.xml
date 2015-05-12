@@ -14,7 +14,7 @@
   	</dependency>
   	<dependency>
   		<groupId>fr.vinze</groupId>
-  		<artifactId>textanalysis-mappers</artifactId>
+  		<artifactId>textanalysis-API</artifactId>
   		<version>0.0.2-SNAPSHOT</version>
   	</dependency>
   </dependencies>
