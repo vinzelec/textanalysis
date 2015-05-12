@@ -121,7 +121,7 @@ public class XHTMLParser implements DocumentParser {
 			if (qName.matches("h\\d")) {
 				builder.append('\n');
 			}
-			// FIXME all block element end should append a new line
+			// IMPROVE all block element end should append a new line
 		}
 
 		@Override

@@ -46,7 +46,7 @@ public abstract class AbstractColtObjectDocumentTokenMatrix<T extends Number> ex
 		innerMatrix.set(docId, tokenId, value);
 	}
 
-	// TODO maybe some data could be stored in an LRU cache to avoid building several time
+	// IMPROVE maybe some data could be stored in an LRU cache to avoid building several time
 
 	public Table<SegmentedTextDocument, Token, T> asTable() {
 		Table<SegmentedTextDocument, Token, T> table = HashBasedTable.create();

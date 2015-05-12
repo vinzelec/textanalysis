@@ -60,7 +60,7 @@ public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<D
 		}
 	}
 
-	// TODO maybe some data could be stored in an LRU cache to avoid building several time
+	// IMPROVE maybe some data could be stored in an LRU cache to avoid building several time
 
 	public Table<SegmentedTextDocument, Token, Double> asTable() {
 		Table<SegmentedTextDocument, Token, Double> table = HashBasedTable.create();

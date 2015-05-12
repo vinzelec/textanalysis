@@ -11,7 +11,7 @@ import fr.vinze.textanalysis.matrix.impl.AbstractLocalGlobalMatrixBuilder;
 
 public class TokenFrequencyMatrixBuilder implements DocumentTokenMatrixBuilder<TokenFrequencyMatrix> {
 
-	// FIXME may need some performance optimization
+	// IMPROVE may need some performance optimization
 
 	public TokenFrequencyMatrix computeMatrix(final SegmentedTextDocumentCorpus inputDocuments) {
 		SegmentedTextDocumentCorpus corpus = AbstractLocalGlobalMatrixBuilder.countTokensIfNeeded(inputDocuments);

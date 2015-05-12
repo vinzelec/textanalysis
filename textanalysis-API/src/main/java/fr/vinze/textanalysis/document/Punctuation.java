@@ -16,18 +16,18 @@ public interface Punctuation extends Token {
 		BRACES_OPEN('{'), BRACES_CLOSE('}'),
 		COLON(':'),
 		COMMA(','),
-		DASH_EM('—'), DASH_EN('–'),
+ DASH_EM('—'), DASH_EN('–'),
 		DOT('.'),
-		ELLIPSIS('…'),
+ ELLIPSIS('…'),
 		EXCLAMATION('!'),
 		HYPHEN('-'),
 		PARENTHESIS_OPEN('('), PARENTHESIS_CLOSE(')'),
 		QUESTION('?'),
-		QUOTE('"'), // TODO differentiate all kind of quotes?
+		QUOTE('"'), // IMPROVE differentiate all kind of quotes?
 		SEMICOLON(';'),
 		SLASH('/'), BACKSLASH('\\');
 		// TODO complete? (inverted punctuation for Spanish, other typographic marks http://en.wikipedia.org/wiki/Punctuation)
-		// TODO all characters in \\p{Punct} regexp (#,$)
+		// IMPROVE all characters in \\p{Punct} regexp (#,$)
 		
 		char token;
 

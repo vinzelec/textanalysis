@@ -24,7 +24,7 @@ public abstract class DocumentTokenMatrixCSVExporter {
 			}
 			builder.append("\n");
 		}
-		// TODO maybe remove last return carriage
+		// IMPROVE maybe remove last return carriage
 		return builder.toString();
 	}
 
