@@ -1,17 +1,19 @@
 package fr.vinze.textanalysis.svd.impl;
 
 import cern.colt.matrix.DoubleMatrix2D;
+import cern.colt.matrix.linalg.Algebra;
 import fr.vinze.textanalysis.svd.SingularValueDecomposition;
 
 public class ColtSVDImpl extends SingularValueDecompositionImpl {
 
 	public ColtSVDImpl(cern.colt.matrix.linalg.SingularValueDecomposition svd, boolean inverted) {
 		super(new ColtDoubleMatrixImpl(svd.getU()), new ColtDoubleMatrixImpl(svd.getV()), svd.getSingularValues(),
-				inverted);
+				new ColtDoubleMatrixImpl((new Algebra()).inverse(svd.getS())), inverted);
 	}
 
 	public ColtSVDImpl(cern.colt.matrix.linalg.SingularValueDecomposition svd) {
-		super(new ColtDoubleMatrixImpl(svd.getU()), new ColtDoubleMatrixImpl(svd.getV()), svd.getSingularValues());
+		super(new ColtDoubleMatrixImpl(svd.getU()), new ColtDoubleMatrixImpl(svd.getV()), svd.getSingularValues(),
+				new ColtDoubleMatrixImpl((new Algebra()).inverse(svd.getS())));
 	}
 
 	public static class ColtDoubleMatrixImpl implements SingularValueDecomposition.DoubleMatrix {
@@ -43,6 +45,10 @@ public class ColtSVDImpl extends SingularValueDecompositionImpl {
 			return innerMatrix.viewColumn(col).toArray();
 		}
 
+		@Override
+		public double[][] toArray() {
+			return innerMatrix.toArray();
+		}
 	}
 
 }
