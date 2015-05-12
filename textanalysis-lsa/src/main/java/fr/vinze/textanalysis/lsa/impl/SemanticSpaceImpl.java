@@ -110,7 +110,7 @@ public class SemanticSpaceImpl implements SemanticSpace {
 		}
 	}
 
-	// FIXME query vector must be ponderated like any document
+	// FIXME query vector must be weighted like any document
 
 	public double[] getQueryVector(Collection<Token> query) {
 		double[] vector = new double[dimension];
