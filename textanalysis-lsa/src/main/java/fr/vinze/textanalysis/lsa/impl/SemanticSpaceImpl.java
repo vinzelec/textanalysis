@@ -102,15 +102,11 @@ public class SemanticSpaceImpl implements SemanticSpace {
 	}
 
 	private void accumulate(double[] vectorDest, double[] vectorSrc) {
+		// FIXME need to multiply the src vector with the S-1 matrix
 		for (int i = 0; i < vectorDest.length; i++) {
-			double[] sinvCol = svd.getSinversed().getColumn(i);
-			for (int j = 0; j < vectorSrc.length; j++) {
-				vectorDest[i] += (vectorSrc[j] * sinvCol[j]);
-			}
+			vectorDest[i] += (vectorSrc[i]);
 		}
 	}
-
-	// FIXME query vector must be ponderated like any document
 
 	public double[] getQueryVector(Collection<Token> query) {
 		double[] vector = new double[dimension];
