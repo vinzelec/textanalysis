@@ -45,9 +45,14 @@ public abstract class DocumentParserFactory {
 		return parser;
 	}
 
-	public static DocumentParser getParser(File file) throws DocumentParserNotAvailable, DocumentTypeNotSupported {
-		String extension = FilenameUtils.getExtension(file.getName());
+	public static DocumentParser getParser(String fileName) throws DocumentParserNotAvailable, DocumentTypeNotSupported {
+		String extension = FilenameUtils.getExtension(fileName);
 		DocumentType type = DocumentType.fromString(extension);
 		return getParser(type);
 	}
+
+	public static DocumentParser getParser(File file) throws DocumentParserNotAvailable, DocumentTypeNotSupported {
+		return getParser(file.getName());
+	}
+
 }
