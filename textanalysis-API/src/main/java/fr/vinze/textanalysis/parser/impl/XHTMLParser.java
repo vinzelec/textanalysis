@@ -3,6 +3,7 @@ package fr.vinze.textanalysis.parser.impl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -46,6 +47,18 @@ public class XHTMLParser implements DocumentParser {
 		return DocumentType.XHTML;
 	}
 
+	@Override
+	public RawTextDocument parse(String name, String content) throws ParseException, IOException {
+		// IMPROVE find a way to refactor and not use a temp file
+		File temp = File.createTempFile(name, "");
+		if (!temp.createNewFile()) {
+			throw new IOException("failed to create temporary file for parsing");
+		}
+		IOUtils.write(content, new FileOutputStream(temp));
+		return parse(temp);
+	}
+
+	@Override
 	public RawTextDocument parse(File file) throws FileNotFoundException, ParseException, IOException {
 		try {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
