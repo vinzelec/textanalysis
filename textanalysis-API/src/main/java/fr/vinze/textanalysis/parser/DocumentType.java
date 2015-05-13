@@ -1,9 +1,8 @@
 package fr.vinze.textanalysis.parser;
 
 public enum DocumentType {
-	// IMPROVE add markdown type
 
-	TXT, RTF, ODT, DOC, DOCX, XHTML, HTML, EPUB;
+	TXT, RTF, ODT, DOC, DOCX, XHTML, HTML, MARKDOWN, EPUB;
 	
 	
 	public static DocumentType fromString(String extension) throws DocumentTypeNotSupported {
@@ -16,6 +15,7 @@ public enum DocumentType {
 		if("XHTML".equalsIgnoreCase(extension)) return XHTML;
 		if("HTML".equalsIgnoreCase(extension)) return HTML;
 		if("HTM".equalsIgnoreCase(extension)) return HTML;
+		if("MD".equalsIgnoreCase(extension)) return MARKDOWN;
 		if("EPUB".equalsIgnoreCase(extension)) return EPUB;
 		throw new DocumentTypeNotSupported("extension "+extension+" is not supported");
 	}
@@ -30,6 +30,7 @@ public enum DocumentType {
 		case RTF: return "rtf";
 		case TXT: return "txt";
 		case XHTML: return "xhtml";
+		case MARKDOWN: return "md";
 		default: return null;
 		}
 	}
