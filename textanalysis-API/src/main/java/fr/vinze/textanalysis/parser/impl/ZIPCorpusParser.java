@@ -31,22 +31,9 @@ public class ZIPCorpusParser implements CorpusParser {
 		try {
 			RawTextDocumentCorpus corpus = new RawTextDocumentCorpusImpl();
 			in = new ZipInputStream(new FileInputStream(source));
-			byte[] buffer = new byte[1024];
 			ZipEntry entry;
 			while ((entry = in.getNextEntry()) != null) {
-				String name = entry.getName();
-				// extract data
-				StringBuilder content = new StringBuilder();
-				// open output streams
-				while (in.read(buffer) > 0) {
-					content.append(new String(buffer));
-				}
-				try {
-					DocumentParser parser = DocumentParserFactory.getParser(name);
-					corpus.addDocument(parser.parse(name, content.toString()));
-				} catch (DocumentParserNotAvailable | DocumentTypeNotSupported e) {
-					log.debug("ignoring entry " + name, e);
-				}
+				processEntry(entry, in, corpus);
 			}
 			in.close();
 			return corpus;
@@ -54,6 +41,25 @@ public class ZIPCorpusParser implements CorpusParser {
 			if (in != null) {
 				IOUtils.closeQuietly(in);
 			}
+		}
+	}
+
+	protected void processEntry(ZipEntry entry, ZipInputStream in, RawTextDocumentCorpus corpus) throws IOException,
+			ParseException {
+		byte[] buffer = new byte[1024];
+		DocumentParser parser = null;
+		String name = entry.getName();
+		try {
+			parser = DocumentParserFactory.getParser(name);
+			// extract data
+			StringBuilder content = new StringBuilder();
+			// open output streams
+			while (in.read(buffer) > 0) {
+				content.append(new String(buffer));
+			}
+			corpus.addDocument(parser.parse(name, content.toString()));
+		} catch (DocumentParserNotAvailable | DocumentTypeNotSupported e) {
+			log.debug("ignoring entry " + name, e);
 		}
 	}
 
