@@ -8,15 +8,22 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.vinze.textanalysis.corpus.RawTextDocumentCorpus;
 import fr.vinze.textanalysis.corpus.impl.RawTextDocumentCorpusImpl;
-import fr.vinze.textanalysis.document.impl.RawTextDocumentImpl;
 import fr.vinze.textanalysis.parser.CorpusParser;
 import fr.vinze.textanalysis.parser.CorpusType;
+import fr.vinze.textanalysis.parser.DocumentParser;
+import fr.vinze.textanalysis.parser.DocumentParserFactory;
+import fr.vinze.textanalysis.parser.DocumentParserNotAvailable;
+import fr.vinze.textanalysis.parser.DocumentTypeNotSupported;
 import fr.vinze.textanalysis.parser.ParseException;
 
 public class ZIPCorpusParser implements CorpusParser {
+
+	private static final Logger log = LoggerFactory.getLogger(ZIPCorpusParser.class);
 
 	@Override
 	public RawTextDocumentCorpus parseCorpus(File source) throws FileNotFoundException, ParseException, IOException {
@@ -34,7 +41,12 @@ public class ZIPCorpusParser implements CorpusParser {
 				while (in.read(buffer) > 0) {
 					content.append(new String(buffer));
 				}
-				corpus.addDocument(new RawTextDocumentImpl(name, content.toString()));
+				try {
+					DocumentParser parser = DocumentParserFactory.getParser(name);
+					corpus.addDocument(parser.parse(name, content.toString()));
+				} catch (DocumentParserNotAvailable | DocumentTypeNotSupported e) {
+					log.debug("ignoring entry " + name, e);
+				}
 			}
 			in.close();
 			return corpus;
