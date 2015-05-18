@@ -1,12 +1,15 @@
 package fr.vinze.textanalysis.parser.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.Collection;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -14,6 +17,7 @@ import org.junit.Test;
 
 import fr.vinze.textanalysis.corpus.RawTextDocumentCorpus;
 import fr.vinze.textanalysis.document.DocumentTestHelper;
+import fr.vinze.textanalysis.document.RawTextDocument;
 import fr.vinze.textanalysis.parser.CorpusFactory;
 import fr.vinze.textanalysis.parser.CorpusParser;
 import fr.vinze.textanalysis.parser.DocumentParserFactory;
@@ -47,24 +51,34 @@ public class EpubCorpusParserTest {
 		CorpusFactory.registerParser(corpusParser);
 	}
 
-	@Test(timeout = 1000)
+	@Test
+	// (timeout = 1000)
 	public void test() {
-		try {
+		try { // FIXME use a new test file, I don't understand the parsing error on valid epub file :(
 			CorpusParser corpusParser = CorpusFactory.getParser(epubFile);
 			RawTextDocumentCorpus corpus = corpusParser.parseCorpus(epubFile);
 			assertEquals("6 valid xhtml files in the epub", 6, corpus.getSize());
-			// TODO
-// Collection<String> names = Arrays.asList(new String[] { "test.txt", "test2.txt", "test3.text" });
-// for (RawTextDocument document : corpus.getDocuments()) {
-// assertTrue("document name [" + document.getName() + "] is not in source folder filenames",
-// names.contains(document.getName()));
-// }
-// RawTextDocument document = corpus.getDocument("test.txt");
-// assertNotNull("document test.txt should exist in the corpus", document);
-// DocumentParserTest.testDocumentContent(document);
+			Collection<String> names = Arrays.asList(new String[] { "00_-_1_cover.xhtml", "00_-_2_title.xhtml",
+					"00_-_3_avantpropos.xhtml", "00_-_4_pubLAFA.xhtml", "01_-_Je_meurs_comme_j_ai_vecu.xhtml",
+					"02_-_credits.xhtml" });
+			for (RawTextDocument document : corpus.getDocuments()) {
+				assertTrue("document name [" + document.getName() + "] is not in source folder filenames",
+						names.contains(document.getName()));
+			}
+			testContent(corpus);
 		} catch (DocumentParserNotAvailable | DocumentTypeNotSupported | ParseException | IOException e) {
+			e.printStackTrace();
 			fail("exception caught : " + e.getMessage());
 		}
+	}
+
+	private void testContent(RawTextDocumentCorpus corpus) {
+		RawTextDocument document = corpus.getDocument("00_-_1_cover.xhtml");
+		assertNotNull("document 00_-_1_cover.xhtml should exist in the corpus", document);
+		String[] lines = document.getContent().split("\n");
+		assertEquals("the file should contain two lines", 2, lines.length);
+		assertEquals("invalid first line content", "JE MEURS COMME J’AI VÉCU", lines[0].trim());
+		assertEquals("invalid second line content", "Vincent Leclercq", lines[1].trim());
 	}
 
 }

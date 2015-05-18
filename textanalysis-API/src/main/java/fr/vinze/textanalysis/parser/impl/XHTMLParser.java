@@ -80,6 +80,7 @@ public class XHTMLParser implements DocumentParser {
 				input = new RecordingFilterInputStream(input);
 			}
 			XHTMLHandler handler = new XHTMLHandler();
+			parser.getXMLReader().setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
 			parser.parse(input, handler);
 			RawTextDocument doc;
 			if (input instanceof RecordingFilterInputStream) {

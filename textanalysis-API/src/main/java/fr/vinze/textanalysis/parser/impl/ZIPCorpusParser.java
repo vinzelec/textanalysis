@@ -48,7 +48,7 @@ public class ZIPCorpusParser implements CorpusParser {
 			ParseException {
 		byte[] buffer = new byte[1024];
 		DocumentParser parser = null;
-		String name = entry.getName();
+		String name = entry.getName(); // TODO remove path to keep file name
 		log.debug("processing entry " + name);
 		try {
 			parser = DocumentParserFactory.getParser(name);
@@ -58,10 +58,14 @@ public class ZIPCorpusParser implements CorpusParser {
 			while (in.read(buffer) > 0) {
 				content.append(new String(buffer));
 			}
-			corpus.addDocument(parser.parse(name, content.toString()));
+			corpus.addDocument(parser.parse(name, postprocessContent(content)));
 		} catch (DocumentParserNotAvailable | DocumentTypeNotSupported e) {
 			log.debug("ignoring entry " + name, e);
 		}
+	}
+
+	protected String postprocessContent(StringBuilder content) {
+		return content.toString();
 	}
 
 	@Override

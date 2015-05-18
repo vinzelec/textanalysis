@@ -20,6 +20,14 @@ public class EPUBCorpusParser extends ZIPCorpusParser {
 	}
 
 	@Override
+	protected String postprocessContent(StringBuilder content) {
+		String sContent = content.toString();
+		int end = sContent.lastIndexOf("</html>");
+		return sContent.substring(0, end + 7);
+		// don't know why junk data is inserted at the end of file when reading from ZipInputStream...
+	}
+
+	@Override
 	public CorpusType canParse() {
 		return CorpusType.EPUB;
 	}
