@@ -51,7 +51,7 @@ public class XHTMLParser implements DocumentParser {
 	public RawTextDocument parse(String name, String content) throws ParseException, IOException {
 		// IMPROVE find a way to refactor and not use a temp file
 		File temp = File.createTempFile(name, "");
-		if (!temp.createNewFile()) {
+		if (!temp.exists()) {
 			throw new IOException("failed to create temporary file for parsing");
 		}
 		IOUtils.write(content, new FileOutputStream(temp));
