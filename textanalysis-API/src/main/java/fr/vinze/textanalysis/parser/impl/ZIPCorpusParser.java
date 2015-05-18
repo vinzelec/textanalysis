@@ -49,6 +49,7 @@ public class ZIPCorpusParser implements CorpusParser {
 		byte[] buffer = new byte[1024];
 		DocumentParser parser = null;
 		String name = entry.getName();
+		log.debug("processing entry " + name);
 		try {
 			parser = DocumentParserFactory.getParser(name);
 			// extract data
