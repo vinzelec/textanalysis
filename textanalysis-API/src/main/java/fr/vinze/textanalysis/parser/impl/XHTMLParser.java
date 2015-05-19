@@ -14,6 +14,8 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.commons.io.IOUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import fr.vinze.textanalysis.document.RawTextDocument;
@@ -55,7 +57,9 @@ public class XHTMLParser implements DocumentParser {
 			throw new IOException("failed to create temporary file for parsing");
 		}
 		IOUtils.write(content, new FileOutputStream(temp));
-		return parse(temp);
+		RawTextDocument doc = parse(temp);
+		doc.setName(name); // restore original name
+		return doc;
 	}
 
 	@Override
@@ -80,14 +84,14 @@ public class XHTMLParser implements DocumentParser {
 				input = new RecordingFilterInputStream(input);
 			}
 			XHTMLHandler handler = new XHTMLHandler();
-			parser.getXMLReader().setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+			extraconfigParser(parser);
 			parser.parse(input, handler);
 			RawTextDocument doc;
 			if (input instanceof RecordingFilterInputStream) {
-				doc = new RawTextDocumentImpl("", handler.getContent(),
+				doc = new RawTextDocumentImpl(file.getName(), handler.getContent(),
 						((RecordingFilterInputStream) input).getRecorded());
 			} else {
-				doc = new RawTextDocumentImpl("", handler.getContent());
+				doc = new RawTextDocumentImpl(file.getName(), handler.getContent());
 			}
 			return doc;
 		} catch (SAXException e) {
@@ -97,6 +101,11 @@ public class XHTMLParser implements DocumentParser {
 				IOUtils.closeQuietly(input);
 			}
 		}
+	}
+
+	protected void extraconfigParser(SAXParser parser) throws SAXNotRecognizedException, SAXNotSupportedException,
+			SAXException {
+		parser.getXMLReader().setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
 	}
 
 	private static class XHTMLHandler extends DefaultHandler {

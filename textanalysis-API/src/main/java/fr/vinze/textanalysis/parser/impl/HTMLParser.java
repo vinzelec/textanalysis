@@ -36,4 +36,8 @@ public class HTMLParser extends XHTMLParser {
 		}
 	}
 
+	protected void extraconfigParser(SAXParser parser) {
+		// do nothing
+	}
+
 }
