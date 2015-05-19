@@ -7,7 +7,8 @@ import fr.vinze.textanalysis.document.RawTextDocument;
 
 public class RawTextDocumentImpl implements RawTextDocument {
 
-	final String name, content, rawSource;
+	String name;
+	final String content, rawSource;
 	
 	public RawTextDocumentImpl(String name, String content) {
 		super();
@@ -29,6 +30,10 @@ public class RawTextDocumentImpl implements RawTextDocument {
 
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getRawSource() {
