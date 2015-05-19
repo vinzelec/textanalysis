@@ -57,10 +57,9 @@ public class EpubCorpusParserTest {
 		try { // FIXME use a new test file, I don't understand the parsing error on valid epub file :(
 			CorpusParser corpusParser = CorpusFactory.getParser(epubFile);
 			RawTextDocumentCorpus corpus = corpusParser.parseCorpus(epubFile);
-			assertEquals("6 valid xhtml files in the epub", 6, corpus.getSize());
-			Collection<String> names = Arrays.asList(new String[] { "00_-_1_cover.xhtml", "00_-_2_title.xhtml",
-					"00_-_3_avantpropos.xhtml", "00_-_4_pubLAFA.xhtml", "01_-_Je_meurs_comme_j_ai_vecu.xhtml",
-					"02_-_credits.xhtml" });
+			assertEquals("4 valid xhtml files in the epub", 4, corpus.getSize());
+			Collection<String> names = Arrays.asList(new String[] { "00_-_cover.xhtml",
+					"01_-_test.xhtml", "02_-_test2.xhtml", "toc.xhtml" });
 			for (RawTextDocument document : corpus.getDocuments()) {
 				assertTrue("document name [" + document.getName() + "] is not in source folder filenames",
 						names.contains(document.getName()));
@@ -73,12 +72,12 @@ public class EpubCorpusParserTest {
 	}
 
 	private void testContent(RawTextDocumentCorpus corpus) {
-		RawTextDocument document = corpus.getDocument("00_-_1_cover.xhtml");
+		RawTextDocument document = corpus.getDocument("00_-_cover.xhtml");
 		assertNotNull("document 00_-_1_cover.xhtml should exist in the corpus", document);
 		String[] lines = document.getContent().split("\n");
 		assertEquals("the file should contain two lines", 2, lines.length);
-		assertEquals("invalid first line content", "JE MEURS COMME J’AI VÉCU", lines[0].trim());
-		assertEquals("invalid second line content", "Vincent Leclercq", lines[1].trim());
+		assertEquals("invalid first line content", "Test", lines[0].trim());
+		assertEquals("invalid second line content", "Vinze Lec", lines[1].trim());
 	}
 
 }

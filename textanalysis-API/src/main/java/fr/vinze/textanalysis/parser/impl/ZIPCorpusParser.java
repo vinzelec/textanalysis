@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +49,8 @@ public class ZIPCorpusParser implements CorpusParser {
 			ParseException {
 		byte[] buffer = new byte[1024];
 		DocumentParser parser = null;
-		String name = entry.getName(); // TODO remove path to keep file name
+		String name = entry.getName();
+		name = FilenameUtils.getName(name); // remove path to keep file name
 		log.debug("processing entry " + name);
 		try {
 			parser = DocumentParserFactory.getParser(name);
