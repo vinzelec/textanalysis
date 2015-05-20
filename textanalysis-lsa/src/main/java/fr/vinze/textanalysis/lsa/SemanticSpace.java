@@ -1,5 +1,6 @@
 package fr.vinze.textanalysis.lsa;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
@@ -28,7 +29,9 @@ public interface SemanticSpace {
 
 	double[] getTokenVector(Token token);
 
-	double[] getQueryVector(Token... query);
+	default public double[] getQueryVector(Token... query) {
+		return getQueryVector(Arrays.asList(query));
+	}
 
 	double[] getQueryVector(Collection<Token> query);
 

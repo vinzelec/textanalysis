@@ -7,17 +7,19 @@ import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.lsa.SemanticSpace;
 import fr.vinze.textanalysis.matrix.DocumentTokenMatrix;
+import fr.vinze.textanalysis.matrix.DocumentTokenMatrixBuilder;
 import fr.vinze.textanalysis.similarity.VectorSimilarityDistance;
 import fr.vinze.textanalysis.svd.SingularValueDecomposition;
 
 public class SemanticSpaceImpl implements SemanticSpace {
 
-	int dimension;
-	DocumentTokenMatrix<Double> initalWeightedMatrix;
-	SingularValueDecomposition svd;
+	final int dimension;
+	final DocumentTokenMatrix<Double> initalWeightedMatrix;
+	final SingularValueDecomposition svd;
+	final DocumentTokenMatrixBuilder<? extends DocumentTokenMatrix<Double>> builder;
 
 	public SemanticSpaceImpl(int dimension, DocumentTokenMatrix<Double> initalWeightedMatrix,
-			SingularValueDecomposition svd) {
+			SingularValueDecomposition svd, DocumentTokenMatrixBuilder<? extends DocumentTokenMatrix<Double>> builder) {
 		super();
 		if (svd == null) {
 			throw new InvalidParameterException("Cannot create a semantic space without a SVD");
@@ -28,6 +30,7 @@ public class SemanticSpaceImpl implements SemanticSpace {
 		this.dimension = dimension;
 		this.initalWeightedMatrix = initalWeightedMatrix;
 		this.svd = svd;
+		this.builder = builder;
 	}
 
 	public int getDimension() {
@@ -111,16 +114,9 @@ public class SemanticSpaceImpl implements SemanticSpace {
 	}
 
 	// FIXME query vector must be weighted like any document
+	// TODO use builder
 
 	public double[] getQueryVector(Collection<Token> query) {
-		double[] vector = new double[dimension];
-		for (Token token : query) {
-			accumulate(vector, getTypeVector(token));
-		}
-		return vector;
-	}
-
-	public double[] getQueryVector(Token... query) {
 		double[] vector = new double[dimension];
 		for (Token token : query) {
 			accumulate(vector, getTypeVector(token));
