@@ -22,7 +22,7 @@ import fr.vinze.textanalysis.matrix.impl.ColtDoubleDocumentTokenMatrix;
  * @author Vinze
  *
  */
-public class LogEntropyMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<ColtDoubleDocumentTokenMatrix> {
+public class LogEntropyMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<Double, ColtDoubleDocumentTokenMatrix> {
 
 	public static final String TOKENWEIGHT_KEY = LogEntropyMatrixBuilder.class.getName() + "TW";
 

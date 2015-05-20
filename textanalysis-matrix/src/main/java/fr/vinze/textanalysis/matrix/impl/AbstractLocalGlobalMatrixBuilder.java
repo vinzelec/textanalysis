@@ -1,6 +1,8 @@
 package fr.vinze.textanalysis.matrix.impl;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -22,8 +24,8 @@ import fr.vinze.textanalysis.matrix.DocumentTokenMatrixBuilder;
  * @author Vinze
  *
  */
-public abstract class AbstractLocalGlobalMatrixBuilder<T extends DocumentTokenMatrix<Double>> implements
-		DocumentTokenMatrixBuilder<T> {
+public abstract class AbstractLocalGlobalMatrixBuilder<V, T extends DocumentTokenMatrix<Double>> implements
+		DocumentTokenMatrixBuilder<Double, T> {
 
 	// TODO extract local and global functions to interfaces so this component can be modulable
 
@@ -92,6 +94,13 @@ public abstract class AbstractLocalGlobalMatrixBuilder<T extends DocumentTokenMa
 		return posttreatment(matrix);
 	}
 
+	@Override
+	public Map<Token, Double> weightQuery(Collection<Token> tokens) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	// TODO move to util class or to TokenCounter
 	public static SegmentedTextDocumentCorpus countTokensIfNeeded(final SegmentedTextDocumentCorpus inputDocuments) {
 		// check if TokenCounter needs to be run
 		SegmentedTextDocument firstDocument = inputDocuments.getDocuments().iterator().next();

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.mutable.MutableInt;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +28,7 @@ import fr.vinze.textanalysis.matrix.DocumentTokenMatrixBuilder;
 
 public class FrequencyMatrixBuilderTest {
 
-	DocumentTokenMatrixBuilder<TokenFrequencyMatrix> builder;
+	DocumentTokenMatrixBuilder<MutableInt, TokenFrequencyMatrix> builder;
 	SegmentedTextDocumentCorpus corpus;
 
 	Word[] words;

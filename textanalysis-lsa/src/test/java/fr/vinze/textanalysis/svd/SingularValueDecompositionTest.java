@@ -24,7 +24,7 @@ public class SingularValueDecompositionTest {
 	@Before
 	public void init() throws Exception {
 		SegmentedTextDocumentCorpus corpus = LSAExampleCorpus.getCorpus();
-		DocumentTokenMatrixBuilder<? extends DocumentTokenMatrix<Double>> builder = new LogEntropyMatrixBuilder();
+		DocumentTokenMatrixBuilder<Double, ? extends DocumentTokenMatrix<Double>> builder = new LogEntropyMatrixBuilder();
 		inputMatrix = builder.computeMatrix(corpus);
 		svdBuilder = new ColtSVDBuilderImpl();
 	}

@@ -16,10 +16,11 @@ public class SemanticSpaceImpl implements SemanticSpace {
 	final int dimension;
 	final DocumentTokenMatrix<Double> initalWeightedMatrix;
 	final SingularValueDecomposition svd;
-	final DocumentTokenMatrixBuilder<? extends DocumentTokenMatrix<Double>> builder;
+	final DocumentTokenMatrixBuilder<Double, ? extends DocumentTokenMatrix<Double>> builder;
 
 	public SemanticSpaceImpl(int dimension, DocumentTokenMatrix<Double> initalWeightedMatrix,
-			SingularValueDecomposition svd, DocumentTokenMatrixBuilder<? extends DocumentTokenMatrix<Double>> builder) {
+			SingularValueDecomposition svd,
+			DocumentTokenMatrixBuilder<Double, ? extends DocumentTokenMatrix<Double>> builder) {
 		super();
 		if (svd == null) {
 			throw new InvalidParameterException("Cannot create a semantic space without a SVD");

@@ -25,7 +25,7 @@ public class LSATest {
 
 	DocumentTokenMatrix<Double> inputMatrix;
 	SingularValueDecomposition svd;
-	DocumentTokenMatrixBuilder<? extends DocumentTokenMatrix<Double>> builder;
+	DocumentTokenMatrixBuilder<Double, ? extends DocumentTokenMatrix<Double>> builder;
 	SemanticSpace semspace;
 	SegmentedTextDocument m1, b1;
 	Token bread, music, roll, recipe;

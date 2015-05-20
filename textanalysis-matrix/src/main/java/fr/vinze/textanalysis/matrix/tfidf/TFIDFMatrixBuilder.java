@@ -16,7 +16,7 @@ import fr.vinze.textanalysis.matrix.impl.ColtDoubleDocumentTokenMatrix;
  * @author Vinze
  *
  */
-public class TFIDFMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<ColtDoubleDocumentTokenMatrix> {
+public class TFIDFMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<Double, ColtDoubleDocumentTokenMatrix> {
 
 	ColtDoubleDocumentTokenMatrix matrix = null;
 

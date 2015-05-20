@@ -18,7 +18,7 @@ import fr.vinze.textanalysis.matrix.impl.ColtDoubleDocumentTokenMatrix;
 public class LogEntropyMatrixBuilderTest {
 
 	SegmentedTextDocumentCorpus corpus;
-	DocumentTokenMatrixBuilder<ColtDoubleDocumentTokenMatrix> matrixBuilder;
+	DocumentTokenMatrixBuilder<Double, ColtDoubleDocumentTokenMatrix> matrixBuilder;
 
 	@Before
 	public void init() throws Exception {

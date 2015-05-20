@@ -1,5 +1,8 @@
 package fr.vinze.textanalysis.matrix.tokenfrequency;
 
+import java.util.Collection;
+import java.util.Map;
+
 import org.apache.commons.lang3.mutable.MutableInt;
 
 import fr.vinze.textanalysis.corpus.SegmentedTextDocumentCorpus;
@@ -9,7 +12,7 @@ import fr.vinze.textanalysis.mapper.impl.TokenCounter;
 import fr.vinze.textanalysis.matrix.DocumentTokenMatrixBuilder;
 import fr.vinze.textanalysis.matrix.impl.AbstractLocalGlobalMatrixBuilder;
 
-public class TokenFrequencyMatrixBuilder implements DocumentTokenMatrixBuilder<TokenFrequencyMatrix> {
+public class TokenFrequencyMatrixBuilder implements DocumentTokenMatrixBuilder<MutableInt, TokenFrequencyMatrix> {
 
 	// IMPROVE may need some performance optimization
 
@@ -30,6 +33,12 @@ public class TokenFrequencyMatrixBuilder implements DocumentTokenMatrixBuilder<T
 		// trim the inner matrix
 		matrix.getInnerMatrix().trimToSize();
 		return matrix;
+	}
+
+	@Override
+	public Map<Token, MutableInt> weightQuery(Collection<Token> tokens) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
