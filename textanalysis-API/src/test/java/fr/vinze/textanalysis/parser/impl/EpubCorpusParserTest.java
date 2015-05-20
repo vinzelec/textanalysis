@@ -51,10 +51,9 @@ public class EpubCorpusParserTest {
 		CorpusFactory.registerParser(corpusParser);
 	}
 
-	@Test
-	// (timeout = 1000)
+	@Test(timeout = 1000)
 	public void test() {
-		try { // FIXME use a new test file, I don't understand the parsing error on valid epub file :(
+		try {
 			CorpusParser corpusParser = CorpusFactory.getParser(epubFile);
 			RawTextDocumentCorpus corpus = corpusParser.parseCorpus(epubFile);
 			assertEquals("4 valid xhtml files in the epub", 4, corpus.getSize());
