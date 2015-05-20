@@ -1,6 +1,7 @@
 package fr.vinze.textanalysis.matrix.tokenfrequency;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -37,8 +38,16 @@ public class TokenFrequencyMatrixBuilder implements DocumentTokenMatrixBuilder<M
 
 	@Override
 	public Map<Token, MutableInt> weightQuery(Collection<Token> tokens) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<Token, MutableInt> query = new HashMap<Token, MutableInt>();
+		for (Token token : tokens) {
+			MutableInt count = query.get(token);
+			if (count == null) {
+				count = new MutableInt(0);
+				query.put(token, count);
+			}
+			count.increment();
+		}
+		return query;
 	}
 
 }
