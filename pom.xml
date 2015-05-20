@@ -43,6 +43,7 @@
 		<module>textanalysis-API</module>
 		<module>textanalysis-matrix</module>
 		<module>textanalysis-lsa</module>
+		<module>textanalysis-WS</module>
 	</modules>
 
 	<build>

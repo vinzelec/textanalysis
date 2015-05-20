@@ -21,7 +21,7 @@ Currently in development (v 0.2), only providing :
 ToDo List
 ---------
 - several type of documents (rtf, odt, doc(x), md, epub) and corpus (rar & tar)
-- web-app with RestFull access
+- web-app with RestFull access (skeleton created but functionnal requires persistence)
 - persistence layer
 - caching of some data
 - multi-thread support
