@@ -47,7 +47,8 @@ public class LogEntropyMatrixBuilder extends AbstractLocalGlobalMatrixBuilder<Do
 	}
 
 	@Override
-	protected ColtDoubleDocumentTokenMatrix posttreatment(ColtDoubleDocumentTokenMatrix matrix) {
+	protected ColtDoubleDocumentTokenMatrix posttreatment(
+			@SuppressWarnings("hiding") ColtDoubleDocumentTokenMatrix matrix) {
 		matrix.getInnerMatrix().trimToSize();
 		return matrix;
 	}

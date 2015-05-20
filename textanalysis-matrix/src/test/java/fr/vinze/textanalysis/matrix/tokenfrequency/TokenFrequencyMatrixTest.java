@@ -141,12 +141,12 @@ public class TokenFrequencyMatrixTest {
 		testGetDocumentStatistics(doc3, alltokens, counts3);
 	}
 
-	private void testGetDocumentStatistics(SegmentedTextDocument doc, Token[] tokens, MutableInt[] counts)
+	private void testGetDocumentStatistics(SegmentedTextDocument doc, Token[] tokenList, MutableInt[] counts)
 			throws Exception {
 		Map<Token, MutableInt> documentStatistics = matrix.getDocumentStatistics(doc);
 		for (int i = 0; i < 6; i++) {
 			assertEquals("failed for document " + doc.getName() + " on token " + i, counts[i],
-					documentStatistics.get(searchEqualToken(tokens[i])));
+					documentStatistics.get(searchEqualToken(tokenList[i])));
 		}
 	}
 

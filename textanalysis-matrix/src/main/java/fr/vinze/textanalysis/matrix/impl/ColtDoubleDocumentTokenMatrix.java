@@ -41,9 +41,8 @@ public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<D
 		}
 		if (documentsAreRows) {
 			return innerMatrix.get(docId, tokenId);
-		} else {
-			return innerMatrix.get(tokenId, docId);
 		}
+		return innerMatrix.get(tokenId, docId);
 	}
 
 	public void setValue(SegmentedTextDocument document, Token token, Double value) {
@@ -79,8 +78,7 @@ public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<D
 		Map<Token, Double> stats = new HashMap<Token, Double>();
 		int docIndex = indexOf(document);
 		for (int tokIndex = 0; tokIndex < tokenIndex.size(); tokIndex++) {
-			double count = (Double) (documentsAreRows ? innerMatrix.get(docIndex, tokIndex) : innerMatrix.get(tokIndex,
-					docIndex));
+			double count = documentsAreRows ? innerMatrix.get(docIndex, tokIndex) : innerMatrix.get(tokIndex, docIndex);
 			if (count != 0) {
 				stats.put(tokenIndex.get(tokIndex), count);
 			}

@@ -15,8 +15,6 @@ import fr.vinze.textanalysis.lsa.impl.SemanticSpaceImpl;
 import fr.vinze.textanalysis.matrix.DocumentTokenMatrix;
 import fr.vinze.textanalysis.matrix.DocumentTokenMatrixBuilder;
 import fr.vinze.textanalysis.matrix.logentropy.LogEntropyMatrixBuilder;
-import fr.vinze.textanalysis.similarity.VectorSimilarityDistance;
-import fr.vinze.textanalysis.similarity.impl.CosineSimilarity;
 import fr.vinze.textanalysis.svd.SingularValueDecomposition;
 import fr.vinze.textanalysis.svd.impl.ColtSVDBuilderImpl;
 
@@ -67,11 +65,11 @@ public class LSATest {
 
 	@Test(timeout = 1000)
 	public void testQuery() throws Exception {
-		VectorSimilarityDistance cos = new CosineSimilarity();
-		// LSA handbook test query is "Recipe for White Bread"... containing two tokens from semantic space
-		double[] query = semspace.getQueryVector(bread, recipe);
-// assertEquals(.842, cos.getSimilarityDistance(query, semspace.getDocumentVector(b1)), .001); // FIXME temporary
-// deactivated
+		// VectorSimilarityDistance cos = new CosineSimilarity();
+		// // LSA handbook test query is "Recipe for White Bread"... containing two tokens from semantic space
+		// double[] query = semspace.getQueryVector(bread, recipe);
+		// assertEquals(.842, cos.getSimilarityDistance(query, semspace.getDocumentVector(b1)), .001);
+		// FIXME temporary deactivated
 		// TODO test scores according to LSA handbook...
 
 	}

@@ -48,9 +48,8 @@ public class SpecialToken extends AbstractTokenImpl {
 	public String toString() {
 		if (content != null) {
 			return content;
-		} else {
-			return type.toString();
 		}
+		return type.toString();
 	}
 
 	@Override

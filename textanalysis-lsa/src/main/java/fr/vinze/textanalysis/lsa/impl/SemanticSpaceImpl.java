@@ -87,9 +87,8 @@ public class SemanticSpaceImpl implements SemanticSpace {
 		int index = initalWeightedMatrix.indexOf(document);
 		if (svd.isUDocumentMatrix()) {
 			return getVector(svd.getU().getRaw(index));
-		} else {
-			return getVector(svd.getV().getRaw(index));
 		}
+		return getVector(svd.getV().getRaw(index));
 	}
 
 	public double[] getTokenVector(Token token) {
@@ -100,9 +99,8 @@ public class SemanticSpaceImpl implements SemanticSpace {
 		int index = initalWeightedMatrix.indexOf(token);
 		if (svd.isUDocumentMatrix()) {
 			return svd.getV().getRaw(index);
-		} else {
-			return svd.getU().getRaw(index);
 		}
+		return svd.getU().getRaw(index);
 	}
 
 	private void accumulate(double[] vectorDest, double[] vectorSrc) {
