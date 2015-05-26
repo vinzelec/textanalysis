@@ -9,6 +9,15 @@ public class RawTextDocumentImpl implements RawTextDocument {
 
 	String name;
 	final String content, rawSource;
+	private String id;
+
+	public String getId() {
+		return id;
+	}
+
+	protected void setId(String id) {
+		this.id = id;
+	}
 	
 	public RawTextDocumentImpl(String name, String content) {
 		super();

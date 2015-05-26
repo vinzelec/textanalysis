@@ -6,6 +6,8 @@ import fr.vinze.textanalysis.document.SegmentedTextDocument;
 
 public interface SegmentedTextDocumentCorpus {
 
+	String getId();
+
 	Collection<SegmentedTextDocument> getDocuments();
 
 	SegmentedTextDocument getDocument(String documentName);

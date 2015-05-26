@@ -10,12 +10,20 @@ import fr.vinze.textanalysis.document.RawTextDocument;
 public class RawTextDocumentCorpusImpl implements RawTextDocumentCorpus {
 
 	private Map<String, RawTextDocument> documents;
+	private String id;
+
+	public String getId() {
+		return id;
+	}
+
+	protected void setId(String id) {
+		this.id = id;
+	}
 
 	public RawTextDocumentCorpusImpl() {
 		super();
 		documents = new HashMap<String, RawTextDocument>();
 	}
-
 	public Collection<RawTextDocument> getDocuments() {
 		return documents.values();
 	}

@@ -11,6 +11,15 @@ public class SegmentedTextDocumentCorpusImpl implements
 		SegmentedTextDocumentCorpus {
 
 	Map<String, SegmentedTextDocument> documents;
+	private String id;
+
+	public String getId() {
+		return id;
+	}
+
+	protected void setId(String id) {
+		this.id = id;
+	}
 
 	public SegmentedTextDocumentCorpusImpl() {
 		super();

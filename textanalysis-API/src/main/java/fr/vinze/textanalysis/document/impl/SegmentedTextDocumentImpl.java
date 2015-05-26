@@ -16,6 +16,15 @@ public class SegmentedTextDocumentImpl implements SegmentedTextDocument {
 	String name;
 	List<Token> tokens;
 	Integer tokenCount = null;
+	private String id;
+
+	public String getId() {
+		return id;
+	}
+
+	protected void setId(String id) {
+		this.id = id;
+	}
 
 	public SegmentedTextDocumentImpl(RawTextDocument source) {
 		this(source.getName(), source);

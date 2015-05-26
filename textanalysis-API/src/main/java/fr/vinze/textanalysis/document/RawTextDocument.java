@@ -6,6 +6,8 @@ public interface RawTextDocument {
 
 	void setName(String name); // IMPROVE should be immutable asap
 
+	String getId();
+
 	/**
 	 * @return the content of the source document (with tags for markup file for
 	 *         example)

@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface SegmentedTextDocument {
 
+	String getId();
+
 	RawTextDocument getSource();
 
 	List<Token> getTokens();
