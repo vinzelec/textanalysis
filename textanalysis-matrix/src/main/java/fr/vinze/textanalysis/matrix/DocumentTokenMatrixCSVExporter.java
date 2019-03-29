@@ -1,17 +1,19 @@
 package fr.vinze.textanalysis.matrix;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
 
-public abstract class DocumentTokenMatrixCSVExporter {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
 
-	public static String exportToCSV(DocumentTokenMatrix<? extends Number> matrix) {
+public class DocumentTokenMatrixCSVExporter implements Function<DocumentTokenMatrix<? extends Number>, String> {
+
+	@Override
+	public String apply(DocumentTokenMatrix<? extends Number> matrix) {
 		StringBuilder builder = new StringBuilder();
 		// must retain the order
-		List<SegmentedTextDocument> orderedDocument = new ArrayList<SegmentedTextDocument>();
+		List<SegmentedTextDocument> orderedDocument = new ArrayList<>();
 		for (SegmentedTextDocument document : matrix.getDocuments()) {
 			builder.append(";").append(document.getName());
 			orderedDocument.add(document);

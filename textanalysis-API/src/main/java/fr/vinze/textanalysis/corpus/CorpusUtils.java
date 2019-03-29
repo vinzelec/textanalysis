@@ -19,11 +19,15 @@ import java.util.List;
  */
 public interface CorpusUtils {
 
+	static RawTextDocumentCorpus createCorpus(List<RawTextDocument> documents) {
+		RawTextDocumentCorpus corpus = new RawTextDocumentCorpusImpl();
+		documents.forEach(corpus::addDocument);
+		return corpus;
+	}
+
 	static RawTextDocumentCorpus createCorpus(RawTextDocument... documents) {
 		RawTextDocumentCorpus corpus = new RawTextDocumentCorpusImpl();
-		for (RawTextDocument document : documents) {
-			corpus.addDocument(document);
-		}
+		Arrays.stream(documents).forEach(corpus::addDocument);
 		return corpus;
 	}
 

@@ -1,14 +1,10 @@
 package fr.vinze.textanalysis.matrix.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.matrix.DocumentTokenMatrix;
+
+import java.util.*;
 
 public abstract class AbstractDocumentTokenMatrix<T extends Number> implements DocumentTokenMatrix<T> {
 
@@ -22,22 +18,25 @@ public abstract class AbstractDocumentTokenMatrix<T extends Number> implements D
 
 	public AbstractDocumentTokenMatrix(int initialDocumentSize, int initialTokenSize) {
 		super();
-		documentIndex = new ArrayList<SegmentedTextDocument>(initialDocumentSize);
-		tokenIndex = new ArrayList<Token>(initialTokenSize);
-		docindex = new HashMap<String, Integer>();
-		tokindex = new HashMap<String, Integer>();
+		documentIndex = new ArrayList<>(initialDocumentSize);
+		tokenIndex = new ArrayList<>(initialTokenSize);
+		docindex = new HashMap<>();
+		tokindex = new HashMap<>();
 		docNextIndex = 0;
 		tokNextIndex = 0;
 	}
 
+	@Override
 	public Collection<SegmentedTextDocument> getDocuments() {
 		return documentIndex;
 	}
 
+	@Override
 	public Collection<Token> getTokens() {
 		return tokenIndex;
 	}
 
+	@Override
 	public int indexOf(SegmentedTextDocument document) {
 		Integer index = docindex.get(document.getUniqueID());
 		if (index == null) {
@@ -48,6 +47,7 @@ public abstract class AbstractDocumentTokenMatrix<T extends Number> implements D
 		return index;
 	}
 
+	@Override
 	public int indexOf(Token token) {
 		Integer index = tokindex.get(token.getUniqueID());
 		if (index == null) {

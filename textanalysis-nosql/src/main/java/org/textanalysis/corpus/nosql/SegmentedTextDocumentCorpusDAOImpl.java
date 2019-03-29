@@ -1,14 +1,14 @@
 package org.textanalysis.corpus.nosql;
 
-import java.util.Collection;
-
 import fr.vinze.textanalysis.corpus.SegmentedTextDocumentCorpus;
 import fr.vinze.textanalysis.corpus.persistence.SegmentedTextDocumentCorpusDAO;
 import fr.vinze.textanalysis.document.persistence.SegmentedTextDocumentDAO;
 
+import java.util.Collection;
+
 public class SegmentedTextDocumentCorpusDAOImpl implements SegmentedTextDocumentCorpusDAO {
 
-	final SegmentedTextDocumentDAO documentDAO;
+	private final SegmentedTextDocumentDAO documentDAO;
 
 	public SegmentedTextDocumentCorpusDAOImpl(SegmentedTextDocumentDAO documentDAO) {
 		super();

@@ -1,12 +1,12 @@
 package fr.vinze.textanalysis.lsa;
 
-import java.util.Arrays;
-import java.util.Collection;
-
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.similarity.VectorSimilarityDistance;
 import fr.vinze.textanalysis.svd.SingularValueDecomposition;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * An LSA semantic space is a model containing a {@link SingularValueDecomposition} linking
@@ -29,7 +29,7 @@ public interface SemanticSpace {
 
 	double[] getTokenVector(Token token);
 
-	default public double[] getQueryVector(Token... query) {
+	default double[] getQueryVector(Token... query) {
 		return getQueryVector(Arrays.asList(query));
 	}
 

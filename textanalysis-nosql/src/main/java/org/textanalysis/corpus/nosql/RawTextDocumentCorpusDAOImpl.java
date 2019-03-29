@@ -1,14 +1,14 @@
 package org.textanalysis.corpus.nosql;
 
-import java.util.Collection;
-
 import fr.vinze.textanalysis.corpus.RawTextDocumentCorpus;
 import fr.vinze.textanalysis.corpus.persistence.RawTextDocumentCorpusDAO;
 import fr.vinze.textanalysis.document.persistence.RawTextDocumentDAO;
 
+import java.util.Collection;
+
 public class RawTextDocumentCorpusDAOImpl implements RawTextDocumentCorpusDAO {
 
-	final RawTextDocumentDAO documentDAO;
+	private final RawTextDocumentDAO documentDAO;
 
 	public RawTextDocumentCorpusDAOImpl(RawTextDocumentDAO documentDAO) {
 		super();
