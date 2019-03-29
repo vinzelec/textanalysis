@@ -1,15 +1,13 @@
 package fr.vinze.textanalysis.parser;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-
+import fr.vinze.textanalysis.document.RawTextDocument;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
-import fr.vinze.textanalysis.document.RawTextDocument;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Document parser: builds a {@link RawTextDocument} reference from a text file or String content.

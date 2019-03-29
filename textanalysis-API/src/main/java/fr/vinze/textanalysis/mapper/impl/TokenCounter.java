@@ -1,27 +1,27 @@
 package fr.vinze.textanalysis.mapper.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.mutable.MutableInt;
-
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.document.impl.MetadataImpl;
 import fr.vinze.textanalysis.document.impl.SegmentedTextDocumentImpl;
 import fr.vinze.textanalysis.mapper.SegmentedTextMapper;
+import org.apache.commons.lang3.mutable.MutableInt;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TokenCounter implements SegmentedTextMapper {
 
 	public static final String COUNT_KEY = TokenCounter.class.getName() + "token_count";
 
+	@Override
 	public SegmentedTextDocument apply(SegmentedTextDocument document) {
 		MutableInt tokenCount = new MutableInt(0);
-		List<Token> outputTokenList = new ArrayList<Token>();
+		List<Token> outputTokenList = new ArrayList<>();
 		// a cache of the count not to have to
-		Map<Token, MutableInt> countcache = new HashMap<Token, MutableInt>();
+		Map<Token, MutableInt> countcache = new HashMap<>();
 		for (Token inputToken : document.getTokens()) {
 			tokenCount.increment();
 			Token outputToken = null;
@@ -31,7 +31,7 @@ public class TokenCounter implements SegmentedTextMapper {
 				counter = new MutableInt(0);
 				outputTokenList.add(outputToken);
 				countcache.put(outputToken, counter);
-				outputToken.addMetadata(new MetadataImpl<MutableInt>(COUNT_KEY, counter));
+				outputToken.addMetadata(new MetadataImpl<>(COUNT_KEY, counter));
 			} else {
 				int idx = outputTokenList.indexOf(inputToken);
 				outputToken = outputTokenList.get(idx);

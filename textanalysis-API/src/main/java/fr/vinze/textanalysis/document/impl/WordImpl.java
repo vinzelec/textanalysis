@@ -1,10 +1,9 @@
 package fr.vinze.textanalysis.document.impl;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.document.Word;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class WordImpl extends AbstractTokenImpl implements Word {
 
@@ -26,6 +25,7 @@ public class WordImpl extends AbstractTokenImpl implements Word {
 		this.word = word;
 	}
 
+	@Override
 	public String getWord() {
 		return word;
 	}
@@ -41,7 +41,7 @@ public class WordImpl extends AbstractTokenImpl implements Word {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null || !(obj instanceof Word)) {
+		if (!(obj instanceof Word)) {
 			return false;
 		}
 		EqualsBuilder eb = new EqualsBuilder();

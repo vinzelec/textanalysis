@@ -1,14 +1,13 @@
 package fr.vinze.textanalysis.document.impl;
 
+import fr.vinze.textanalysis.document.Punctuation;
+import fr.vinze.textanalysis.document.Token;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import fr.vinze.textanalysis.document.Punctuation;
-import fr.vinze.textanalysis.document.Token;
-
 public class PunctuationImpl extends AbstractTokenImpl implements Punctuation {
 
-	final PunctuationMark mark;
+	private final PunctuationMark mark;
 
 	public PunctuationImpl(Punctuation punctuation) {
 		super();
@@ -21,6 +20,7 @@ public class PunctuationImpl extends AbstractTokenImpl implements Punctuation {
 		this.mark = mark;
 	}
 
+	@Override
 	public PunctuationMark getPunctuationMark() {
 		return mark;
 	}
@@ -36,7 +36,7 @@ public class PunctuationImpl extends AbstractTokenImpl implements Punctuation {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null || !(obj instanceof Punctuation)) {
+		if (!(obj instanceof Punctuation)) {
 			return false;
 		}
 		EqualsBuilder eb = new EqualsBuilder();

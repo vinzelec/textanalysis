@@ -1,8 +1,5 @@
 package fr.vinze.textanalysis.corpus;
 
-import java.util.Arrays;
-import java.util.List;
-
 import fr.vinze.textanalysis.corpus.impl.RawTextDocumentCorpusImpl;
 import fr.vinze.textanalysis.corpus.impl.SegmentedTextDocumentCorpusImpl;
 import fr.vinze.textanalysis.document.RawTextDocument;
@@ -10,6 +7,9 @@ import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.mapper.RawTextMapper;
 import fr.vinze.textanalysis.mapper.SegmentedTextMapper;
 import fr.vinze.textanalysis.segmentation.Splitter;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Util functions to use method document->document on all documents of a corpus
@@ -29,7 +29,7 @@ public interface CorpusUtils {
 
 	static RawTextDocumentCorpus map(RawTextDocumentCorpus corpus, RawTextMapper mapper) {
 		RawTextDocumentCorpus newCorpus = new RawTextDocumentCorpusImpl();
-		corpus.getDocuments().stream().map(mapper).forEach(d -> newCorpus.addDocument(d));
+		corpus.getDocuments().stream().map(mapper).forEach(newCorpus::addDocument);
 		return newCorpus;
 	}
 
@@ -51,13 +51,13 @@ public interface CorpusUtils {
 
 	static SegmentedTextDocumentCorpus createCorpus(SegmentedTextDocument... documents) {
 		SegmentedTextDocumentCorpus corpus = new SegmentedTextDocumentCorpusImpl();
-		Arrays.stream(documents).forEach(d -> corpus.addDocument(d));
+		Arrays.stream(documents).forEach(corpus::addDocument);
 		return corpus;
 	}
 
 	static SegmentedTextDocumentCorpus map(SegmentedTextDocumentCorpus corpus, SegmentedTextMapper mapper) {
 		SegmentedTextDocumentCorpus newCorpus = new SegmentedTextDocumentCorpusImpl();
-		corpus.getDocuments().stream().map(mapper).forEach(d -> newCorpus.addDocument(d));
+		corpus.getDocuments().stream().map(mapper).forEach(newCorpus::addDocument);
 		return newCorpus;
 	}
 
@@ -80,7 +80,7 @@ public interface CorpusUtils {
 
 	static SegmentedTextDocumentCorpus split(RawTextDocumentCorpus corpus, Splitter splitter) {
 		SegmentedTextDocumentCorpus newCorpus = new SegmentedTextDocumentCorpusImpl();
-		corpus.getDocuments().stream().map(splitter).forEach(d -> newCorpus.addDocument(d));
+		corpus.getDocuments().stream().map(splitter).forEach(newCorpus::addDocument);
 		return newCorpus;
 	}
 

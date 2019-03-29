@@ -1,8 +1,7 @@
 package fr.vinze.textanalysis.document;
 
-import java.util.Collection;
-
 import javax.naming.OperationNotSupportedException;
+import java.util.Collection;
 
 public interface Token extends Cloneable {
 
@@ -40,7 +39,7 @@ public interface Token extends Cloneable {
 
 	void mergeMetadata(Token from, MergePolicy policy);
 
-	public static interface Metadata<T> extends Cloneable {
+	public interface Metadata<T> extends Cloneable {
 		String getKey();
 
 		T getValue();

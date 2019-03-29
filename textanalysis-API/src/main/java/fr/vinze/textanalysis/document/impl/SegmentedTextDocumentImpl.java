@@ -1,23 +1,23 @@
 package fr.vinze.textanalysis.document.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 import fr.vinze.textanalysis.document.RawTextDocument;
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SegmentedTextDocumentImpl implements SegmentedTextDocument {
 
-	final RawTextDocument source;
-	String name;
-	List<Token> tokens;
-	Integer tokenCount = null;
+	private final RawTextDocument source;
+	private String name;
+	private List<Token> tokens;
+	private Integer tokenCount = null;
 	private String id;
 
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -34,13 +34,15 @@ public class SegmentedTextDocumentImpl implements SegmentedTextDocument {
 		super();
 		this.source = source;
 		this.name = name;
-		tokens = new ArrayList<Token>();
+		tokens = new ArrayList<>();
 	}
 
+	@Override
 	public RawTextDocument getSource() {
 		return source;
 	}
 
+	@Override
 	public List<Token> getTokens() {
 		return tokens;
 	}
@@ -49,14 +51,17 @@ public class SegmentedTextDocumentImpl implements SegmentedTextDocument {
 		this.tokens = tokens;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setTokenCount(int count) {
 		tokenCount = count;
 	}
 
+	@Override
 	public int getTokenCount() {
 		if (tokenCount == null) {
 			return tokens.size();
@@ -64,6 +69,7 @@ public class SegmentedTextDocumentImpl implements SegmentedTextDocument {
 		return tokenCount;
 	}
 
+	@Override
 	public String getUniqueID() {
 		return name;
 	}

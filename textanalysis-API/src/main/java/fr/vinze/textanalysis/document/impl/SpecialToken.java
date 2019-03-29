@@ -1,9 +1,8 @@
 package fr.vinze.textanalysis.document.impl;
 
+import fr.vinze.textanalysis.document.Token;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-
-import fr.vinze.textanalysis.document.Token;
 
 /**
  * An implementation for {@link Token} that are neither word nor punctuation.
@@ -13,13 +12,13 @@ import fr.vinze.textanalysis.document.Token;
  */
 public class SpecialToken extends AbstractTokenImpl {
 
-	final TokenType type;
-	final String content;
+	private final TokenType type;
+	private final String content;
 
 	/**
 	 * Creates a new instance by copy
-	 * 
-	 * @param token
+	 *
+	 * @param token the token to copy
 	 */
 	public SpecialToken(SpecialToken token) {
 		this(token.getType(), token.getContent());
@@ -63,7 +62,7 @@ public class SpecialToken extends AbstractTokenImpl {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null || !(obj instanceof SpecialToken)) {
+		if (!(obj instanceof SpecialToken)) {
 			return false;
 		}
 		EqualsBuilder eb = new EqualsBuilder();

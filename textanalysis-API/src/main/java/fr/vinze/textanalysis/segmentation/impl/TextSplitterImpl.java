@@ -1,11 +1,5 @@
 package fr.vinze.textanalysis.segmentation.impl;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import fr.vinze.textanalysis.document.Punctuation;
 import fr.vinze.textanalysis.document.Punctuation.PunctuationMark;
 import fr.vinze.textanalysis.document.RawTextDocument;
@@ -17,6 +11,11 @@ import fr.vinze.textanalysis.document.impl.SpecialToken;
 import fr.vinze.textanalysis.document.impl.SpecialToken.TokenType;
 import fr.vinze.textanalysis.document.impl.WordImpl;
 import fr.vinze.textanalysis.segmentation.Splitter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <p>
@@ -24,8 +23,8 @@ import fr.vinze.textanalysis.segmentation.Splitter;
  * {@link RawTextDocument#getContent()} and ignore every markup.
  * </p>
  * <p>
- * It is recommended to use both {@link PunctuationCleaner} and
- * {@link ReturnCarriageCleaner} prior to using this implementation
+ * It is recommended to use both {@link fr.vinze.textanalysis.mapper.impl.PunctuationCleaner} and
+ * {@link fr.vinze.textanalysis.mapper.impl.ReturnCarriageCleaner} prior to using this implementation
  * </p>
  * 
  * @author Vinze
@@ -45,14 +44,15 @@ public class TextSplitterImpl implements Splitter {
 	// FIXME this regexp is bugged but should be enough for now...
 	// if a regexp guru could provide better, I don't think I can...
 
+	@Override
 	public SegmentedTextDocument apply(RawTextDocument document) {
 		SegmentedTextDocument segmentedDoc = new SegmentedTextDocumentImpl(document);
 		String[] lines = document.getContent().split(END_OF_LINE_REGEX);
-		log.debug("input text contains " + lines.length + " end");
+		log.debug("input text contains {} end", lines.length);
 		Pattern separatorPattern = Pattern.compile(SEPARATOR_REGEX);
 		Pattern wordOrPunctPattern = Pattern.compile(SPLIT_REGEX);
 		Pattern wordPattern = Pattern.compile(Word.WORD_REGEX);
-		Pattern PunctPattern = Pattern.compile(Punctuation.PUNCTUATION_REGEX);
+		Pattern punctPattern = Pattern.compile(Punctuation.PUNCTUATION_REGEX);
 		for (String line : lines) {
 			String trimed = line.trim();
 			if ("".equals(trimed)) {
@@ -74,7 +74,7 @@ public class TextSplitterImpl implements Splitter {
 					continue;
 				}
 				// is it a punctuation?
-				matcher = PunctPattern.matcher(token);
+				matcher = punctPattern.matcher(token);
 				if (matcher.matches()) {
 					segmentedDoc.getTokens().add(new PunctuationImpl(PunctuationMark.fromChar(token.charAt(0))));
 					continue;

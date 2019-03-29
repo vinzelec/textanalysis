@@ -1,17 +1,15 @@
 package fr.vinze.textanalysis.parser.impl;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import javax.xml.parsers.SAXParser;
-
-import org.ccil.cowan.tagsoup.jaxp.SAXParserImpl;
-import org.xml.sax.SAXException;
-
 import fr.vinze.textanalysis.document.RawTextDocument;
 import fr.vinze.textanalysis.parser.DocumentType;
 import fr.vinze.textanalysis.parser.ParseException;
+import org.ccil.cowan.tagsoup.jaxp.SAXParserImpl;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.SAXParser;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class HTMLParser extends XHTMLParser {
 
@@ -23,10 +21,12 @@ public class HTMLParser extends XHTMLParser {
 		super(extractSource);
 	}
 
+	@Override
 	public DocumentType canParse() {
 		return DocumentType.HTML;
 	}
 
+	@Override
 	public RawTextDocument parse(File file) throws FileNotFoundException, ParseException, IOException {
 		try {
 			SAXParser tagsoupParser = SAXParserImpl.newInstance(null);
@@ -36,6 +36,7 @@ public class HTMLParser extends XHTMLParser {
 		}
 	}
 
+	@Override
 	protected void extraconfigParser(SAXParser parser) {
 		// do nothing
 	}
