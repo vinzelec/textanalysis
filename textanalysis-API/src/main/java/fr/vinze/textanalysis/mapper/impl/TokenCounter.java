@@ -17,7 +17,7 @@ public class TokenCounter implements SegmentedTextMapper {
 
 	public static final String COUNT_KEY = TokenCounter.class.getName() + "token_count";
 
-	public SegmentedTextDocument map(SegmentedTextDocument document) {
+	public SegmentedTextDocument apply(SegmentedTextDocument document) {
 		MutableInt tokenCount = new MutableInt(0);
 		List<Token> outputTokenList = new ArrayList<Token>();
 		// a cache of the count not to have to

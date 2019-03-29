@@ -18,7 +18,7 @@ public class ReturnCarriageCleanerTest {
 	public void testReturnCarriageCleaner() throws Exception {
 		RawTextDocument doc = new RawTextDocumentImpl("doc", INPUT);
 		RawTextMapper cleaner = new ReturnCarriageCleaner();
-		RawTextDocument outputDoc = cleaner.map(doc);
+		RawTextDocument outputDoc = cleaner.apply(doc);
 		assertEquals(EXPECTED, outputDoc.getContent());
 	}
 

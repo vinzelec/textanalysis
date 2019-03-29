@@ -37,7 +37,7 @@ public class EntropyPretreatment implements SegmentedTextMapper {
 
 	// TODO refactor code with TokenCounter
 
-	public SegmentedTextDocument map(SegmentedTextDocument document) {
+	public SegmentedTextDocument apply(SegmentedTextDocument document) {
 		MutableInt documentTokensCount = new MutableInt(0);
 		List<Token> outputTokenList = new ArrayList<Token>();
 		// a cache of the count not to have to

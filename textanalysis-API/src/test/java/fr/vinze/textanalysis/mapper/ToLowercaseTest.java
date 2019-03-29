@@ -1,22 +1,20 @@
 package fr.vinze.textanalysis.mapper;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import fr.vinze.textanalysis.document.RawTextDocument;
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.document.Word;
 import fr.vinze.textanalysis.document.impl.RawTextDocumentImpl;
+import fr.vinze.textanalysis.mapper.impl.SegmentedToLowercase;
 import fr.vinze.textanalysis.mapper.impl.ToLowercase;
 import fr.vinze.textanalysis.segmentation.Splitter;
 import fr.vinze.textanalysis.segmentation.impl.TextSplitterImpl;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class ToLowercaseTest {
 
@@ -26,17 +24,19 @@ public class ToLowercaseTest {
 
 	RawTextDocument doc;
 	ToLowercase tolower;
+	SegmentedToLowercase segmentedtolower;
 
 	@Before
 	public void init() {
 		doc = new RawTextDocumentImpl("doc", INPUT);
 		tolower = new ToLowercase();
+		segmentedtolower = new SegmentedToLowercase();
 
 	}
 
 	@Test(timeout = 1000)
 	public void testOnRawTextDocument() throws Exception {
-		RawTextDocument outputDoc = tolower.map(doc);
+		RawTextDocument outputDoc = tolower.apply(doc);
 		assertEquals(EXPECTED, outputDoc.getContent());
 	}
 
@@ -44,7 +44,7 @@ public class ToLowercaseTest {
 	public void testOnSegmentedDocument() throws Exception {
 		Splitter defaultSplitter = new TextSplitterImpl();
 		// before "to lower case"
-		SegmentedTextDocument input = defaultSplitter.split(doc);
+		SegmentedTextDocument input = defaultSplitter.apply(doc);
 		List<Token> tokens = input.getTokens();
 		Token tok = tokens.get(0);
 		assertTrue("[input] instanceof on token 0", tok instanceof Word);
@@ -61,7 +61,7 @@ public class ToLowercaseTest {
 		tok = tokens.get(4);
 		assertFalse("[input] instanceof on token 0", tok instanceof Word);
 		// after "to lower case"
-		SegmentedTextDocument output = tolower.map(input);
+		SegmentedTextDocument output = segmentedtolower.apply(input);
 		tokens = output.getTokens();
 		tok = tokens.get(0);
 		assertTrue("[output] instanceof on token 0", tok instanceof Word);

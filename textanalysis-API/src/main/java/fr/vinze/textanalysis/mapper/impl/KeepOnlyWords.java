@@ -8,7 +8,7 @@ import fr.vinze.textanalysis.mapper.SegmentedTextMapper;
 
 public class KeepOnlyWords implements SegmentedTextMapper {
 
-	public SegmentedTextDocument map(SegmentedTextDocument document) {
+	public SegmentedTextDocument apply(SegmentedTextDocument document) {
 		SegmentedTextDocument newSegmentedDoc = new SegmentedTextDocumentImpl(document.getName(), document.getSource());
 		for (Token token : document.getTokens()) {
 			if (token instanceof Word) {

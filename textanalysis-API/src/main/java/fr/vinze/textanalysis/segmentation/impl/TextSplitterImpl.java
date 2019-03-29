@@ -45,7 +45,7 @@ public class TextSplitterImpl implements Splitter {
 	// FIXME this regexp is bugged but should be enough for now...
 	// if a regexp guru could provide better, I don't think I can...
 
-	public SegmentedTextDocument split(RawTextDocument document) {
+	public SegmentedTextDocument apply(RawTextDocument document) {
 		SegmentedTextDocument segmentedDoc = new SegmentedTextDocumentImpl(document);
 		String[] lines = document.getContent().split(END_OF_LINE_REGEX);
 		log.debug("input text contains " + lines.length + " end");

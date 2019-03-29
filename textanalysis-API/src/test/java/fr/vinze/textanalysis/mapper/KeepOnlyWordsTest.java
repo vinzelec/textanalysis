@@ -26,7 +26,7 @@ public class KeepOnlyWordsTest {
 	@Test(timeout = 1000)
 	public void testMapper() throws Exception {
 		assertEquals("segmented document before mapper should have 19 tokens", 19, sourceDoc.getTokens().size());
-		SegmentedTextDocument targetDoc = keepsOnlyWords.map(sourceDoc);
+		SegmentedTextDocument targetDoc = keepsOnlyWords.apply(sourceDoc);
 		assertEquals("segmented document after mapper should have 14 tokens", 14, targetDoc.getTokens().size());
 		for (Token token : targetDoc.getTokens()) {
 			assertTrue("every token is a word", token instanceof Word);

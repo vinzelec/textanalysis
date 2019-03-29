@@ -13,7 +13,7 @@ import fr.vinze.textanalysis.mapper.RawTextMapper;
  */
 public class ReturnCarriageCleaner implements RawTextMapper {
 
-	public RawTextDocument map(RawTextDocument document) {
+	public RawTextDocument apply(RawTextDocument document) {
 		String newContent = document.getContent();
 		newContent = newContent.replaceAll("\r\n", "\n");
 		return new RawTextDocumentImpl(document.getName(), newContent);

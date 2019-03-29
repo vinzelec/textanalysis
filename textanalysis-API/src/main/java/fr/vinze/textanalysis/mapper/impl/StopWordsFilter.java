@@ -70,7 +70,7 @@ public class StopWordsFilter implements SegmentedTextMapper {
 		}
 	}
 
-	public SegmentedTextDocument map(SegmentedTextDocument document) {
+	public SegmentedTextDocument apply(SegmentedTextDocument document) {
 		SegmentedTextDocument outputDoc = new SegmentedTextDocumentImpl(document.getName(), document.getSource());
 		for (Token token : document.getTokens()) {
 			// only filters words in the stop words list

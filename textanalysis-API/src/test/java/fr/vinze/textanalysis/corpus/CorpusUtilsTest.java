@@ -1,16 +1,5 @@
 package fr.vinze.textanalysis.corpus;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import fr.vinze.textanalysis.corpus.CorpusUtils;
-import fr.vinze.textanalysis.corpus.RawTextDocumentCorpus;
-import fr.vinze.textanalysis.corpus.SegmentedTextDocumentCorpus;
 import fr.vinze.textanalysis.document.DocumentTestHelper;
 import fr.vinze.textanalysis.document.RawTextDocument;
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
@@ -20,9 +9,13 @@ import fr.vinze.textanalysis.mapper.SegmentedTextMapper;
 import fr.vinze.textanalysis.mapper.impl.KeepOnlyWords;
 import fr.vinze.textanalysis.mapper.impl.PunctuationCleaner;
 import fr.vinze.textanalysis.mapper.impl.ReturnCarriageCleaner;
-import fr.vinze.textanalysis.mapper.impl.ToLowercase;
+import fr.vinze.textanalysis.mapper.impl.SegmentedToLowercase;
 import fr.vinze.textanalysis.segmentation.Splitter;
 import fr.vinze.textanalysis.segmentation.impl.TextSplitterImpl;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class CorpusUtilsTest {
 
@@ -77,13 +70,13 @@ public class CorpusUtilsTest {
 
 	private void testMap(RawTextMapper... mappers) {
 		assertTrue(mappers.length > 0);
-		// map then corpus
+		// apply then corpus
 		for (RawTextMapper mapper : mappers) {
-			rawdoc11 = mapper.map(rawdoc11);
-			rawdoc12 = mapper.map(rawdoc12);
+			rawdoc11 = mapper.apply(rawdoc11);
+			rawdoc12 = mapper.apply(rawdoc12);
 		}
 		RawTextDocumentCorpus corpus1 = CorpusUtils.createCorpus(rawdoc11, rawdoc12);
-		// corpus then map
+		// corpus then apply
 		RawTextDocumentCorpus corpus2 = CorpusUtils.createCorpus(rawdoc21, rawdoc22);
 		if (mappers.length == 1) {
 			corpus2 = CorpusUtils.map(corpus2, mappers[0]);
@@ -102,26 +95,26 @@ public class CorpusUtilsTest {
 
 	@Test(timeout = 1000)
 	public void testMapAllSegmented() throws Exception {
-		testMap(new KeepOnlyWords(), new ToLowercase());
+		testMap(new KeepOnlyWords(), new SegmentedToLowercase());
 	}
 
 	private void testMap(SegmentedTextMapper... mappers) {
 		assertTrue(mappers.length > 0);
 		// segment
 		Splitter splitter = new TextSplitterImpl();
-		SegmentedTextDocument doc11 = splitter.split(rawdoc11);
-		SegmentedTextDocument doc21 = splitter.split(rawdoc21);
-		SegmentedTextDocument doc12 = splitter.split(rawdoc12);
-		SegmentedTextDocument doc22 = splitter.split(rawdoc22);
+		SegmentedTextDocument doc11 = splitter.apply(rawdoc11);
+		SegmentedTextDocument doc21 = splitter.apply(rawdoc21);
+		SegmentedTextDocument doc12 = splitter.apply(rawdoc12);
+		SegmentedTextDocument doc22 = splitter.apply(rawdoc22);
 		DocumentTestHelper.assertDocumentsEquals(doc11, doc21);
 		DocumentTestHelper.assertDocumentsEquals(doc12, doc22);
-		// map then create a corpus
+		// apply then create a corpus
 		for (SegmentedTextMapper mapper : mappers) {
-			doc11 = mapper.map(doc11);
-			doc12 = mapper.map(doc12);
+			doc11 = mapper.apply(doc11);
+			doc12 = mapper.apply(doc12);
 		}
 		SegmentedTextDocumentCorpus corpus1 = CorpusUtils.createCorpus(doc11, doc12);
-		// create a corpus then map
+		// create a corpus then apply
 		SegmentedTextDocumentCorpus corpus2 = CorpusUtils.createCorpus(doc21, doc22);
 		if (mappers.length == 1) {
 			corpus2 = CorpusUtils.map(corpus2, mappers[0]);
@@ -141,8 +134,8 @@ public class CorpusUtilsTest {
 		RawTextDocumentCorpus corpusIn = CorpusUtils.createCorpus(rawdoc11, rawdoc12);
 		SegmentedTextDocumentCorpus corpus1 = CorpusUtils.split(corpusIn, splitter);
 		// split then corpus
-		SegmentedTextDocument doc21 = splitter.split(rawdoc21);
-		SegmentedTextDocument doc22 = splitter.split(rawdoc22);
+		SegmentedTextDocument doc21 = splitter.apply(rawdoc21);
+		SegmentedTextDocument doc22 = splitter.apply(rawdoc22);
 		SegmentedTextDocumentCorpus corpus2 = CorpusUtils.createCorpus(doc21, doc22);
 		// test same result
 		DocumentTestHelper.assertDocumentsEquals(corpus1.getDocument(NAME), corpus2.getDocument(NAME));

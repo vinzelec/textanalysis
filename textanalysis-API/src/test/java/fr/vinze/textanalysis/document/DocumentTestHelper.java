@@ -1,31 +1,22 @@
 package fr.vinze.textanalysis.document;
 
-import static org.junit.Assert.assertEquals;
+import fr.vinze.textanalysis.corpus.CorpusUtils;
+import fr.vinze.textanalysis.corpus.RawTextDocumentCorpus;
+import fr.vinze.textanalysis.corpus.SegmentedTextDocumentCorpus;
+import fr.vinze.textanalysis.parser.*;
+import fr.vinze.textanalysis.parser.impl.DirectoryCorpusParser;
+import fr.vinze.textanalysis.parser.impl.TxtDocumentParser;
+import fr.vinze.textanalysis.segmentation.Splitter;
+import fr.vinze.textanalysis.segmentation.impl.TextSplitterImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import fr.vinze.textanalysis.corpus.CorpusUtils;
-import fr.vinze.textanalysis.corpus.RawTextDocumentCorpus;
-import fr.vinze.textanalysis.corpus.SegmentedTextDocumentCorpus;
-import fr.vinze.textanalysis.parser.CorpusFactory;
-import fr.vinze.textanalysis.parser.CorpusParser;
-import fr.vinze.textanalysis.parser.CorpusType;
-import fr.vinze.textanalysis.parser.DocumentParser;
-import fr.vinze.textanalysis.parser.DocumentParserFactory;
-import fr.vinze.textanalysis.parser.DocumentParserNotAvailable;
-import fr.vinze.textanalysis.parser.DocumentType;
-import fr.vinze.textanalysis.parser.DocumentTypeNotSupported;
-import fr.vinze.textanalysis.parser.ParseException;
-import fr.vinze.textanalysis.parser.impl.DirectoryCorpusParser;
-import fr.vinze.textanalysis.parser.impl.TxtDocumentParser;
-import fr.vinze.textanalysis.segmentation.Splitter;
-import fr.vinze.textanalysis.segmentation.impl.TextSplitterImpl;
+import static org.junit.Assert.assertEquals;
 
 public abstract class DocumentTestHelper {
 
@@ -84,7 +75,7 @@ public abstract class DocumentTestHelper {
 			IOException, DocumentParserNotAvailable, DocumentTypeNotSupported {
 		RawTextDocument src = createTestDocument();
 		Splitter splitter = new TextSplitterImpl();
-		return splitter.split(src);
+		return splitter.apply(src);
 	}
 
 	public static void assertDocumentsEquals(RawTextDocument doc1, RawTextDocument doc2) {

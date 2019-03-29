@@ -14,7 +14,7 @@ import fr.vinze.textanalysis.mapper.RawTextMapper;
  */
 public class PunctuationCleaner implements RawTextMapper {
 
-	public RawTextDocument map(RawTextDocument document) {
+	public RawTextDocument apply(RawTextDocument document) {
 		String newContent = document.getContent();
 		// ellipsis
 		newContent = newContent.replaceAll("\\.\\.\\.", "…");

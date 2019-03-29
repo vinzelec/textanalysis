@@ -10,26 +10,9 @@ import fr.vinze.textanalysis.document.impl.WordImpl;
 import fr.vinze.textanalysis.mapper.RawTextMapper;
 import fr.vinze.textanalysis.mapper.SegmentedTextMapper;
 
-public class ToLowercase implements SegmentedTextMapper, RawTextMapper {
+public class ToLowercase implements RawTextMapper {
 
-	public SegmentedTextDocument map(SegmentedTextDocument document) {
-		SegmentedTextDocument newSegmentedDoc = new SegmentedTextDocumentImpl(document.getName(), document.getSource());
-		for (Token token : document.getTokens()) {
-			Token newToken;
-			if (token instanceof Word) {
-				newToken = new WordImpl(((Word) token).getWord().toLowerCase());
-				newToken.mergeMetadata(token);
-			} else {
-				newToken = token.clone();
-			}
-
-			newSegmentedDoc.getTokens().add(newToken);
-		}
-		return newSegmentedDoc;
-	}
-
-	public RawTextDocument map(RawTextDocument document) {
+    public RawTextDocument apply(RawTextDocument document) {
 		return new RawTextDocumentImpl(document.getName(), document.getContent().toLowerCase(), document.getRawSource());
-	}
-
+    }
 }

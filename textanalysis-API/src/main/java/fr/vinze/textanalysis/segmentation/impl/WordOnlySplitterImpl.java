@@ -27,7 +27,7 @@ import fr.vinze.textanalysis.segmentation.Splitter;
  */
 public class WordOnlySplitterImpl implements Splitter {
 
-	public SegmentedTextDocument split(RawTextDocument document) {
+	public SegmentedTextDocument apply(RawTextDocument document) {
 		SegmentedTextDocument segmentedDoc = new SegmentedTextDocumentImpl(document);
 		Pattern wordPattern = Pattern.compile(Word.WORD_REGEX);
 		Matcher wordMatcher = wordPattern.matcher(document.getContent());
