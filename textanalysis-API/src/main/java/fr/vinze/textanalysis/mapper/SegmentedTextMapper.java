@@ -2,6 +2,8 @@ package fr.vinze.textanalysis.mapper;
 
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 
+import java.util.function.Function;
+
 /**
  * <p>
  * Interface for all mapper working on {@link SegmentedTextDocument}
@@ -14,8 +16,6 @@ import fr.vinze.textanalysis.document.SegmentedTextDocument;
  * @author Vinze
  *
  */
-public interface SegmentedTextMapper {
-
-	SegmentedTextDocument map(SegmentedTextDocument document);
+public interface SegmentedTextMapper extends Function<SegmentedTextDocument,SegmentedTextDocument> {
 
 }

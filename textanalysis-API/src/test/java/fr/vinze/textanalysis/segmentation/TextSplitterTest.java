@@ -1,22 +1,15 @@
 package fr.vinze.textanalysis.segmentation;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import fr.vinze.textanalysis.document.DocumentTestHelper;
-import fr.vinze.textanalysis.document.Punctuation;
+import fr.vinze.textanalysis.document.*;
 import fr.vinze.textanalysis.document.Punctuation.PunctuationMark;
-import fr.vinze.textanalysis.document.RawTextDocument;
-import fr.vinze.textanalysis.document.SegmentedTextDocument;
-import fr.vinze.textanalysis.document.Word;
 import fr.vinze.textanalysis.document.impl.SpecialToken;
 import fr.vinze.textanalysis.document.impl.SpecialToken.TokenType;
 import fr.vinze.textanalysis.parser.DocumentParserTest;
 import fr.vinze.textanalysis.segmentation.impl.TextSplitterImpl;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class TextSplitterTest {
 
@@ -36,7 +29,7 @@ public class TextSplitterTest {
 	public void testSplitter() {
 		// need to make sure of text content
 		DocumentParserTest.testDocumentContent(sourceDocument);
-		SegmentedTextDocument segmentedDocument = splitter.split(sourceDocument);
+		SegmentedTextDocument segmentedDocument = splitter.apply(sourceDocument);
 		assertNotNull("segmented document should not be null", segmentedDocument);
 		assertEquals("segmented document should have the same name as source document", sourceDocument.getName(),
 				segmentedDocument.getName());

@@ -1,17 +1,19 @@
 package fr.vinze.textanalysis.parser;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import fr.vinze.textanalysis.corpus.RawTextDocumentCorpus;
 
+import java.io.File;
+import java.io.IOException;
+
+/**
+ * Corpus parser: Builds a set of documents from a corpus source
+ *
+ * @author Vinze
+ */
 public interface CorpusParser {
 
-	public RawTextDocumentCorpus parseCorpus(File source)
-			throws FileNotFoundException,
-			ParseException, IOException;
+    RawTextDocumentCorpus parseCorpus(File source) throws ParseException, IOException;
 
-	public CorpusType canParse();
+    CorpusType canParse();
 
 }

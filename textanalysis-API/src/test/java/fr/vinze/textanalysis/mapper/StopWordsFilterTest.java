@@ -32,7 +32,7 @@ public class StopWordsFilterTest {
 
 	@Test(timeout = 1000)
 	public void testSWFilter() throws Exception {
-		SegmentedTextDocument output = stopWordsFilter.map(document);
+		SegmentedTextDocument output = stopWordsFilter.apply(document);
 		List<Token> tokens = output.getTokens();
 		Token tok = tokens.get(0);
 		assertTrue("instanceof on token 0", tok instanceof Word);

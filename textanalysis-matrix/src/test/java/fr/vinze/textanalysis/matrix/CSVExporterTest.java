@@ -10,7 +10,7 @@ public class CSVExporterTest {
 		LogEntropyMatrixBuilderTest testcase = new LogEntropyMatrixBuilderTest();
 		testcase.init();
 		DocumentTokenMatrix<Double> matrix = testcase.buildMatrix();
-		String csv = DocumentTokenMatrixCSVExporter.exportToCSV(matrix);
+		String csv = new DocumentTokenMatrixCSVExporter().apply(matrix);
 		System.out.println(csv);
 	}
 

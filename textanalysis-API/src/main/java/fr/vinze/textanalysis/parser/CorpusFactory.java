@@ -1,12 +1,15 @@
 package fr.vinze.textanalysis.parser;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.io.FilenameUtils;
 
+import java.io.File;
+import java.util.EnumMap;
+import java.util.Map;
+
 public abstract class CorpusFactory {
+
+	private CorpusFactory() {
+	}
 
 	private static Map<CorpusType, CorpusParser> registry;
 
@@ -14,7 +17,7 @@ public abstract class CorpusFactory {
 		// synchronized initialization for the registry singleton
 		synchronized (CorpusFactory.class) {
 			if (registry == null) {
-				registry = new HashMap<CorpusType, CorpusParser>();
+				registry = new EnumMap<>(CorpusType.class);
 			}
 		}
 		return registry;
@@ -30,8 +33,8 @@ public abstract class CorpusFactory {
 	/**
 	 * Define a parser to register (it will be associated to all file of type
 	 * {@link CorpusParser#canParse()})
-	 * 
-	 * @param parser
+	 *
+	 * @param parser the corpus parser to register
 	 */
 	public static void registerParser(CorpusParser parser) {
 		getRegistry().put(parser.canParse(), parser);

@@ -1,15 +1,13 @@
 package fr.vinze.textanalysis.matrix.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import cern.colt.matrix.impl.SparseDoubleMatrix2D;
-
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
-
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Classic matrix implementation where values are {@link Double} based on a {@link SparseDoubleMatrix2D}
@@ -19,9 +17,9 @@ import fr.vinze.textanalysis.document.Token;
  */
 public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<Double> {
 
-	protected SparseDoubleMatrix2D innerMatrix;
+	private final SparseDoubleMatrix2D innerMatrix;
 
-	final boolean documentsAreRows;
+	private final boolean documentsAreRows;
 
 	public ColtDoubleDocumentTokenMatrix(int initialDocumentSize, int initialTokenSize) {
 		super(initialDocumentSize, initialTokenSize);
@@ -33,6 +31,7 @@ public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<D
 		}
 	}
 
+	@Override
 	public Double getValue(SegmentedTextDocument document, Token token) {
 		int docId = indexOf(document);
 		int tokenId = indexOf(token);
@@ -45,6 +44,7 @@ public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<D
 		return innerMatrix.get(tokenId, docId);
 	}
 
+	@Override
 	public void setValue(SegmentedTextDocument document, Token token, Double value) {
 		if (value == null) {
 			return; // nothing to store
@@ -61,6 +61,7 @@ public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<D
 
 	// IMPROVE maybe some data could be stored in an LRU cache to avoid building several time
 
+	@Override
 	public Table<SegmentedTextDocument, Token, Double> asTable() {
 		Table<SegmentedTextDocument, Token, Double> table = HashBasedTable.create();
 		for (int i = 0; i < getDocumentCount(); i++) {
@@ -74,8 +75,9 @@ public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<D
 		return table;
 	}
 
+	@Override
 	public Map<Token, Double> getDocumentStatistics(SegmentedTextDocument document) {
-		Map<Token, Double> stats = new HashMap<Token, Double>();
+		Map<Token, Double> stats = new HashMap<>();
 		int docIndex = indexOf(document);
 		for (int tokIndex = 0; tokIndex < tokenIndex.size(); tokIndex++) {
 			double count = documentsAreRows ? innerMatrix.get(docIndex, tokIndex) : innerMatrix.get(tokIndex, docIndex);
@@ -86,8 +88,9 @@ public class ColtDoubleDocumentTokenMatrix extends AbstractDocumentTokenMatrix<D
 		return stats;
 	}
 
+	@Override
 	public Map<SegmentedTextDocument, Double> getTokenStatistics(Token token) {
-		Map<SegmentedTextDocument, Double> stats = new HashMap<SegmentedTextDocument, Double>();
+		Map<SegmentedTextDocument, Double> stats = new HashMap<>();
 		int tokIndex = indexOf(token);
 		for (int docIndex = 0; docIndex < documentIndex.size(); docIndex++) {
 			double count = documentsAreRows ? innerMatrix.get(docIndex, tokIndex) : innerMatrix.get(tokIndex, docIndex);

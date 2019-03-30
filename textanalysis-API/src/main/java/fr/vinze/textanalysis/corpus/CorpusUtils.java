@@ -1,7 +1,5 @@
 package fr.vinze.textanalysis.corpus;
 
-import java.util.List;
-
 import fr.vinze.textanalysis.corpus.impl.RawTextDocumentCorpusImpl;
 import fr.vinze.textanalysis.corpus.impl.SegmentedTextDocumentCorpusImpl;
 import fr.vinze.textanalysis.document.RawTextDocument;
@@ -10,32 +8,36 @@ import fr.vinze.textanalysis.mapper.RawTextMapper;
 import fr.vinze.textanalysis.mapper.SegmentedTextMapper;
 import fr.vinze.textanalysis.segmentation.Splitter;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Util functions to use method document->document on all documents of a corpus
  * 
  * @author Vinze
  *
  */
-public abstract class CorpusUtils {
+public interface CorpusUtils {
 
-	public static RawTextDocumentCorpus createCorpus(RawTextDocument... documents) {
+	static RawTextDocumentCorpus createCorpus(List<RawTextDocument> documents) {
 		RawTextDocumentCorpus corpus = new RawTextDocumentCorpusImpl();
-		for (RawTextDocument document : documents) {
-			corpus.addDocument(document);
-		}
+		documents.forEach(corpus::addDocument);
 		return corpus;
 	}
 
-	public static RawTextDocumentCorpus map(RawTextDocumentCorpus corpus, RawTextMapper mapper) {
+	static RawTextDocumentCorpus createCorpus(RawTextDocument... documents) {
+		RawTextDocumentCorpus corpus = new RawTextDocumentCorpusImpl();
+		Arrays.stream(documents).forEach(corpus::addDocument);
+		return corpus;
+	}
+
+	static RawTextDocumentCorpus map(RawTextDocumentCorpus corpus, RawTextMapper mapper) {
 		RawTextDocumentCorpus newCorpus = new RawTextDocumentCorpusImpl();
-		for (RawTextDocument document : corpus.getDocuments()) {
-			RawTextDocument newDocument = mapper.map(document);
-			newCorpus.addDocument(newDocument);
-		}
+		corpus.getDocuments().stream().map(mapper).forEach(newCorpus::addDocument);
 		return newCorpus;
 	}
 
-	public static RawTextDocumentCorpus mapAll(RawTextDocumentCorpus corpus, RawTextMapper... mappers) {
+	static RawTextDocumentCorpus mapAll(RawTextDocumentCorpus corpus, RawTextMapper... mappers) {
 		RawTextDocumentCorpus newCorpus = corpus;
 		for (RawTextMapper mapper : mappers) {
 			newCorpus = map(newCorpus, mapper);
@@ -43,7 +45,7 @@ public abstract class CorpusUtils {
 		return newCorpus;
 	}
 
-	public static RawTextDocumentCorpus mapAll(RawTextDocumentCorpus corpus, List<RawTextMapper> mappers) {
+	static RawTextDocumentCorpus mapAll(RawTextDocumentCorpus corpus, List<RawTextMapper> mappers) {
 		RawTextDocumentCorpus newCorpus = corpus;
 		for (RawTextMapper mapper : mappers) {
 			newCorpus = map(newCorpus, mapper);
@@ -51,24 +53,19 @@ public abstract class CorpusUtils {
 		return newCorpus;
 	}
 
-	public static SegmentedTextDocumentCorpus createCorpus(SegmentedTextDocument... documents) {
+	static SegmentedTextDocumentCorpus createCorpus(SegmentedTextDocument... documents) {
 		SegmentedTextDocumentCorpus corpus = new SegmentedTextDocumentCorpusImpl();
-		for (SegmentedTextDocument document : documents) {
-			corpus.addDocument(document);
-		}
+		Arrays.stream(documents).forEach(corpus::addDocument);
 		return corpus;
 	}
 
-	public static SegmentedTextDocumentCorpus map(SegmentedTextDocumentCorpus corpus, SegmentedTextMapper mapper) {
+	static SegmentedTextDocumentCorpus map(SegmentedTextDocumentCorpus corpus, SegmentedTextMapper mapper) {
 		SegmentedTextDocumentCorpus newCorpus = new SegmentedTextDocumentCorpusImpl();
-		for (SegmentedTextDocument document : corpus.getDocuments()) {
-			SegmentedTextDocument newDocument = mapper.map(document);
-			newCorpus.addDocument(newDocument);
-		}
+		corpus.getDocuments().stream().map(mapper).forEach(newCorpus::addDocument);
 		return newCorpus;
 	}
 
-	public static SegmentedTextDocumentCorpus mapAll(SegmentedTextDocumentCorpus corpus, SegmentedTextMapper... mappers) {
+	static SegmentedTextDocumentCorpus mapAll(SegmentedTextDocumentCorpus corpus, SegmentedTextMapper... mappers) {
 		SegmentedTextDocumentCorpus newCorpus = corpus;
 		for (SegmentedTextMapper mapper : mappers) {
 			newCorpus = map(newCorpus, mapper);
@@ -76,7 +73,7 @@ public abstract class CorpusUtils {
 		return newCorpus;
 	}
 
-	public static SegmentedTextDocumentCorpus mapAll(SegmentedTextDocumentCorpus corpus,
+	static SegmentedTextDocumentCorpus mapAll(SegmentedTextDocumentCorpus corpus,
 			List<SegmentedTextMapper> mappers) {
 		SegmentedTextDocumentCorpus newCorpus = corpus;
 		for (SegmentedTextMapper mapper : mappers) {
@@ -85,12 +82,9 @@ public abstract class CorpusUtils {
 		return newCorpus;
 	}
 
-	public static SegmentedTextDocumentCorpus split(RawTextDocumentCorpus corpus, Splitter splitter) {
+	static SegmentedTextDocumentCorpus split(RawTextDocumentCorpus corpus, Splitter splitter) {
 		SegmentedTextDocumentCorpus newCorpus = new SegmentedTextDocumentCorpusImpl();
-		for (RawTextDocument document : corpus.getDocuments()) {
-			SegmentedTextDocument newDocument = splitter.split(document);
-			newCorpus.addDocument(newDocument);
-		}
+		corpus.getDocuments().stream().map(splitter).forEach(newCorpus::addDocument);
 		return newCorpus;
 	}
 

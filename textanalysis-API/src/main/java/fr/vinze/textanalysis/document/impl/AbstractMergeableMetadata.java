@@ -18,6 +18,4 @@ public abstract class AbstractMergeableMetadata<T> extends MetadataImpl<T> imple
 		super(key);
 	}
 
-	public abstract Metadata<T> clone();
-
 }

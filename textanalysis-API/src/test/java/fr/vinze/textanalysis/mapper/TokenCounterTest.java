@@ -27,7 +27,7 @@ public class TokenCounterTest {
 
 	@Test(timeout = 1000)
 	public void testMapper() throws Exception {
-		SegmentedTextDocument outputDocument = tokencounter.map(inputDocument);
+		SegmentedTextDocument outputDocument = tokencounter.apply(inputDocument);
 		// First token "This" (only once as case sensitive)
 		Token token = outputDocument.getTokens().get(0);
 		assertNotNull("token has a count metadata", token.getMetadata(TokenCounter.COUNT_KEY));

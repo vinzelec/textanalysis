@@ -12,7 +12,7 @@ import java.io.InputStream;
  */
 public class RecordingFilterInputStream extends FilterInputStream {
 
-	StringBuilder builder;
+	private final StringBuilder builder;
 
 	public RecordingFilterInputStream(InputStream in) {
 		super(in);

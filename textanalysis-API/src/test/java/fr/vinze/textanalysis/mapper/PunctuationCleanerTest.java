@@ -25,7 +25,7 @@ public class PunctuationCleanerTest {
 
 	@Test(timeout = 1000)
 	public void test() {
-		RawTextDocument target = punctuationCleaner.map(source);
+		RawTextDocument target = punctuationCleaner.apply(source);
 		assertEquals(
 				"name of target document should be the same as source one",
 				source.getName(), target.getName());

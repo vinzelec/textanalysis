@@ -1,16 +1,17 @@
 package fr.vinze.textanalysis.document.impl;
 
+import fr.vinze.textanalysis.document.RawTextDocument;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import fr.vinze.textanalysis.document.RawTextDocument;
-
 public class RawTextDocumentImpl implements RawTextDocument {
 
-	String name;
-	final String content, rawSource;
+	private String name;
+	private final String content;
+	private final String rawSource;
 	private String id;
 
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -33,29 +34,34 @@ public class RawTextDocumentImpl implements RawTextDocument {
 		this.rawSource = rawSource;
 	}
 
+	@Override
 	public String getContent() {
 		return content;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public String getRawSource() {
 		return rawSource;
 	}
 
+	@Override
 	public String getUniqueID() {
 		return name;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null || !(obj instanceof RawTextDocument)) {
+		if (!(obj instanceof RawTextDocument)) {
 			return false;
 		}
 		EqualsBuilder eb = new EqualsBuilder();

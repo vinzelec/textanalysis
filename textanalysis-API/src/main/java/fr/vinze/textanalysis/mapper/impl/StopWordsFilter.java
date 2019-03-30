@@ -1,41 +1,36 @@
 package fr.vinze.textanalysis.mapper.impl;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
-
-import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
 import fr.vinze.textanalysis.document.Word;
 import fr.vinze.textanalysis.document.impl.SegmentedTextDocumentImpl;
 import fr.vinze.textanalysis.mapper.SegmentedTextMapper;
 import fr.vinze.textanalysis.resources.StopWords;
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
 
 public class StopWordsFilter implements SegmentedTextMapper {
 
-	private static final Logger log = LoggerFactory.getLogger(StopWordsFilter.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(StopWordsFilter.class);
 
-	Set<String> words;
+	private Set<String> words;
 
 	public StopWordsFilter(File... files) {
-		words = new HashSet<String>();
+		words = new HashSet<>();
 		for (File file : files) {
 			processFile(file);
 		}
 	}
 
 	public StopWordsFilter(Collection<File> files) {
-		words = new HashSet<String>();
+		words = new HashSet<>();
 		for (File file : files) {
 			processFile(file);
 		}
@@ -54,23 +49,18 @@ public class StopWordsFilter implements SegmentedTextMapper {
 	}
 
 	private void processFile(File swFile) {
-		Reader reader = null;
-		try {
-			reader = new FileReader(swFile);
+		try (Reader reader = new FileReader(swFile)) {
 			words.addAll(IOUtils.readLines(reader));
 		} catch (FileNotFoundException e) {
-			log.warn("file " + swFile + " was not found, no word has been added to the stop words list", e);
+			LOGGER.warn("file {} was not found, no word has been added to the stop words list", swFile, e);
 		} catch (IOException e) {
-			log.warn("error while reading " + swFile + " was not found, no word has been added to the stop words list",
-					e);
-		} finally {
-			if (reader != null) {
-				IOUtils.closeQuietly(reader);
-			}
+			LOGGER.warn("error while reading {} was not found, no word has been added to the stop words list",
+					swFile, e);
 		}
 	}
 
-	public SegmentedTextDocument map(SegmentedTextDocument document) {
+	@Override
+	public SegmentedTextDocument apply(SegmentedTextDocument document) {
 		SegmentedTextDocument outputDoc = new SegmentedTextDocumentImpl(document.getName(), document.getSource());
 		for (Token token : document.getTokens()) {
 			// only filters words in the stop words list

@@ -1,15 +1,13 @@
 package fr.vinze.textanalysis.matrix.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import cern.colt.matrix.impl.SparseObjectMatrix2D;
-
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
-
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 import fr.vinze.textanalysis.document.Token;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Classic matrix implementation where values are any extension of {@link Number} based on a
@@ -27,6 +25,7 @@ public abstract class AbstractColtObjectDocumentTokenMatrix<T extends Number> ex
 		innerMatrix = new SparseObjectMatrix2D(initialDocumentSize, initialTokenSize);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public T getValue(SegmentedTextDocument document, Token token) {
 		int docId = indexOf(document);
@@ -37,6 +36,7 @@ public abstract class AbstractColtObjectDocumentTokenMatrix<T extends Number> ex
 		return (T) innerMatrix.get(docId, tokenId);
 	}
 
+	@Override
 	public void setValue(SegmentedTextDocument document, Token token, T value) {
 		if (value == null) {
 			return; // nothing to store
@@ -48,6 +48,7 @@ public abstract class AbstractColtObjectDocumentTokenMatrix<T extends Number> ex
 
 	// IMPROVE maybe some data could be stored in an LRU cache to avoid building several time
 
+	@Override
 	public Table<SegmentedTextDocument, Token, T> asTable() {
 		Table<SegmentedTextDocument, Token, T> table = HashBasedTable.create();
 		for (int i = 0; i < documentIndex.size(); i++) {
@@ -62,8 +63,9 @@ public abstract class AbstractColtObjectDocumentTokenMatrix<T extends Number> ex
 		return table;
 	}
 
+	@Override
 	public Map<Token, T> getDocumentStatistics(SegmentedTextDocument document) {
-		Map<Token, T> stats = new HashMap<Token, T>();
+		Map<Token, T> stats = new HashMap<>();
 		int docIndex = indexOf(document);
 		for (int tokIndex = 0; tokIndex < tokenIndex.size(); tokIndex++) {
 			@SuppressWarnings("unchecked")
@@ -75,8 +77,9 @@ public abstract class AbstractColtObjectDocumentTokenMatrix<T extends Number> ex
 		return stats;
 	}
 
+	@Override
 	public Map<SegmentedTextDocument, T> getTokenStatistics(Token token) {
-		Map<SegmentedTextDocument, T> stats = new HashMap<SegmentedTextDocument, T>();
+		Map<SegmentedTextDocument, T> stats = new HashMap<>();
 		int tokIndex = indexOf(token);
 		for (int docIndex = 0; docIndex < documentIndex.size(); docIndex++) {
 			@SuppressWarnings("unchecked")

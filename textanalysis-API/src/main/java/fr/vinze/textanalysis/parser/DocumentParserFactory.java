@@ -1,12 +1,15 @@
 package fr.vinze.textanalysis.parser;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.io.FilenameUtils;
 
+import java.io.File;
+import java.util.EnumMap;
+import java.util.Map;
+
 public abstract class DocumentParserFactory {
+
+	private DocumentParserFactory() {
+	}
 
 	private static Map<DocumentType, DocumentParser> registry;
 
@@ -14,7 +17,7 @@ public abstract class DocumentParserFactory {
 		// synchronized initialization for the registry singleton
 		synchronized (DocumentParserFactory.class) {
 			if (registry == null) {
-				registry = new HashMap<DocumentType, DocumentParser>();
+				registry = new EnumMap<>(DocumentType.class);
 			}
 		}
 		return registry;
@@ -30,8 +33,8 @@ public abstract class DocumentParserFactory {
 	/**
 	 * Define a parser to register (it will be associated to all file of type
 	 * {@link DocumentParser#canParse()})
-	 * 
-	 * @param parser
+	 *
+	 * @param parser the parser to register
 	 */
 	public static void registerParser(DocumentParser parser) {
 		getRegistry().put(parser.canParse(), parser);

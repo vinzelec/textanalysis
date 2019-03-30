@@ -1,10 +1,10 @@
 package fr.vinze.utils;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.apache.commons.lang3.exception.CloneFailedException;
 
-public abstract class ObjectUtils {
+import java.lang.reflect.InvocationTargetException;
+
+public interface ObjectUtils {
 
 	/**
 	 * <quote> "The Cloneable interface was intended as a mixin interface for
@@ -13,15 +13,16 @@ public abstract class ObjectUtils {
 	 * <p>
 	 * So forced to use reflection
 	 * </p>
-	 * 
-	 * @param object
-	 * @return
-	 * @throws CloneNotSupportedException
+	 *
+	 * @param object object to clone
+	 * @return the clone of the object
+	 * @throws CloneNotSupportedException if the object is not cloneable
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T clone(T object) throws CloneNotSupportedException, CloneFailedException {
-		if (!(object instanceof Cloneable))
+	public static <T> T clone(T object) throws CloneNotSupportedException {
+		if (!(object instanceof Cloneable)) {
 			throw new CloneNotSupportedException("object's class does not implements Cloneable");
+		}
 		try {
 			return (T) object.getClass().getMethod("clone").invoke(object);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException

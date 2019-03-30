@@ -1,14 +1,5 @@
 package fr.vinze.textanalysis.matrix.tokenfrequency;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.lang3.mutable.MutableInt;
-import org.junit.Before;
-import org.junit.Test;
-
 import fr.vinze.textanalysis.corpus.CorpusUtils;
 import fr.vinze.textanalysis.corpus.SegmentedTextDocumentCorpus;
 import fr.vinze.textanalysis.corpus.impl.SegmentedTextDocumentCorpusImpl;
@@ -22,9 +13,17 @@ import fr.vinze.textanalysis.document.impl.SpecialToken;
 import fr.vinze.textanalysis.document.impl.SpecialToken.TokenType;
 import fr.vinze.textanalysis.document.impl.WordImpl;
 import fr.vinze.textanalysis.mapper.impl.KeepOnlyWords;
-import fr.vinze.textanalysis.mapper.impl.ToLowercase;
+import fr.vinze.textanalysis.mapper.impl.SegmentedToLowercase;
 import fr.vinze.textanalysis.mapper.impl.TokenCounter;
 import fr.vinze.textanalysis.matrix.DocumentTokenMatrixBuilder;
+import org.apache.commons.lang3.mutable.MutableInt;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class FrequencyMatrixBuilderTest {
 
@@ -39,7 +38,7 @@ public class FrequencyMatrixBuilderTest {
 		builder = new TokenFrequencyMatrixBuilder();
 		SegmentedTextDocumentCorpus tempCorpus = buildCorpus();
 		// keep only words and to lower-case
-		corpus = CorpusUtils.mapAll(tempCorpus, new KeepOnlyWords(), new ToLowercase());
+		corpus = CorpusUtils.mapAll(tempCorpus, new KeepOnlyWords(), new SegmentedToLowercase());
 		// three documents "test.txt", "test2.txt" and "test3.text"
 		// each one has same content.
 		words = new Word[]{

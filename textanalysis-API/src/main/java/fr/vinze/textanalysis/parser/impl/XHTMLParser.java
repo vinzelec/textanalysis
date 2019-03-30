@@ -1,33 +1,24 @@
 package fr.vinze.textanalysis.parser.impl;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.apache.commons.io.IOUtils;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXNotRecognizedException;
-import org.xml.sax.SAXNotSupportedException;
-import org.xml.sax.helpers.DefaultHandler;
-
 import fr.vinze.textanalysis.document.RawTextDocument;
 import fr.vinze.textanalysis.document.impl.RawTextDocumentImpl;
 import fr.vinze.textanalysis.parser.DocumentParser;
 import fr.vinze.textanalysis.parser.DocumentType;
 import fr.vinze.textanalysis.parser.ParseException;
 import fr.vinze.utils.RecordingFilterInputStream;
+import org.apache.commons.io.IOUtils;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.*;
 
 public class XHTMLParser implements DocumentParser {
 
-	final boolean extractSource;
+	private final boolean extractSource;
 
 	public XHTMLParser() {
 		this(true);
@@ -45,6 +36,7 @@ public class XHTMLParser implements DocumentParser {
 		this.extractSource = extractSource;
 	}
 
+	@Override
 	public DocumentType canParse() {
 		return DocumentType.XHTML;
 	}
@@ -63,20 +55,17 @@ public class XHTMLParser implements DocumentParser {
 	}
 
 	@Override
-	public RawTextDocument parse(File file) throws FileNotFoundException, ParseException, IOException {
+	public RawTextDocument parse(File file) throws ParseException, IOException {
 		try {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 
 			return parse(file, factory.newSAXParser());
-		} catch (ParserConfigurationException e) {
-			throw new ParseException(e);
-		} catch (SAXException e) {
+		} catch (ParserConfigurationException | SAXException e) {
 			throw new ParseException(e);
 		}
 	}
 
-	protected RawTextDocument parse(File file, SAXParser parser) throws FileNotFoundException, ParseException,
-			IOException {
+	protected RawTextDocument parse(File file, SAXParser parser) throws ParseException, IOException {
 		InputStream input = null;
 		try {
 			input = new FileInputStream(file);
@@ -103,16 +92,15 @@ public class XHTMLParser implements DocumentParser {
 		}
 	}
 
-	protected void extraconfigParser(SAXParser parser) throws SAXNotRecognizedException, SAXNotSupportedException,
-			SAXException {
+	protected void extraconfigParser(SAXParser parser) throws SAXException {
 		parser.getXMLReader().setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
 	}
 
 	private static class XHTMLHandler extends DefaultHandler {
 
-		StringBuilder builder;
+		private StringBuilder builder;
 
-		public XHTMLHandler() {
+		XHTMLHandler() {
 			builder = new StringBuilder();
 		}
 
@@ -123,7 +111,7 @@ public class XHTMLParser implements DocumentParser {
 		boolean inBody = false;
 
 		@Override
-		public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+		public void startElement(String uri, String localName, String qName, Attributes attributes) {
 			// at body start recording
 			if ("body".equals(qName)) {
 				inBody = true;
@@ -131,7 +119,7 @@ public class XHTMLParser implements DocumentParser {
 		}
 
 		@Override
-		public void endElement(String uri, String localName, String qName) throws SAXException {
+		public void endElement(String uri, String localName, String qName) {
 			// new line
 			if ("br".equals(qName)) {
 				builder.append('\n');
@@ -148,14 +136,16 @@ public class XHTMLParser implements DocumentParser {
 		}
 
 		@Override
-		public void characters(char[] ch, int start, int length) throws SAXException {
+		public void characters(char[] ch, int start, int length) {
 			// text content
 			if (inBody) {
 				String extract = new String(ch, start, length);
-				extract.replaceAll("\r\n|[\n\r\u0085\u2028\u2029]", " ");
-				extract.replaceAll("\\s+", " ");
+				extract = extract.replaceAll("\r\n|[\n\r\u0085\u2028\u2029]", " ");
+				extract = extract.replaceAll("\\s+", " ");
 				String trimmed = extract.trim();
-				if (trimmed.length() == 0) return;
+				if (trimmed.length() == 0) {
+					return;
+				}
 				builder.append(extract);
 			}
 		}

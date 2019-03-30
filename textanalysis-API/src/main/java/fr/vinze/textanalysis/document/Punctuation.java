@@ -1,14 +1,14 @@
 package fr.vinze.textanalysis.document;
 
 public interface Punctuation extends Token {
-	
-	final static String PUNCTUATIONS = "\\p{Punct}";
-	public final static String PUNCTUATION_REGEX = "[" + PUNCTUATIONS + "]";
-	public final static String NO_PUNCTUATION_REGEX = "[^" + PUNCTUATIONS + "]";
+
+	final String PUNCTUATIONS = "\\p{Punct}";
+	public final String PUNCTUATION_REGEX = "[" + PUNCTUATIONS + "]";
+	public final String NO_PUNCTUATION_REGEX = "[^" + PUNCTUATIONS + "]";
 	
 	PunctuationMark getPunctuationMark();
 
-	public static enum PunctuationMark {
+	public enum PunctuationMark {
 
 		APOSTROPHE('\''),
 		BRACKET_OPEN('['), BRACKET_CLOSE(']'),
@@ -16,9 +16,9 @@ public interface Punctuation extends Token {
 		BRACES_OPEN('{'), BRACES_CLOSE('}'),
 		COLON(':'),
 		COMMA(','),
- DASH_EM('—'), DASH_EN('–'),
+		DASH_EM('—'), DASH_EN('–'),
 		DOT('.'),
- ELLIPSIS('…'),
+		ELLIPSIS('…'),
 		EXCLAMATION('!'),
 		HYPHEN('-'),
 		PARENTHESIS_OPEN('('), PARENTHESIS_CLOSE(')'),
@@ -79,13 +79,9 @@ public interface Punctuation extends Token {
 			case '?':
 				return QUESTION;
 			case '"':
-				return QUOTE;
 			case '«':
-				return QUOTE;
 			case '»':
-				return QUOTE;
 			case '“':
-				return QUOTE;
 			case '”':
 				return QUOTE;
 			case ';':

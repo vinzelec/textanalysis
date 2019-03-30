@@ -1,15 +1,14 @@
 package fr.vinze.textanalysis.resources;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Locale;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 
 /**
  * <p>
@@ -29,9 +28,9 @@ import com.google.common.collect.Multimap;
  */
 public class StopWords {
 
-	private static final Logger log = LoggerFactory.getLogger(StopWords.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(StopWords.class);
 
-	static StopWords instance = null;
+	private static StopWords instance = null;
 
 	public static StopWords getInstance() {
 		synchronized (StopWords.class) {
@@ -42,9 +41,9 @@ public class StopWords {
 		}
 	}
 
-	Multimap<String, File> files;
+	private Multimap<String, File> files;
 
-	public StopWords() {
+	private StopWords() {
 		files = ArrayListMultimap.create();
 		URL stopWordsDirectoryUrl = getClass().getResource("/stop-words");
 		File stopWordsDirectory = new File(stopWordsDirectoryUrl.getPath());
@@ -55,12 +54,12 @@ public class StopWords {
 				addFile(swfile, lang);
 			}
 		} else {
-			log.warn("missing directory /stop-words, no stop words available at startup");
+			LOGGER.warn("missing directory /stop-words, no stop words available at startup");
 		}
 	}
 
 	public void addFile(File file, String lang) {
-		log.debug("associating stop word file " + file.getName() + " for lang " + lang);
+		LOGGER.debug("associating stop word file {} for lang {}", file.getName(), lang);
 		files.put(lang.toUpperCase(), file);
 	}
 

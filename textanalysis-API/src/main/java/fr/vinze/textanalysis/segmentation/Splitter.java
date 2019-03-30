@@ -3,8 +3,11 @@ package fr.vinze.textanalysis.segmentation;
 import fr.vinze.textanalysis.document.RawTextDocument;
 import fr.vinze.textanalysis.document.SegmentedTextDocument;
 
-public interface Splitter {
+import java.util.function.Function;
 
-	public SegmentedTextDocument split(RawTextDocument document);
-	
+/**
+ * Function to split a raw document into a segmented one.
+ */
+public interface Splitter extends Function<RawTextDocument, SegmentedTextDocument> {
+
 }
