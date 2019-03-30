@@ -13,21 +13,31 @@
 	<name>textanalysis-WS Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
+	<properties>
+		<resteasy.version>3.6.3.Final</resteasy.version>
+	</properties>
+
 	<dependencies>
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jaxrs</artifactId>
-			<version>3.0.11.Final</version>
-		</dependency>
 		<dependency>
 			<groupId>fr.vinze</groupId>
 			<artifactId>textanalysis-lsa</artifactId>
-			<version>0.0.3-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>${resteasy.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxb-provider</artifactId>
+			<version>${resteasy.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
