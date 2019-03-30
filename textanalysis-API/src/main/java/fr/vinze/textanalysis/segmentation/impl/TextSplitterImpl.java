@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
  */
 public class TextSplitterImpl implements Splitter {
 
-	private static final Logger log = LoggerFactory.getLogger(TextSplitterImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TextSplitterImpl.class);
 
 	public static final String END_OF_LINE_REGEX = "\r\n|[\n\r\u0085\u2028\u2029]";
 	public static final String SEPARATOR_REGEX = "[\\*-_]+";
@@ -48,7 +48,7 @@ public class TextSplitterImpl implements Splitter {
 	public SegmentedTextDocument apply(RawTextDocument document) {
 		SegmentedTextDocument segmentedDoc = new SegmentedTextDocumentImpl(document);
 		String[] lines = document.getContent().split(END_OF_LINE_REGEX);
-		log.debug("input text contains {} end", lines.length);
+		LOGGER.debug("input text contains {} end", lines.length);
 		Pattern separatorPattern = Pattern.compile(SEPARATOR_REGEX);
 		Pattern wordOrPunctPattern = Pattern.compile(SPLIT_REGEX);
 		Pattern wordPattern = Pattern.compile(Word.WORD_REGEX);

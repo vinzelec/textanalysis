@@ -12,7 +12,7 @@ import java.util.Map;
 // IMPROVE maybe since java 8 everything in abstract class can be moved to interface as default implementation
 public abstract class AbstractTokenImpl implements Token {
 
-	private static final Logger log = LoggerFactory.getLogger(AbstractTokenImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTokenImpl.class);
 
 	private Map<String, Metadata<?>> metadatas;
 
@@ -63,7 +63,7 @@ public abstract class AbstractTokenImpl implements Token {
 				try {
 					((MergeableMetadata) mdTo).merge((MergeableMetadata) mdFrom);
 				} catch (OperationNotSupportedException e) {
-					log.debug("failed to merge two metadata for key " + mdTo.getKey(), e);
+					LOGGER.debug("failed to merge two metadata for key " + mdTo.getKey(), e);
 					// back to MergePolicy
 					if (policy == MergePolicy.OVERRIDE) {
 						// replace original by a copy of input

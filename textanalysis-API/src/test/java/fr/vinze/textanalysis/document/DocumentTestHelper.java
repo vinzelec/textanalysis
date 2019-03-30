@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 public abstract class DocumentTestHelper {
 
-    private static final Logger log = LoggerFactory.getLogger(DocumentTestHelper.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DocumentTestHelper.class);
 
     private final static File corpusTextFolder;
     private final static File documentText;
@@ -36,7 +36,7 @@ public abstract class DocumentTestHelper {
         try {
             DocumentParserFactory.getParser(DocumentType.TXT);
         } catch (DocumentParserNotAvailable e) {
-            log.debug("first use : init the document parser for txt files");
+            LOGGER.debug("first use : init the document parser for txt files");
             TxtDocumentParser txtParser = new TxtDocumentParser();
             DocumentParserFactory.registerParser(txtParser);
         }
@@ -44,7 +44,7 @@ public abstract class DocumentTestHelper {
         try {
             CorpusFactory.getParser(CorpusType.DIR);
         } catch (DocumentParserNotAvailable e) {
-            log.debug("first use : init the corpus parser for folders");
+            LOGGER.debug("first use : init the corpus parser for folders");
             DirectoryCorpusParser corpusParser = new DirectoryCorpusParser();
             CorpusFactory.registerParser(corpusParser);
         }
