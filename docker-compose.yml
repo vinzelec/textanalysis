@@ -1,0 +1,8 @@
+version: '3'
+services:
+  webservice:
+    image: tomcat:8.5-jre8
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./textanalysis-WS/target/textanalysis-WS:/home/docker/temp"
